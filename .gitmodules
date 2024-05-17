@@ -1,3 +1,4 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/derrian-distro/LoRA_Easy_Training_scripts_Backend
+	url = https://github.com/67372a/LoRA_Easy_Training_scripts_Backend
+	branch = stable-cascade
