@@ -205,9 +205,15 @@ class MainWidget(QWidget):
             print("Killing the server for colab use.")
             requests.get(f"{self.backend_url_input.text()}/stop_server")
             return False
-        is_sdxl = str(args.get("general_args").get("sdxl", False))
+        
+        model_type = "sd"
+        if args.get("general_args").get("sdxl"):
+            model_type = "sdxl"
+        elif args.get("general_args").get("stable_cascade"):
+            model_type = "stable_cascade"
+
         response = requests.get(
-            f"{url}/train", params={"train_mode": train_mode.value, "sdxl": is_sdxl}
+            f"{url}/train", params={"train_mode": train_mode.value, "model_type": model_type}
         )
         training = True
         while training:

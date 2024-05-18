@@ -9,6 +9,7 @@ from modules.DragDropLineEdit import DragDropLineEdit
 
 class GeneralWidget(BaseWidget):
     sdxlChecked = Signal(bool)
+    stableCascadeChecked = Signal(bool)
     cacheLatentsChecked = Signal(bool)
     keepTokensSepChecked = Signal(bool)
 
@@ -48,6 +49,10 @@ class GeneralWidget(BaseWidget):
 
         setup_file(self.widget.base_model_input, self.widget.base_model_selector)
         setup_file(self.widget.vae_input, self.widget.vae_selector)
+        setup_file(self.widget.sc_stage_c_model_input, self.widget.sc_stage_c_model_selector)
+        setup_file(self.widget.sc_effnet_model_input, self.widget.sc_effnet_model_selector)
+        setup_file(self.widget.sc_text_model_input, self.widget.sc_text_model_selector)
+        setup_file(self.widget.sc_previewer_model_input, self.widget.sc_previewer_model_selector)
         self.widget.vae_input.allow_empty = True
 
     def setup_connections(self) -> None:
@@ -55,6 +60,7 @@ class GeneralWidget(BaseWidget):
             lambda x: self.edit_args(
                 "pretrained_model_name_or_path",
                 x,
+                GeneralWidget.stableCascadeChecked,
             )
         )
         self.widget.base_model_selector.clicked.connect(
@@ -70,12 +76,67 @@ class GeneralWidget(BaseWidget):
                 self.widget.vae_input, "External VAE", "VAE file"
             )
         )
+
+        # Stable Cascade connections
+        # Stage C model connections
+        self.widget.sc_stage_c_model_input.textChanged.connect(
+            lambda x: self.edit_args(
+                "stage_c_checkpoint_path", x, not GeneralWidget.stableCascadeChecked
+            )
+        )
+        self.widget.sc_stage_c_model_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                self.widget.sc_stage_c_model_input, "SC Stage C Model", "Stage C Model file"
+            )
+        )
+
+        # Effnet model connections
+        self.widget.sc_effnet_model_input.textChanged.connect(
+            lambda x: self.edit_args(
+                "effnet_checkpoint_path", x, not GeneralWidget.stableCascadeChecked
+            )
+        )
+        self.widget.sc_effnet_model_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                self.widget.sc_effnet_model_input, "SC Effnet Model", "Effnet Model file"
+            )
+        )
+
+        # Text model connections
+        self.widget.sc_text_model_input.textChanged.connect(
+            lambda x: self.edit_args(
+                "text_model_checkpoint_path", x, not GeneralWidget.stableCascadeChecked
+            )
+        )
+        self.widget.sc_text_model_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                self.widget.sc_text_model_input, "SC Text Model", "Text Model file"
+            )
+        )    
+
+        # Previewer model connections
+        self.widget.sc_previewer_model_input.textChanged.connect(
+            lambda x: self.edit_args(
+                "previewer_checkpoint_path", x, not GeneralWidget.stableCascadeChecked
+            )
+        )
+        self.widget.sc_previewer_model_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                self.widget.sc_previewer_model_input, "SC Previewer Model", "Previewer Model file"
+            )
+        )    
+
         self.widget.v2_enable.clicked.connect(
-            lambda x: self.change_model_type(x, False)
+            lambda x: self.change_model_type("v2", x)
         )
         self.widget.sdxl_enable.clicked.connect(
-            lambda x: self.change_model_type(False, x)
+            lambda x: self.change_model_type("sdxl", x)
         )
+        self.widget.stable_cascade_enable.clicked.connect(
+            lambda x: self.change_model_type("stable_cascade", x)
+        )
+
+
         self.widget.no_half_vae_enable.clicked.connect(
             lambda x: self.edit_args("no_half_vae", x, True)
         )
@@ -95,6 +156,11 @@ class GeneralWidget(BaseWidget):
         self.widget.FP8_enable.clicked.connect(
             lambda x: self.edit_args("fp8_base", x, True)
         )
+
+        self.widget.sc_adaptive_loss_enable.clicked.connect(
+            lambda x: self.edit_args("adaptive_loss_weight", x, True)
+        )
+
         self.widget.width_input.valueChanged.connect(self.change_resolution)
         self.widget.height_enable.clicked.connect(self.change_resolution)
         self.widget.height_input.valueChanged.connect(self.change_resolution)
@@ -163,20 +229,63 @@ class GeneralWidget(BaseWidget):
         else:
             elem.setStyleSheet("")
 
-    def change_model_type(self, is_v2: bool, is_sdxl: bool) -> None:
-        for arg in ["v2", "sdxl", "clip_skip"]:
+    def change_model_type(self, modelTypeName: str, checked: bool) -> None:
+        for arg in ["v2", "sdxl", "stable_cascade", "clip_skip"]:
             if arg in self.args:
                 del self.args[arg]
-        self.widget.v2_enable.setEnabled(not is_sdxl)
-        self.widget.clip_skip_input.setEnabled(not is_sdxl)
-        self.widget.sdxl_enable.setEnabled(not is_v2)
+        if checked and modelTypeName == "v2":
+            self.widget.stable_cascade_enable.setEnabled(False)
+            self.widget.sdxl_enable.setEnabled(False)
+            self.edit_args("v2", True, True)
+        elif checked and modelTypeName == "sdxl":
+            self.widget.stable_cascade_enable.setEnabled(False)
+            self.widget.v2_enable.setEnabled(False)
+            self.edit_args("sdxl", True, True)
+        elif checked and modelTypeName == "stable_cascade":
+            self.widget.sdxl_enable.setEnabled(False)
+            self.widget.v2_enable.setEnabled(False)
+            self.widget.base_model_input.setEnabled(False)
+            self.widget.base_model_selector.setEnabled(False)
+            self.widget.sc_text_model_input.setEnabled(True)
+            self.widget.sc_text_model_selector.setEnabled(True)
+            self.widget.sc_effnet_model_input.setEnabled(True)
+            self.widget.sc_effnet_model_selector.setEnabled(True)
+            self.widget.sc_previewer_model_input.setEnabled(True)
+            self.widget.sc_previewer_model_selector.setEnabled(True)
+            self.widget.sc_stage_c_model_input.setEnabled(True)
+            self.widget.sc_stage_c_model_selector.setEnabled(True)
+            self.widget.sc_adaptive_loss_enable.setEnabled(True)
+            self.edit_args("stable_cascade", True, True)
+        else:
+            self.widget.base_model_input.setEnabled(True)
+            self.widget.base_model_selector.setEnabled(True)
+            self.widget.sdxl_enable.setEnabled(True)
+            self.widget.v2_enable.setEnabled(True)
+            self.widget.stable_cascade_enable.setEnabled(True)            
 
-        self.edit_args("v2", is_v2, True)
-        self.edit_args("sdxl", is_sdxl, True)
-        self.edit_args(
-            "clip_skip", None if is_sdxl else self.widget.clip_skip_input.value(), True
+        if modelTypeName != "stable_cascade" or (not checked and modelTypeName == "stable_cascade"):
+            self.widget.sc_text_model_input.setEnabled(False)
+            self.widget.sc_text_model_selector.setEnabled(False)
+            self.widget.sc_effnet_model_input.setEnabled(False)
+            self.widget.sc_effnet_model_selector.setEnabled(False)
+            self.widget.sc_stage_c_model_input.setEnabled(False)
+            self.widget.sc_stage_c_model_selector.setEnabled(False)
+            self.widget.sc_previewer_model_input.setEnabled(False)
+            self.widget.sc_previewer_model_selector.setEnabled(False)
+            self.widget.sc_adaptive_loss_enable.setEnabled(False)
+            self.widget.sc_adaptive_loss_enable.setChecked(False)
+            self.edit_args("adaptive_loss_weight", False, True)
+
+
+        self.widget.clip_skip_input.setEnabled(
+            modelTypeName != "sdxl" and modelTypeName != "stable_cascade"
         )
-        self.sdxlChecked.emit(is_sdxl)
+
+        self.edit_args(
+            "clip_skip", None if modelTypeName == "sdxl" or modelTypeName == "stable_cascade" else self.widget.clip_skip_input.value(), True
+        )
+        self.sdxlChecked.emit("sdxl" in self.args)
+        self.stableCascadeChecked.emit("stable_cascade" in self.args)
 
     def change_full_type(self, is_fp: bool, is_bf: bool) -> None:
         for arg in ["full_fp16", "full_bf16", "mixed_precision"]:
@@ -291,9 +400,24 @@ class GeneralWidget(BaseWidget):
         self.widget.base_model_input.setText(
             args.get("pretrained_model_name_or_path", "")
         )
+        self.widget.sc_stage_c_model_input.setText(
+            args.get("stage_c_checkpoint_path", "")
+        )
+        self.widget.sc_effnet_model_input.setText(
+            args.get("effnet_checkpoint_path", "")
+        )
+        self.widget.sc_text_model_input.setText(
+            args.get("text_model_checkpoint_path", "")
+        )
+        self.widget.sc_previewer_model_input.setText(
+            args.get("previewer_checkpoint_path", "")
+        )
+
         self.widget.vae_input.setText(args.get("vae", ""))
         self.widget.v2_enable.setChecked(args.get("v2", False))
         self.widget.sdxl_enable.setChecked(args.get("sdxl", False))
+        self.widget.stable_cascade_enable.setChecked(args.get("stable_cascade", False))
+        self.widget.sc_adaptive_loss_enable.setChecked(args.get("adaptive_loss_weight", False))
         self.widget.no_half_vae_enable.setChecked(args.get("no_half_vae", False))
         self.widget.low_ram_enable.setChecked(args.get("lowram", False))
         self.widget.v_param_enable.setChecked(args.get("v_parameterization", False))
@@ -343,19 +467,40 @@ class GeneralWidget(BaseWidget):
         self.widget.comment_enable.setChecked(bool(args.get("training_comment", False)))
         self.widget.comment_input.setText(args.get("training_comment", ""))
 
+        self.change_model_type(
+            "v2" if args.get("v2") else "" or "sdxl" if args.get("sdxl") else "" or "stable_cascade" if args.get("stable_cascade") else "", 
+            args.get("v2", False) or args.get("sdxl", False) or args.get("stable_cascade", False),
+        )
+
         # update args to match
         self.edit_args(
             "pretrained_model_name_or_path",
             self.widget.base_model_input.text(),
         )
         self.edit_args(
+            "stage_c_checkpoint_path",
+            self.widget.sc_stage_c_model_input.text(),
+        )
+        self.edit_args(
+            "effnet_checkpoint_path",
+            self.widget.sc_effnet_model_input.text(),
+        )
+        self.edit_args(
+            "text_model_checkpoint_path",
+            self.widget.sc_text_model_input.text(),
+        )
+        self.edit_args(
+            "previewer_checkpoint_path",
+            self.widget.sc_previewer_model_input.text(),
+        )
+        self.edit_args(
             "vae",
             self.widget.vae_input.text(),
             optional=True,
         )
-        self.change_model_type(
-            self.widget.v2_enable.isChecked(), self.widget.sdxl_enable.isChecked()
-        )
+
+        self.edit_args("adaptive_loss_weight", self.widget.sc_adaptive_loss_enable.isChecked(), True)
+
         self.edit_args("no_half_vae", self.widget.no_half_vae_enable.isChecked(), True)
         self.edit_args("lowram", self.widget.low_ram_enable.isChecked(), True)
         self.enable_disable_v_param(self.widget.v_param_enable.isChecked())

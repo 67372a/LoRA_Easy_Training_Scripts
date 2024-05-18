@@ -286,6 +286,98 @@ class Ui_base_args_ui(object):
 
         self.formLayout_3.setLayout(0, QFormLayout.FieldRole, self.horizontalLayout)
 
+        # Stable Cascade Stage C Model
+        self.scStageCModelLabel = QLabel(self.base_model_box)
+        self.scStageCModelLabel.setObjectName(u"scStageCModelLabel")
+
+        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.scStageCModelLabel)
+
+        self.scStageCModelHorizontalLayout = QHBoxLayout()
+        self.scStageCModelHorizontalLayout.setObjectName(u"scStageCModelHorizontalLayout")
+        self.sc_stage_c_model_input = DragDropLineEdit(self.base_model_box)
+        self.sc_stage_c_model_input.setObjectName(u"sc_stage_c_model_input")
+        self.sc_stage_c_model_input.setEnabled(False)
+
+        self.scStageCModelHorizontalLayout.addWidget(self.sc_stage_c_model_input)
+
+        self.sc_stage_c_model_selector = QPushButton(self.base_model_box)
+        self.sc_stage_c_model_selector.setObjectName(u"sc_stage_c_model_selector")
+        self.sc_stage_c_model_selector.setEnabled(False)
+
+        self.scStageCModelHorizontalLayout.addWidget(self.sc_stage_c_model_selector)
+
+        self.formLayout_3.setLayout(1, QFormLayout.FieldRole, self.scStageCModelHorizontalLayout)
+        # End
+
+        # Stable Cascade Effnet Model
+        self.scEffnetModelLabel = QLabel(self.base_model_box)
+        self.scEffnetModelLabel.setObjectName(u"scEffnetModelLabel")
+
+        self.formLayout_3.setWidget(2, QFormLayout.LabelRole, self.scEffnetModelLabel)
+
+        self.scEffnetModelHorizontalLayout = QHBoxLayout()
+        self.scEffnetModelHorizontalLayout.setObjectName(u"scEffnetModelHorizontalLayout")
+        self.sc_effnet_model_input = DragDropLineEdit(self.base_model_box)
+        self.sc_effnet_model_input.setObjectName(u"sc_effnet_model_input")
+        self.sc_effnet_model_input.setEnabled(False)
+
+        self.scEffnetModelHorizontalLayout.addWidget(self.sc_effnet_model_input)
+
+        self.sc_effnet_model_selector = QPushButton(self.base_model_box)
+        self.sc_effnet_model_selector.setObjectName(u"sc_effnet_model_selector")
+        self.sc_effnet_model_selector.setEnabled(False)
+
+        self.scEffnetModelHorizontalLayout.addWidget(self.sc_effnet_model_selector)
+
+        self.formLayout_3.setLayout(2, QFormLayout.FieldRole, self.scEffnetModelHorizontalLayout)
+        # End
+
+        # Stable Cascade Text Model
+        self.scTextModelLabel = QLabel(self.base_model_box)
+        self.scTextModelLabel.setObjectName(u"scTextModelLabel")
+
+        self.formLayout_3.setWidget(3, QFormLayout.LabelRole, self.scTextModelLabel)
+
+        self.scTextModelHorizontalLayout = QHBoxLayout()
+        self.scTextModelHorizontalLayout.setObjectName(u"scTextModelHorizontalLayout")
+        self.sc_text_model_input = DragDropLineEdit(self.base_model_box)
+        self.sc_text_model_input.setObjectName(u"sc_text_model_input")
+        self.sc_text_model_input.setEnabled(False)
+
+        self.scTextModelHorizontalLayout.addWidget(self.sc_text_model_input)
+
+        self.sc_text_model_selector = QPushButton(self.base_model_box)
+        self.sc_text_model_selector.setObjectName(u"sc_text_model_selector")
+        self.sc_text_model_selector.setEnabled(False)
+
+        self.scTextModelHorizontalLayout.addWidget(self.sc_text_model_selector)
+
+        self.formLayout_3.setLayout(3, QFormLayout.FieldRole, self.scTextModelHorizontalLayout)
+        # End
+
+        # Stable Cascade Previewer Model
+        self.scPreviewerModelLabel = QLabel(self.base_model_box)
+        self.scPreviewerModelLabel.setObjectName(u"scPreviewerModelLabel")
+
+        self.formLayout_3.setWidget(4, QFormLayout.LabelRole, self.scPreviewerModelLabel)
+
+        self.scPreviewerModelHorizontalLayout = QHBoxLayout()
+        self.scPreviewerModelHorizontalLayout.setObjectName(u"scPreviewerModelHorizontalLayout")
+        self.sc_previewer_model_input = DragDropLineEdit(self.base_model_box)
+        self.sc_previewer_model_input.setObjectName(u"sc_previewer_model_input")
+        self.sc_previewer_model_input.setEnabled(False)
+
+        self.scPreviewerModelHorizontalLayout.addWidget(self.sc_previewer_model_input)
+
+        self.sc_previewer_model_selector = QPushButton(self.base_model_box)
+        self.sc_previewer_model_selector.setObjectName(u"sc_previewer_model_selector")
+        self.sc_previewer_model_selector.setEnabled(False)
+
+        self.scPreviewerModelHorizontalLayout.addWidget(self.sc_previewer_model_selector)
+
+        self.formLayout_3.setLayout(4, QFormLayout.FieldRole, self.scPreviewerModelHorizontalLayout)
+        # End
+
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.v_param_enable = QCheckBox(self.base_model_box)
@@ -316,7 +408,7 @@ class Ui_base_args_ui(object):
         self.horizontalLayout_6.addWidget(self.FP8_enable)
 
 
-        self.formLayout_3.setLayout(3, QFormLayout.SpanningRole, self.horizontalLayout_6)
+        self.formLayout_3.setLayout(6, QFormLayout.SpanningRole, self.horizontalLayout_6)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -330,6 +422,11 @@ class Ui_base_args_ui(object):
 
         self.horizontalLayout_2.addWidget(self.sdxl_enable)
 
+        self.stable_cascade_enable = QCheckBox(self.base_model_box)
+        self.stable_cascade_enable.setObjectName(u"stable_cascade_enable")
+
+        self.horizontalLayout_2.addWidget(self.stable_cascade_enable)
+
         self.no_half_vae_enable = QCheckBox(self.base_model_box)
         self.no_half_vae_enable.setObjectName(u"no_half_vae_enable")
 
@@ -341,12 +438,23 @@ class Ui_base_args_ui(object):
         self.horizontalLayout_2.addWidget(self.low_ram_enable)
 
 
-        self.formLayout_3.setLayout(2, QFormLayout.SpanningRole, self.horizontalLayout_2)
+        self.formLayout_3.setLayout(7, QFormLayout.SpanningRole, self.horizontalLayout_2)
+
+        #
+        self.modelOptionsHorizontalLayout_3 = QHBoxLayout()
+        self.modelOptionsHorizontalLayout_3.setObjectName(u"modelOptionsHorizontalLayout_3")
+        self.sc_adaptive_loss_enable = QCheckBox(self.base_model_box)
+        self.sc_adaptive_loss_enable.setObjectName(u"sc_adaptive_loss_enable")
+        self.sc_adaptive_loss_enable.setEnabled(False)
+
+        self.modelOptionsHorizontalLayout_3.addWidget(self.sc_adaptive_loss_enable)
+        self.formLayout_3.setLayout(8, QFormLayout.SpanningRole, self.modelOptionsHorizontalLayout_3)
+        #
 
         self.label_11 = QLabel(self.base_model_box)
         self.label_11.setObjectName(u"label_11")
 
-        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_11)
+        self.formLayout_3.setWidget(5, QFormLayout.LabelRole, self.label_11)
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
@@ -361,7 +469,7 @@ class Ui_base_args_ui(object):
         self.horizontalLayout_4.addWidget(self.vae_selector)
 
 
-        self.formLayout_3.setLayout(1, QFormLayout.FieldRole, self.horizontalLayout_4)
+        self.formLayout_3.setLayout(5, QFormLayout.FieldRole, self.horizontalLayout_4)
 
 
         self.gridLayout_3.addWidget(self.base_model_box, 3, 1, 1, 2)
@@ -471,6 +579,30 @@ class Ui_base_args_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.base_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Base Model To Train With", None))
         self.base_model_selector.setText("")
+        self.scStageCModelLabel.setText(QCoreApplication.translate("base_args_ui", u"SC Stage C Model", None))
+#if QT_CONFIG(tooltip)
+        self.sc_stage_c_model_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The Stable Cascade Stage C model to train with.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sc_stage_c_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Stable Cascade Stage C Model To Train With", None))
+        self.sc_stage_c_model_selector.setText("")
+        self.scEffnetModelLabel.setText(QCoreApplication.translate("base_args_ui", u"SC Effnet Model", None))
+#if QT_CONFIG(tooltip)
+        self.sc_effnet_model_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The Stable Cascade Effnet model to train with.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sc_effnet_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Stable Cascade Effnet To Train With", None))
+        self.sc_effnet_model_selector.setText("")
+        self.scTextModelLabel.setText(QCoreApplication.translate("base_args_ui", u"SC Text Model", None))
+#if QT_CONFIG(tooltip)
+        self.sc_text_model_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The Stable Cascade Text Model to train with.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sc_text_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Stable Cascade Text Model To Train With", None))
+        self.sc_text_model_selector.setText("")
+        self.scPreviewerModelLabel.setText(QCoreApplication.translate("base_args_ui", u"SC Previewer Model", None))
+#if QT_CONFIG(tooltip)
+        self.sc_previewer_model_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The Stable Cascade Model to generate samples with.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sc_previewer_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Stable Cascade Model to generate samples with.", None))
+        self.sc_previewer_model_selector.setText("")
 #if QT_CONFIG(tooltip)
         self.v_param_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if your model uses the SD2.x 768x model, such as WD1.5.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -490,13 +622,18 @@ class Ui_base_args_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.v2_enable.setText(QCoreApplication.translate("base_args_ui", u"SD2.X Based", None))
         self.sdxl_enable.setText(QCoreApplication.translate("base_args_ui", u"SDXL Based", None))
+        self.stable_cascade_enable.setText(QCoreApplication.translate("base_args_ui", u"Stable Cascade Based", None))
+#if QT_CONFIG(tooltip)
+        self.sc_adaptive_loss_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>For Stable Cascade only, if specified, use adaptive loss weight. If not, use P2 loss weight. The official settings use Adaptive Loss Weight.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sc_adaptive_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"SC Adaptive Loss", None))
         self.no_half_vae_enable.setText(QCoreApplication.translate("base_args_ui", u"No Half Vae", None))
         self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
-        self.label_11.setText(QCoreApplication.translate("base_args_ui", u"External VAE", None))
+        self.label_11.setText(QCoreApplication.translate("base_args_ui", u"VAE / SC Stage A", None))
 #if QT_CONFIG(tooltip)
-        self.vae_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows you to load a vae seperately from the base model.</p></body></html>", None))
+        self.vae_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows you to load a vae / SC Stage A seperately from the base model.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.vae_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Vae to train with", None))
+        self.vae_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"VAE / SC Stage A to train with", None))
         self.vae_selector.setText("")
         self.comment_enable.setText(QCoreApplication.translate("base_args_ui", u"Comment", None))
 #if QT_CONFIG(tooltip)

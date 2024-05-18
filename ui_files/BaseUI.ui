@@ -446,7 +446,124 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="0" colspan="2">
+
+      <item row="1" column="0">
+       <widget class="QLabel" name="scStageCModelLabel">
+        <property name="text">
+         <string>SC Stage C Model</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="scStageCModelHorizontalLayout">
+        <item>
+         <widget class="DragDropLineEdit" name="sc_stage_c_model_input">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Stable Cascade Stage C model to train with.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Stable Cascade Stage C Model To Train With</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sc_stage_c_model_selector">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+
+      <item row="2" column="0">
+       <widget class="QLabel" name="scEffnetModelLabel">
+        <property name="text">
+         <string>SC Effnet Model</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <layout class="QHBoxLayout" name="scEffnetModelHorizontalLayout">
+        <item>
+         <widget class="DragDropLineEdit" name="sc_effnet_model_input">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Stable Cascade Effnet model to train with.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Stable Cascade Effnet To Train With</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sc_effnet_model_selector">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+
+      <item row="3" column="0">
+       <widget class="QLabel" name="scTextModelLabel">
+        <property name="text">
+         <string>SC Text Model</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <layout class="QHBoxLayout" name="scTextModelHorizontalLayout">
+        <item>
+         <widget class="DragDropLineEdit" name="sc_text_model_input">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Stable Cascade Text Model to train with.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Stable Cascade Text Model to train with.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sc_text_model_selector">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+
+      <item row="4" column="0">
+       <widget class="QLabel" name="scPreviewerModelLabel">
+        <property name="text">
+         <string>SC Previewer Model</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <layout class="QHBoxLayout" name="scPreviewerModelHorizontalLayout">
+        <item>
+         <widget class="DragDropLineEdit" name="sc_previewer_model_input">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Stable Cascade Model to generate samples with.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Stable Cascade Model to generate samples with.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sc_previewer_model_selector">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+
+      <item row="6" column="0" colspan="2">
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QCheckBox" name="v_param_enable">
@@ -500,7 +617,7 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="7" column="0" colspan="2">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QCheckBox" name="v2_enable">
@@ -520,6 +637,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="stable_cascade_enable">
+          <property name="text">
+           <string>Stable Cascade Based</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="no_half_vae_enable">
           <property name="text">
            <string>No Half Vae</string>
@@ -535,22 +659,36 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
+      <item row="8" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="modelOptionsHorizontalLayout_3">
+        <item>
+         <widget class="QCheckBox" name="sc_adaptive_loss_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For Stable Cascade only, if specified, use adaptive loss weight. If not, use P2 loss weight. The official settings use Adaptive Loss Weight.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>SC Adaptive Loss</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
        <widget class="QLabel" name="label_11">
         <property name="text">
-         <string>External VAE</string>
+         <string>VAE / SC Stage A</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="5" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="DragDropLineEdit" name="vae_input">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows you to load a vae seperately from the base model.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Seperate VAE or SC Stage A to use during training.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="placeholderText">
-           <string>Vae to train with</string>
+           <string>VAE / Stage A to train with.</string>
           </property>
          </widget>
         </item>
