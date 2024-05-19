@@ -316,6 +316,7 @@ class NetworkWidget(BaseWidget):
                                 QCoreApplication.translate("network_ui", u"LoRA", None),
                                 QCoreApplication.translate("network_ui", u"LoCon", None),
                                 QCoreApplication.translate("network_ui", u"IA3", None),
+                                QCoreApplication.translate("network_ui", u"DyLoRA", None),
                         ])
         else:
             self.widget.algo_select.clear()
