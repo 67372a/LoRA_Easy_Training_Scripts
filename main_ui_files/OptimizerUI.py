@@ -135,7 +135,7 @@ class OptimizerWidget(BaseWidget):
         else:
             self.widget.masked_loss_enable.setEnabled(True)
             self.widget.min_snr_enable.setEnabled(True)
-            self.widget.zero_term_enable.setEnabled(False)
+            self.widget.zero_term_enable.setEnabled(True)
 
     @Slot(object)
     def remove_optimizer_arg(self, widget: OptimizerItem):
