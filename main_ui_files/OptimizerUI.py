@@ -122,6 +122,21 @@ class OptimizerWidget(BaseWidget):
                 return
         self.args["lr_scheduler_args"][name] = value
 
+    def toggle_stable_cascade(self, toggle: bool) -> None:
+        if toggle:
+            self.enable_disable_masked_loss(False)
+            self.widget.masked_loss_enable.setChecked(False)
+            self.widget.masked_loss_enable.setEnabled(False)
+            self.enable_disable_min_snr_gamma(False)
+            self.widget.min_snr_enable.setChecked(False)
+            self.widget.min_snr_enable.setEnabled(False)
+            self.widget.zero_term_enable.setChecked(False)
+            self.widget.zero_term_enable.setEnabled(False)
+        else:
+            self.widget.masked_loss_enable.setEnabled(True)
+            self.widget.min_snr_enable.setEnabled(True)
+            self.widget.zero_term_enable.setEnabled(False)
+
     @Slot(object)
     def remove_optimizer_arg(self, widget: OptimizerItem):
         self.layout().removeWidget(widget)

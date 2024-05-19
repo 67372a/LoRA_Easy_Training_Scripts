@@ -61,6 +61,7 @@ class ArgsWidget(QtWidgets.QWidget):
         self.args_widget_array.append(general_args)
         self.sdxlChecked.connect(self.network_widget.toggle_sdxl)
         self.stableCascadeChecked.connect(self.network_widget.toggle_stable_cascade)
+        self.stableCascadeChecked.connect(self.optimizer_widget.toggle_stable_cascade)
         self.args_widget_array.append(self.network_widget)
         self.args_widget_array.append(self.ti_widget)
         self.args_widget_array.append(self.optimizer_widget)
