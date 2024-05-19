@@ -1,5 +1,6 @@
 from PySide6 import QtCore
 from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import QCoreApplication
 from modules.BlockWeightWidgets import BlockWeightWidget, BlockWidget
 from ui_files.NetworkUI import Ui_network_ui
 from modules.BaseWidget import BaseWidget
@@ -301,6 +302,38 @@ class NetworkWidget(BaseWidget):
             self.widget.cache_te_outputs_enable.isChecked() if toggle else False
         )
 
+    def toggle_stable_cascade(self, toggle: bool) -> None:
+        self.widget.cache_te_outputs_enable.setEnabled(toggle)
+        self.enable_disable_cache_te(
+            self.widget.cache_te_outputs_enable.isChecked() if toggle else False
+        )
+
+        # Remove unsupported networks as options
+        if toggle:
+            self.widget.algo_select.clear()
+            self.widget.algo_select.addItems(
+                        [
+                                QCoreApplication.translate("network_ui", u"LoRA", None),
+                                QCoreApplication.translate("network_ui", u"LoCon", None),
+                                QCoreApplication.translate("network_ui", u"IA3", None),
+                        ])
+        else:
+            self.widget.algo_select.clear()
+            self.widget.algo_select.addItems(
+                        [
+                                QCoreApplication.translate("network_ui", u"LoRA", None),
+                                QCoreApplication.translate("network_ui", u"LoCon", None),
+                                QCoreApplication.translate("network_ui", u"LoCon (LyCORIS)", None),
+                                QCoreApplication.translate("network_ui", u"LoHa", None),
+                                QCoreApplication.translate("network_ui", u"IA3", None),
+                                QCoreApplication.translate("network_ui", u"Lokr", None),
+                                QCoreApplication.translate("network_ui", u"DyLoRA", None),
+                                QCoreApplication.translate("network_ui", u"Diag-OFT", None),
+                                QCoreApplication.translate("network_ui", u"Full", None),
+                        ])
+
+
+            
     def enable_disable_network_dropout(self, checked: bool) -> None:
         if "network_dropout" in self.args:
             del self.args["network_dropout"]

@@ -3,6 +3,7 @@ from PySide6.QtCore import Signal
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QWidget, QPushButton
 from ui_files.BaseUI import Ui_base_args_ui
+from ui_files.NetworkUI import Ui_network_ui
 from modules.BaseWidget import BaseWidget
 from modules.DragDropLineEdit import DragDropLineEdit
 
@@ -234,10 +235,12 @@ class GeneralWidget(BaseWidget):
             if arg in self.args:
                 del self.args[arg]
         if checked and modelTypeName == "v2":
+            self.widget.v2_enable.setEnabled(True)
             self.widget.stable_cascade_enable.setEnabled(False)
             self.widget.sdxl_enable.setEnabled(False)
             self.edit_args("v2", True, True)
         elif checked and modelTypeName == "sdxl":
+            self.widget.sdxl_enable.setEnabled(True)
             self.widget.stable_cascade_enable.setEnabled(False)
             self.widget.v2_enable.setEnabled(False)
             self.edit_args("sdxl", True, True)
@@ -255,6 +258,8 @@ class GeneralWidget(BaseWidget):
             self.widget.sc_stage_c_model_input.setEnabled(True)
             self.widget.sc_stage_c_model_selector.setEnabled(True)
             self.widget.sc_adaptive_loss_enable.setEnabled(True)
+            self.enable_disable_v_param(False)
+            self.widget.v_param_enable.setEnabled(False)
             self.edit_args("stable_cascade", True, True)
         else:
             self.widget.base_model_input.setEnabled(True)
@@ -274,6 +279,7 @@ class GeneralWidget(BaseWidget):
             self.widget.sc_previewer_model_selector.setEnabled(False)
             self.widget.sc_adaptive_loss_enable.setEnabled(False)
             self.widget.sc_adaptive_loss_enable.setChecked(False)
+            self.widget.v_param_enable.setEnabled(True)
             self.edit_args("adaptive_loss_weight", False, True)
 
 

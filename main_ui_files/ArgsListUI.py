@@ -14,6 +14,7 @@ from modules.BaseWidget import BaseWidget
 
 class ArgsWidget(QtWidgets.QWidget):
     sdxlChecked = Signal(bool)
+    stableCascadeChecked = Signal(bool)
     cacheLatentsChecked = Signal(bool)
     keepTokensSepChecked = Signal(bool)
     maskedLossChecked = Signal(bool)
@@ -47,6 +48,7 @@ class ArgsWidget(QtWidgets.QWidget):
         general_args.colap.toggle_collapsed()
         general_args.colap.title_frame.setChecked(True)
         general_args.sdxlChecked.connect(lambda x: self.sdxlChecked.emit(x))
+        general_args.stableCascadeChecked.connect(lambda x: self.stableCascadeChecked.emit(x))
         general_args.cacheLatentsChecked.connect(
             lambda x: self.cacheLatentsChecked.emit(x)
         )
@@ -58,6 +60,7 @@ class ArgsWidget(QtWidgets.QWidget):
         )
         self.args_widget_array.append(general_args)
         self.sdxlChecked.connect(self.network_widget.toggle_sdxl)
+        self.stableCascadeChecked.connect(self.network_widget.toggle_stable_cascade)
         self.args_widget_array.append(self.network_widget)
         self.args_widget_array.append(self.ti_widget)
         self.args_widget_array.append(self.optimizer_widget)
