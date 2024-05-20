@@ -1,4 +1,4 @@
-# LoRA_Easy_Training_Scripts
+# STABLE CASCADE FORK of LoRA_Easy_Training_Scripts: 
 
 A set of training scripts written in python for use in Kohya's [SD-Scripts](https://github.com/kohya-ss/sd-scripts). It has a UI written in pyside6 to help streamline the process of training models.
 
