@@ -1,8 +1,15 @@
 # STABLE CASCADE FORK of LoRA_Easy_Training_Scripts: 
 
+## Fork Changelog
+- May 20, 2024
+  - Noise offset support for Stable Cascade via sd-scripts fork
+- Before May 20, 2024
+  - UI inputs added for Stable Cascade
+  - Disabling of options not functional with Stable Cascade (note, additional discovered since, pyramid noise and alternative loss types currently do not work)
+  - Backend validation changes
+  - Untested deepspeed support
+ 
 A set of training scripts written in python for use in Kohya's [SD-Scripts](https://github.com/kohya-ss/sd-scripts). It has a UI written in pyside6 to help streamline the process of training models.
-
-#### Old scripts can be found [here](https://github.com/derrian-distro/LoRA_Easy_Training_Scripts/tree/old-scripts)
 
 ## Table of contents
 
