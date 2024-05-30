@@ -8,6 +8,8 @@ from modules.CollapsibleWidget import CollapsibleWidget
 
 
 class NetworkWidget(BaseWidget):
+    stableCascadeChecked = False
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Network Args")
@@ -303,14 +305,21 @@ class NetworkWidget(BaseWidget):
         )
 
     def toggle_stable_cascade(self, toggle: bool) -> None:
+        NetworkWidget.stableCascadeChecked = toggle
         self.widget.cache_te_outputs_enable.setEnabled(toggle)
         self.enable_disable_cache_te(
             self.widget.cache_te_outputs_enable.isChecked() if toggle else False
         )
 
+        self.widget.min_timestep_input.setEnabled(not toggle)
+        self.widget.max_timestep_input.setEnabled(not toggle)
+        self.widget.ip_gamma_enable.setEnabled(not toggle)
+
         # Remove unsupported networks as options
+        self.widget.algo_select.clear()
         if toggle:
-            self.widget.algo_select.clear()
+            self.enable_disable_ip_gamma(False)
+            self.widget.ip_gamma_input.setEnabled(False)
             self.widget.algo_select.addItems(
                         [
                                 QCoreApplication.translate("network_ui", u"LoRA", None),
@@ -319,7 +328,6 @@ class NetworkWidget(BaseWidget):
                                 QCoreApplication.translate("network_ui", u"DyLoRA", None),
                         ])
         else:
-            self.widget.algo_select.clear()
             self.widget.algo_select.addItems(
                         [
                                 QCoreApplication.translate("network_ui", u"LoRA", None),
@@ -332,9 +340,8 @@ class NetworkWidget(BaseWidget):
                                 QCoreApplication.translate("network_ui", u"Diag-OFT", None),
                                 QCoreApplication.translate("network_ui", u"Full", None),
                         ])
+            self.enable_disable_ip_gamma(self.widget.ip_gamma_enable.isChecked())
 
-
-            
     def enable_disable_network_dropout(self, checked: bool) -> None:
         if "network_dropout" in self.args:
             del self.args["network_dropout"]
@@ -520,7 +527,7 @@ class NetworkWidget(BaseWidget):
         self.change_max_timestep(self.widget.max_timestep_input.value())
         self.change_unet_te_only(self.widget.unet_te_both_select.currentIndex())
         self.enable_disable_cache_te(self.widget.cache_te_outputs_enable.isChecked())
-        self.enable_disable_ip_gamma(self.widget.ip_gamma_enable.isChecked())
+        self.enable_disable_ip_gamma(self.widget.ip_gamma_enable.isChecked() and not NetworkWidget.stableCascadeChecked)
         return True
 
     def load_block_weights(self, network_args: dict) -> None:

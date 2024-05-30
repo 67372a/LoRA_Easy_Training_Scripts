@@ -26,6 +26,7 @@ class ArgsWidget(QtWidgets.QWidget):
         self.args_widget_array: list[BaseWidget] = []
         self.network_widget = NetworkWidget()
         self.optimizer_widget = OptimizerWidget()
+        self.noise_offset_widget = NoiseOffsetWidget()
         self.ti_widget = TextualInversionWidget()
         self.ti_widget.setVisible(False)
 
@@ -62,12 +63,13 @@ class ArgsWidget(QtWidgets.QWidget):
         self.sdxlChecked.connect(self.network_widget.toggle_sdxl)
         self.stableCascadeChecked.connect(self.network_widget.toggle_stable_cascade)
         self.stableCascadeChecked.connect(self.optimizer_widget.toggle_stable_cascade)
+        self.stableCascadeChecked.connect(self.noise_offset_widget.toggle_stable_cascade)
         self.args_widget_array.append(self.network_widget)
         self.args_widget_array.append(self.ti_widget)
         self.args_widget_array.append(self.optimizer_widget)
         self.args_widget_array.append(SavingWidget())
         self.args_widget_array.append(BucketWidget())
-        self.args_widget_array.append(NoiseOffsetWidget())
+        self.args_widget_array.append(self.noise_offset_widget)
         self.args_widget_array.append(SampleWidget())
         self.args_widget_array.append(LoggingWidget())
 

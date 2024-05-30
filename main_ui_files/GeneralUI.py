@@ -162,6 +162,10 @@ class GeneralWidget(BaseWidget):
             lambda x: self.edit_args("adaptive_loss_weight", x, True)
         )
 
+        self.widget.sc_stage_c_lite_enable.clicked.connect(
+            lambda x: self.edit_args("stage_c_lite", x, True)
+        )
+
         self.widget.width_input.valueChanged.connect(self.change_resolution)
         self.widget.height_enable.clicked.connect(self.change_resolution)
         self.widget.height_input.valueChanged.connect(self.change_resolution)
@@ -258,6 +262,7 @@ class GeneralWidget(BaseWidget):
             self.widget.sc_stage_c_model_input.setEnabled(True)
             self.widget.sc_stage_c_model_selector.setEnabled(True)
             self.widget.sc_adaptive_loss_enable.setEnabled(True)
+            self.widget.sc_stage_c_lite_enable.setEnabled(True)
             self.enable_disable_v_param(False)
             self.widget.v_param_enable.setEnabled(False)
             self.edit_args("stable_cascade", True, True)
@@ -278,9 +283,8 @@ class GeneralWidget(BaseWidget):
             self.widget.sc_previewer_model_input.setEnabled(False)
             self.widget.sc_previewer_model_selector.setEnabled(False)
             self.widget.sc_adaptive_loss_enable.setEnabled(False)
-            self.widget.sc_adaptive_loss_enable.setChecked(False)
+            self.widget.sc_stage_c_lite_enable.setEnabled(False)
             self.widget.v_param_enable.setEnabled(True)
-            self.edit_args("adaptive_loss_weight", False, True)
 
 
         self.widget.clip_skip_input.setEnabled(
@@ -424,6 +428,7 @@ class GeneralWidget(BaseWidget):
         self.widget.sdxl_enable.setChecked(args.get("sdxl", False))
         self.widget.stable_cascade_enable.setChecked(args.get("stable_cascade", False))
         self.widget.sc_adaptive_loss_enable.setChecked(args.get("adaptive_loss_weight", False))
+        self.widget.sc_stage_c_lite_enable.setChecked(args.get("stage_c_lite", False))
         self.widget.no_half_vae_enable.setChecked(args.get("no_half_vae", False))
         self.widget.low_ram_enable.setChecked(args.get("lowram", False))
         self.widget.v_param_enable.setChecked(args.get("v_parameterization", False))
@@ -507,9 +512,11 @@ class GeneralWidget(BaseWidget):
 
         self.edit_args("adaptive_loss_weight", self.widget.sc_adaptive_loss_enable.isChecked(), True)
 
+        self.edit_args("stage_c_lite", self.widget.sc_stage_c_lite_enable.isChecked(), True)
+
         self.edit_args("no_half_vae", self.widget.no_half_vae_enable.isChecked(), True)
         self.edit_args("lowram", self.widget.low_ram_enable.isChecked(), True)
-        self.enable_disable_v_param(self.widget.v_param_enable.isChecked())
+        self.enable_disable_v_param(self.widget.v_param_enable.isChecked() and not args.get("stable_cascade", False))
         self.change_full_type(
             self.widget.FP16_enable.isChecked(), self.widget.BF16_enable.isChecked()
         )

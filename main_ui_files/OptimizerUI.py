@@ -3,6 +3,7 @@ from pathlib import Path
 from PySide6.QtCore import Slot, Signal
 from PySide6 import QtCore
 from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import QCoreApplication
 from ui_files.OptimizerUI import Ui_optimizer_ui
 from modules.BaseWidget import BaseWidget
 from modules.OptimizerItem import OptimizerItem
@@ -10,6 +11,7 @@ from modules.OptimizerItem import OptimizerItem
 
 class OptimizerWidget(BaseWidget):
     maskedLossChecked = Signal(bool)
+    stableCascadeChecked = False
 
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
@@ -123,19 +125,28 @@ class OptimizerWidget(BaseWidget):
         self.args["lr_scheduler_args"][name] = value
 
     def toggle_stable_cascade(self, toggle: bool) -> None:
+        OptimizerWidget.stableCascadeChecked = toggle
+        self.widget.masked_loss_enable.setEnabled(not toggle)
+        self.widget.min_snr_enable.setEnabled(not toggle)
+        self.widget.zero_term_enable.setEnabled(not toggle)
+
+        self.widget.loss_type_selector.clear()
         if toggle:
             self.enable_disable_masked_loss(False)
-            self.widget.masked_loss_enable.setChecked(False)
-            self.widget.masked_loss_enable.setEnabled(False)
             self.enable_disable_min_snr_gamma(False)
-            self.widget.min_snr_enable.setChecked(False)
-            self.widget.min_snr_enable.setEnabled(False)
-            self.widget.zero_term_enable.setChecked(False)
-            self.widget.zero_term_enable.setEnabled(False)
+            self.widget.loss_type_selector.addItems(
+                        [
+                                QCoreApplication.translate("optimizer_ui", u"L2", None),
+                        ])
         else:
-            self.widget.masked_loss_enable.setEnabled(True)
-            self.widget.min_snr_enable.setEnabled(True)
-            self.widget.zero_term_enable.setEnabled(True)
+            self.widget.loss_type_selector.addItems(
+                        [
+                                QCoreApplication.translate("optimizer_ui", u"L2", None),
+                                QCoreApplication.translate("optimizer_ui", u"Huber", None),
+                                QCoreApplication.translate("optimizer_ui", u"Smooth L1", None),
+                        ])
+            self.enable_disable_min_snr_gamma(self.widget.min_snr_enable.isChecked())
+            self.enable_disable_masked_loss(self.widget.masked_loss_enable.isChecked())
 
     @Slot(object)
     def remove_optimizer_arg(self, widget: OptimizerItem):
@@ -378,7 +389,7 @@ class OptimizerWidget(BaseWidget):
             self.widget.scale_weight_enable.isChecked()
         )
         self.edit_args("max_grad_norm", self.widget.max_grad_norm_input.value())
-        self.enable_disable_min_snr_gamma(self.widget.min_snr_enable.isChecked())
+        self.enable_disable_min_snr_gamma(self.widget.min_snr_enable.isChecked() and not OptimizerWidget.stableCascadeChecked)
         self.edit_args(
             "zero_terminal_snr", self.widget.zero_term_enable.isChecked(), True
         )

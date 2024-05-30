@@ -448,6 +448,12 @@ class Ui_base_args_ui(object):
         self.sc_adaptive_loss_enable.setEnabled(False)
 
         self.modelOptionsHorizontalLayout_3.addWidget(self.sc_adaptive_loss_enable)
+
+        self.sc_stage_c_lite_enable = QCheckBox(self.base_model_box)
+        self.sc_stage_c_lite_enable.setObjectName(u"sc_stage_c_lite_enable")
+        self.sc_stage_c_lite_enable.setEnabled(False)
+
+        self.modelOptionsHorizontalLayout_3.addWidget(self.sc_stage_c_lite_enable)
         self.formLayout_3.setLayout(8, QFormLayout.SpanningRole, self.modelOptionsHorizontalLayout_3)
         #
 
@@ -627,6 +633,10 @@ class Ui_base_args_ui(object):
         self.sc_adaptive_loss_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>For Stable Cascade only, if specified, use adaptive loss weight. If not, use P2 loss weight. The official settings use Adaptive Loss Weight.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.sc_adaptive_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"SC Adaptive Loss", None))
+#if QT_CONFIG(tooltip)
+        self.sc_stage_c_lite_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>For Stable Cascade only, set if using lite / 1B stage c.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sc_stage_c_lite_enable.setText(QCoreApplication.translate("base_args_ui", u"SC Stage C Lite", None))
         self.no_half_vae_enable.setText(QCoreApplication.translate("base_args_ui", u"No Half Vae", None))
         self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
         self.label_11.setText(QCoreApplication.translate("base_args_ui", u"VAE / SC Stage A", None))

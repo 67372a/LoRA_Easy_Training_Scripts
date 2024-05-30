@@ -4,6 +4,8 @@ from modules.BaseWidget import BaseWidget
 
 
 class NoiseOffsetWidget(BaseWidget):
+    stableCascadeChecked = False
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Noise Offset Args")
@@ -71,6 +73,17 @@ class NoiseOffsetWidget(BaseWidget):
             True,
         )
 
+    def toggle_stable_cascade(self, toggle: bool) -> None:
+        NoiseOffsetWidget.stableCascadeChecked = toggle
+        self.widget.pyramid_noise_enable.setEnabled(not toggle)
+
+        if toggle:
+            self.enable_disable_pyramid_noise(False)
+            self.widget.pyramid_iteration_input.setEnabled(False)
+            self.widget.pyramid_discount_input.setEnabled(False)
+        else:
+            self.enable_disable_pyramid_noise(self.widget.pyramid_noise_enable.isChecked())
+
     def load_args(self, args: dict) -> bool:
         args: dict = args.get(self.name, {})
 
@@ -91,5 +104,5 @@ class NoiseOffsetWidget(BaseWidget):
 
         # edit args to match
         self.enable_disable_noise_offset(self.widget.noise_offset_enable.isChecked())
-        self.enable_disable_pyramid_noise(self.widget.pyramid_noise_enable.isChecked())
+        self.enable_disable_pyramid_noise(self.widget.pyramid_noise_enable.isChecked() and not NoiseOffsetWidget.stableCascadeChecked)
         return True

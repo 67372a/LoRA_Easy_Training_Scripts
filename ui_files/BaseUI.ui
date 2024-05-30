@@ -671,6 +671,16 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QCheckBox" name="sc_stage_c_lite_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For Stable Cascade only, set if using lite / 1B stage c.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>SC Stage C Lite</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item row="5" column="0">
