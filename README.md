@@ -1,6 +1,9 @@
 # STABLE CASCADE FORK of LoRA_Easy_Training_Scripts: 
 
 ## Fork Changelog
+- May 30, 2024
+  - Add toggle to support stage c lite / 1B training.
+  - Disable more options not supported by SC when SC is selected.
 - May 20, 2024
   - Noise offset support for Stable Cascade via sd-scripts fork
 - Before May 20, 2024
