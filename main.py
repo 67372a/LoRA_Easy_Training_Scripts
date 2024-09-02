@@ -53,7 +53,7 @@ def main() -> None:
             invert_secondary=config_dict["theme"]["is_light"],
         )
     window = MainWindow(app)
-    window.setWindowTitle("LoRA Trainer")
+    window.setWindowTitle("LoRA Trainer - 67372a Fork - Stable Cascade Branch")
     window.show()
     app.exec()
     config_dict = json.loads(config.read_text())
