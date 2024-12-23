@@ -146,6 +146,8 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamMini", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamW", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamW8bit", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamW4bitAO", None))        
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamW8bitAO", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamWScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Adan", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Came", None))
