@@ -152,6 +152,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Adan", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Came", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Compass", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassAO", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Compass8BitBNB", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassADOPT", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassADOPTMARS", None))
