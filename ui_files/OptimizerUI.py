@@ -173,6 +173,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FMARSCrop", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FMARSCropV2", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FMARSCropV2ExMachina", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FMARSCropV3", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FishMonger", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FishMonger8BitBNB", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"GaLore", None))
