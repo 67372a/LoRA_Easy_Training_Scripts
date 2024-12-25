@@ -136,6 +136,7 @@ class Ui_optimizer_ui(object):
 
         self.optimizer_type_selector = ComboBox(self.optimizer_tab_main)
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPT", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTAOScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTEMAMixScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTMARSScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTNesterovScheduleFree", None))
