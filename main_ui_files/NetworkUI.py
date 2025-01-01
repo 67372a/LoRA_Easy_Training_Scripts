@@ -258,12 +258,12 @@ class NetworkWidget(BaseWidget):
                 elem[0].enable_disable(False)
 
     def toggle_dropout(self, toggle: bool, toggle_dora: bool) -> None:
-        self.widget.network_dropout_enable.setEnabled(toggle and not toggle_dora)
+        self.widget.network_dropout_enable.setEnabled(toggle)
         self.widget.rank_dropout_enable.setEnabled(toggle)
         self.widget.module_dropout_enable.setEnabled(toggle)
 
         self.enable_disable_network_dropout(
-            self.widget.network_dropout_enable.isChecked() if toggle and not toggle_dora else False
+            self.widget.network_dropout_enable.isChecked() if toggle else False
         )
         self.enable_disable_rank_dropout(self.widget.rank_dropout_enable.isChecked() if toggle else False)
         self.enable_disable_module_dropout(self.widget.module_dropout_enable.isChecked() if toggle else False)
