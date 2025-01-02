@@ -197,6 +197,12 @@ class OptimizerWidget(BaseWidget):
                 self.widget.cosine_restart_input.value(),
                 True,
             )
+        elif value in {
+            "CosineAnnealingLR",
+            "cosineannealinglr",
+        }:
+            self.widget.min_lr_input.setEnabled(True)
+            self.edit_lr_args("min_lr", self.widget.min_lr_input.text(), True)
         self.edit_args("lr_scheduler", value)
 
     def change_loss_type(self, value: str) -> None:
