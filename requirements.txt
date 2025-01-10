@@ -1,4 +1,4 @@
-pyside6
-qt-material
-toml
-requests
+pyside6==6.8.1.1
+qt-material==2.14
+toml==0.10.2
+requests==2.32.3
