@@ -162,6 +162,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DAdaptAdam", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DAdaptAdan", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DAdaptSGD", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DistributedShampoo", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FADOPTMARSScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FADOPTScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FARMSCrop", None))
