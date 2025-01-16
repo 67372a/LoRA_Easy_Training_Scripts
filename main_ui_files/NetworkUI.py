@@ -148,7 +148,6 @@ class NetworkWidget(BaseWidget):
         self.network_args[-1].item_updated.connect(self.modify_network_arg)
 
     def modify_network_arg(self, widget: OptimizerItem):
-        print(widget.arg_name, widget.previous_name, widget.arg_value)
         if widget.arg_name != widget.previous_name:
             self.edit_network_args(widget.previous_name, False, True)
         self.edit_network_args(widget.arg_name, widget.arg_value)
