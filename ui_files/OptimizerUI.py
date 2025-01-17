@@ -232,6 +232,7 @@ class Ui_optimizer_ui(object):
         self.loss_type_selector.addItem("")
         self.loss_type_selector.addItem("")
         self.loss_type_selector.addItem("")
+        self.loss_type_selector.addItem("")
         self.loss_type_selector.setObjectName(u"loss_type_selector")
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.loss_type_selector)
@@ -489,6 +490,7 @@ class Ui_optimizer_ui(object):
         self.loss_type_selector.setItemText(2, QCoreApplication.translate("optimizer_ui", u"Smooth L1", None))
         self.loss_type_selector.setItemText(3, QCoreApplication.translate("optimizer_ui", u"L0", None))
         self.loss_type_selector.setItemText(4, QCoreApplication.translate("optimizer_ui", u"X Sigmoid", None))
+        self.loss_type_selector.setItemText(5, QCoreApplication.translate("optimizer_ui", u"Log Cosh", None))
 #if QT_CONFIG(tooltip)
         self.loss_type_selector.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Loss Type is the way the loss is calculated</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
