@@ -234,6 +234,8 @@ class Ui_optimizer_ui(object):
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Log Cosh", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Standard Pseudo Huber", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Standard Huber", None))
+        self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Standard Smooth L1", None))
+        self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Squared Logarithmic", None))
         self.loss_type_selector.setObjectName(u"loss_type_selector")
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.loss_type_selector)
