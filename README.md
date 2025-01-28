@@ -6,7 +6,6 @@
   - adaptive_clip, if in use, will need to be increased to avoid excessive clipping and returned. Recommend starting at 0.5.
   - Weight decay will likely need to be decreased and retuned. Recommend starting at 1e-5 if using stable weight decay, if not using swd, can start at 5e-4 or similar most likely.
   - SPAM threshold and starting step may need to be increased and returned. Recommend starting at 1000 for threshold, and 10 for start step.
-  - LRs might need to be increased. Perhaps 1.25x, depending on other parameters.
 - Optimizer util functions: Adjust all eps to be float32 tiny by default, or if eps value set to 0
 - ADOPTAOSchedule: Adjust to apply clipping on step one
 
