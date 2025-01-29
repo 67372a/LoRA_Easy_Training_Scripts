@@ -3,9 +3,9 @@
 - Apply float32 tiny as eps to Scaled Quadratic loss
 - **Fix adaptive gradient clipping in layer mode, was incorrectly amplifying gradients smaller than the parameter, not clipping ones larger.**
   - **This will require retuning as a result!**
-  - adaptive_clip, if in use, will need to be increased to avoid excessive clipping and returned. Recommend starting at 0.2.
-  - Weight decay will likely need to be decreased and retuned. Recommend starting at 4e-6 if using stable weight decay, if not using swd, can start at 5e-4 or similar most likely.
-  - SPAM threshold and starting step may need to be increased and returned. Recommend starting at 1500 for threshold, and 15 for start step.
+  - adaptive_clip, if in use, will need to be increased to avoid excessive clipping and returned. Recommend starting at 0.18.
+  - Weight decay will likely need to be decreased and retuned. Recommend starting at 3e-6 if using stable weight decay, if not using swd, can start at 5e-4 or similar most likely.
+  - SPAM threshold and starting step may need to be increased and returned. Recommend starting at 500 for threshold, and 10 for start step.
 - Optimizer util functions: Adjust all eps to be float32 tiny by default, or if eps value set to 0
 - ADOPTAOSchedule: Adjust to apply clipping on step one
 
