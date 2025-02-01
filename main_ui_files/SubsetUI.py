@@ -27,6 +27,7 @@ class SubsetWidget(BaseWidget):
             "num_repeats": 1,
             "caption_extension": ".txt",
             "name": self.name,
+            "random_crop_padding_percent": 0.05,
         }
 
         self.setup_widget()
@@ -88,6 +89,10 @@ class SubsetWidget(BaseWidget):
         self.widget.random_crop_enable.clicked.connect(
             lambda x: self.edit_dataset_args("random_crop", x, True)
         )
+        self.widget.random_crop_padding_percent_input.valueChanged.connect(
+            lambda x: self.edit_dataset_args("random_crop_padding_percent", x, True)
+        )
+
         self.widget.caption_extension_selector.currentTextChanged.connect(
             lambda x: self.edit_dataset_args("caption_extension", x)
         )
@@ -277,6 +282,7 @@ class SubsetWidget(BaseWidget):
         )
         self.widget.flip_augment_enable.setChecked(dataset_args.get("flip_aug", False))
         self.widget.keep_tokens_input.setValue(dataset_args.get("keep_tokens", 0))
+        self.widget.random_crop_padding_percent_input.setValue(dataset_args.get("random_crop_padding_percent", 0.05))
         self.widget.color_augment_enable.setChecked(
             dataset_args.get("color_aug", False)
         )
@@ -367,6 +373,9 @@ class SubsetWidget(BaseWidget):
         )
         self.edit_dataset_args(
             "caption_extension", self.widget.caption_extension_selector.currentText()
+        )
+        self.edit_dataset_args(
+            "random_crop_padding_percent", self.widget.random_crop_padding_percent_input.value(), True
         )
         self.edit_dataset_args(
             "is_reg", self.widget.regularization_images_enable.isChecked(), True

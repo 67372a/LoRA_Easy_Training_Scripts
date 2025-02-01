@@ -21,7 +21,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QGridLayout
 
 from modules.CollapsibleWidget import CollapsibleWidget
 from modules.DragDropLineEdit import DragDropLineEdit
-from modules.ScrollOnSelect import (ComboBox, SpinBox)
+from modules.ScrollOnSelect import (ComboBox, SpinBox, DoubleSpinBox)
 
 class Ui_sub_dataset_input(object):
     def setupUi(self, sub_dataset_input):
@@ -134,6 +134,24 @@ class Ui_sub_dataset_input(object):
 
         self.other_form_layout.setWidget(2, QFormLayout.FieldRole, self.caption_extension_selector)
 
+        # Random crop padding
+        self.random_crop_padding_percent_label = QLabel(sub_dataset_input)
+        self.random_crop_padding_percent_label.setObjectName(u"random_crop_padding_percent_label")
+
+        self.other_form_layout.setWidget(3, QFormLayout.LabelRole, self.random_crop_padding_percent_label)
+
+        self.random_crop_padding_percent_input = DoubleSpinBox(sub_dataset_input)
+        self.random_crop_padding_percent_input.setObjectName(u"random_crop_padding_percent_input")
+        self.random_crop_padding_percent_input.setEnabled(True)
+        self.random_crop_padding_percent_input.setFocusPolicy(Qt.StrongFocus)
+        self.random_crop_padding_percent_input.setDecimals(2)
+        self.random_crop_padding_percent_input.setMinimum(0.000000000000000)
+        self.random_crop_padding_percent_input.setMaximum(1.000000000000000)
+        self.random_crop_padding_percent_input.setSingleStep(0.010000000000000)
+
+        self.other_form_layout.setWidget(3, QFormLayout.FieldRole, self.random_crop_padding_percent_input)
+        # Random crop padding
+
 
         self.gridLayout.addLayout(self.other_form_layout, 2, 0, 1, 1)
 
@@ -228,6 +246,11 @@ class Ui_sub_dataset_input(object):
         self.caption_label.setText(QCoreApplication.translate("sub_dataset_input", u"Caption Extension", None))
         self.caption_extension_selector.setItemText(0, QCoreApplication.translate("sub_dataset_input", u".txt", None))
         self.caption_extension_selector.setItemText(1, QCoreApplication.translate("sub_dataset_input", u".caption", None))
+
+        self.random_crop_padding_percent_label.setText(QCoreApplication.translate("sub_dataset_input", u"Random Crop Padding Percent", None))
+#if QT_CONFIG(tooltip)
+        self.random_crop_padding_percent_input.setToolTip(QCoreApplication.translate("sub_dataset_input", u"<html><head/><body><p>The amount to pad the resolution for random cropping, allowing it to jitter / shift more.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
 
 #if QT_CONFIG(tooltip)
         self.caption_extension_selector.setToolTip(QCoreApplication.translate("sub_dataset_input", u"<html><head/><body><p>Caption Extension is how you tell sd-scripts if your caption files are .txt or .caption</p></body></html>", None))
