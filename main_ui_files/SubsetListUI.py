@@ -46,6 +46,7 @@ class SubsetListWidget(QWidget):
         )
         subset.enable_disable_color_aug(self.cache_latents_checked)
         subset.enable_disable_keep_tokens(self.variable_keep_tokens_checked)
+        subset.enable_disable_random_crop_padding_percent(False)
         if not self.elements:
             subset.colap.toggle_collapsed()
             subset.colap.title_frame.setChecked(True)

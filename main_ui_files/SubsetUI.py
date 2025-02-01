@@ -259,6 +259,16 @@ class SubsetWidget(BaseWidget):
             True,
         )
 
+    def enable_disable_random_crop_padding_percent(self, checked: bool) -> None:
+        if "random_crop_padding_percent" in self.dataset_args:
+            del self.dataset_args["random_crop_padding_percent"]
+        self.widget.random_crop_padding_percent_input.setEnabled(not checked)
+        self.edit_dataset_args(
+            "random_crop_padding_percent",
+            False if checked else self.widget.random_crop_padding_percent_input.value(),
+            True,
+        )
+
     def enable_disable_shuffle_caption_modifers(self, checked: bool) -> None:
         args = ["shuffle_caption_sigma"]
         for arg in args:
