@@ -42,7 +42,7 @@ class SubsetListWidget(QWidget):
 
         subset.enable_disable_masked_loss(self.masked_loss_checked)
         subset.enable_disable_random_crop(
-            any([self.masked_loss_checked, self.cache_latents_checked])
+            any([self.masked_loss_checked])
         )
         subset.enable_disable_color_aug(self.cache_latents_checked)
         subset.enable_disable_keep_tokens(self.variable_keep_tokens_checked)
@@ -85,12 +85,12 @@ class SubsetListWidget(QWidget):
         self.masked_loss_checked = checked
         for elem in self.elements:
             elem.enable_disable_masked_loss(checked)
-            elem.enable_disable_random_crop(any([checked, self.cache_latents_checked]))
+            elem.enable_disable_random_crop(any([checked]))
 
     def enable_disable_cache_latents(self, checked: bool) -> None:
         self.cache_latents_checked = checked
         for elem in self.elements:
-            elem.enable_disable_random_crop(any([checked, self.masked_loss_checked]))
+            elem.enable_disable_random_crop(any([self.masked_loss_checked]))
             elem.enable_disable_color_aug(checked)
 
     def enable_disable_variable_keep_tokens(self, checked: bool) -> None:
