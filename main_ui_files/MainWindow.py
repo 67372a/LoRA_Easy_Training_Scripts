@@ -153,10 +153,19 @@ class MainWindow(QMainWindow, QtStyleTools):
                 self.tensorboard_process = None
 
     def closeEvent(self, event):
-        # Add this to your existing closeEvent method or create it if it doesn't exist
+        # Clean up TensorBoard process if it's running
         if hasattr(self, 'tensorboard_process') and self.tensorboard_process is not None:
+            print("Shutting down TensorBoard...")
             self.tensorboard_process.terminate()
+            try:
+                # Wait for process to terminate
+                self.tensorboard_process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                # If process doesn't terminate within 5 seconds, kill it
+                self.tensorboard_process.kill()
             self.tensorboard_process = None
+
+        # Call the parent class closeEvent
         super().closeEvent(event)
 
     def change_theme(
