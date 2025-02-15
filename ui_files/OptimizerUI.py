@@ -229,7 +229,6 @@ class Ui_optimizer_ui(object):
         self.loss_type_selector = ComboBox(self.optimizer_tab_main)
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"L2", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Smooth L1", None))
-        self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"L0", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"X Sigmoid", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Log Cosh", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Standard Pseudo Huber", None))
