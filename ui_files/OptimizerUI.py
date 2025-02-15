@@ -235,7 +235,6 @@ class Ui_optimizer_ui(object):
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Standard Huber", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Standard Smooth L1", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Squared Logarithmic", None))
-        self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Smooth L2 Log", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Soft Welsch", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Scaled Quadratic", None))
         self.loss_type_selector.setObjectName(u"loss_type_selector")

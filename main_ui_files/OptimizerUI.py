@@ -214,7 +214,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.huber_schedule_selector.setEnabled(value not in 
                                                        {"l2", "x_sigmoid", "log_cosh", 
                                                         "standard_pseudo_huber", "standard_huber", "standard_smooth_l1",
-                                                        "squared_logarithmic", "smooth_l2_log","soft_welsch","scaled_quadratic"})
+                                                        "squared_logarithmic", "soft_welsch","scaled_quadratic"})
         self.widget.huber_param_input.setEnabled(value not in {"l2", "x_sigmoid", "log_cosh","squared_logarithmic"})
         self.edit_args("loss_type", value)
         if value in {"l2", "x_sigmoid", "log_cosh","squared_logarithmic"}:
