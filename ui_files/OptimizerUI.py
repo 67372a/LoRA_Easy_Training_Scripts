@@ -184,6 +184,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Lion", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Prodigy", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ProdigyPlusScheduleFree", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ProdigyPlusExMachinaScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"RAdamScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"RMSProp", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"RMSPropADOPT", None))

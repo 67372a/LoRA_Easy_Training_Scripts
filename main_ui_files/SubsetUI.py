@@ -260,8 +260,6 @@ class SubsetWidget(BaseWidget):
         )
 
     def enable_disable_random_crop_padding_percent(self, checked: bool) -> None:
-        if "random_crop_padding_percent" in self.dataset_args:
-            del self.dataset_args["random_crop_padding_percent"]
         self.widget.random_crop_padding_percent_input.setEnabled(not checked)
         self.edit_dataset_args(
             "random_crop_padding_percent",
