@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>edm_loss_UI</class>
+  <widget class="QWidget" name="edm_loss_UI">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>600</width>
+        <height>400</height>
+      </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+      <!-- Enable Section -->
+      <item>
+        <widget class="QCheckBox" name="enable_checkbox">
+          <property name="text">
+            <string>Enable EDM² Loss Weighting</string>
+          </property>
+        </widget>
+      </item>
+      
+      <!-- Optimizer Section -->
+      <item>
+        <widget class="QGroupBox" name="optimizer_group">
+          <property name="title">
+            <string>Optimizer Settings</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Optimizer Type:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="1">
+              <widget class="LineEditWithHighlight" name="optimizer_type_input"/>
+            </item>
+            <item row="1" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Learning Rate:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="1">
+              <widget class="LineEditWithHighlight" name="lr_input"/>
+            </item>
+            <item row="2" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Optimizer Args:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="2" column="1">
+              <widget class="LineEditWithHighlight" name="optimizer_args_input"/>
+            </item>
+            <item row="3" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Max Grad Norm:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="3" column="1">
+              <widget class="LineEditWithHighlight" name="max_grad_norm_input"/>
+            </item>
+          </layout>
+        </widget>
+      </item>
+
+      <!-- Scheduler Section -->
+      <item>
+        <widget class="QGroupBox" name="scheduler_group">
+          <property name="title">
+            <string>Learning Rate Scheduler</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+              <widget class="QCheckBox" name="scheduler_enable">
+                <property name="text">
+                  <string>Enable Scheduler</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Warmup %:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="1">
+              <widget class="DoubleSpinBox" name="warmup_input"/>
+            </item>
+            <item row="2" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Constant %:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="2" column="1">
+              <widget class="DoubleSpinBox" name="constant_input"/>
+            </item>
+          </layout>
+        </widget>
+      </item>
+
+      <!-- Advanced Settings -->
+      <item>
+        <widget class="QGroupBox" name="advanced_group">
+          <property name="title">
+            <string>Advanced Settings</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout_3">
+            <item row="0" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Initial Weights:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="0" column="1">
+              <layout class="QHBoxLayout">
+                <item>
+                  <widget class="DragDropLineEdit" name="initial_weights_input"/>
+                </item>
+                <item>
+                  <widget class="QPushButton" name="initial_weights_button">
+                    <property name="text">
+                      <string/>
+                    </property>
+                  </widget>
+                </item>
+              </layout>
+            </item>
+            <item row="1" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Num Channels:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="1">
+              <widget class="SpinBox" name="num_channels_input"/>
+            </item>
+          </layout>
+        </widget>
+      </item>
+
+      <!-- Graph Settings -->
+      <item>
+        <widget class="QGroupBox" name="graph_group">
+          <property name="title">
+            <string>Graph Settings</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout_4">
+            <item row="0" column="0">
+              <widget class="QCheckBox" name="generate_graph_enable">
+                <property name="text">
+                  <string>Generate Graph</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Graph Output:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="1">
+              <layout class="QHBoxLayout">
+                <item>
+                  <widget class="DragDropLineEdit" name="graph_output_input"/>
+                </item>
+                <item>
+                  <widget class="QPushButton" name="graph_output_button">
+                    <property name="text">
+                      <string/>
+                    </property>
+                  </widget>
+                </item>
+              </layout>
+            </item>
+            <item row="2" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Every X Steps:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="2" column="1">
+              <widget class="SpinBox" name="graph_steps_input"/>
+            </item>
+            <item row="3" column="0">
+              <widget class="QLabel">
+                <property name="text">
+                  <string>Y Limit:</string>
+                </property>
+              </widget>
+            </item>
+            <item row="3" column="1">
+              <widget class="SpinBox" name="graph_y_limit_input"/>
+            </item>
+          </layout>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <customwidgets>
+    <customwidget>
+      <class>LineEditWithHighlight</class>
+      <extends>QLineEdit</extends>
+      <header>modules.LineEditHighlight.h</header>
+    </customwidget>
+    <customwidget>
+      <class>DragDropLineEdit</class>
+      <extends>QLineEdit</extends>
+      <header>modules.DragDropLineEdit.h</header>
+    </customwidget>
+    <customwidget>
+      <class>DoubleSpinBox</class>
+      <extends>QDoubleSpinBox</extends>
+      <header>modules.ScrollOnSelect.h</header>
+    </customwidget>
+    <customwidget>
+      <class>SpinBox</class>
+      <extends>QSpinBox</extends>
+      <header>modules.ScrollOnSelect.h</header>
+    </customwidget>
+  </customwidgets>
+</ui>

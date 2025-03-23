@@ -10,6 +10,7 @@ from main_ui_files.OptimizerUI import OptimizerWidget
 from main_ui_files.SampleUI import SampleWidget
 from main_ui_files.SavingUI import SavingWidget
 from main_ui_files.TextualInversionUI import TextualInversionWidget
+from main_ui_files.EDMLossUI import EDMLossWidget  # Add this import
 from main_ui_files.ExtraArgsUI import ExtraArgsWidget
 from modules.BaseWidget import BaseWidget
 
@@ -80,6 +81,7 @@ class ArgsWidget(QtWidgets.QWidget):
         self.args_widget_array.append(SampleWidget())
         self.args_widget_array.append(LoggingWidget())
         self.args_widget_array.append(self.flux_widget)
+        self.args_widget_array.append(EDMLossWidget())
         self.args_widget_array.append(ExtraArgsWidget())
 
         for widget in self.args_widget_array:
