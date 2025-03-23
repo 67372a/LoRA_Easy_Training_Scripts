@@ -135,6 +135,7 @@ class Ui_optimizer_ui(object):
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.optimizer_type_label)
 
         self.optimizer_type_selector = ComboBox(self.optimizer_tab_main)
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdaGC", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPT", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTAOScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTEMAMixScheduleFree", None))
@@ -192,12 +193,15 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"RMSPropADOPT", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"RMSPropADOPTMARS", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Ranger21", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCION", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SGDNesterov", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SGDNesterov8bit", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SGDNesterovScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SGDSaI", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ScalableShampoo", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ScheduleFreeWrapper", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SimplifiedAdEMAMix", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"StableSPAM", None))
         self.optimizer_type_selector.setObjectName(u"optimizer_type_selector")
         self.optimizer_type_selector.setFocusPolicy(Qt.StrongFocus)
 
