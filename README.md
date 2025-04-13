@@ -2,6 +2,7 @@
 
 ## 4/13/2025 IMPORTANT
 - IMPORTANT: Fixed defect related to Lycoris bypass mode
+
 It came to my attention when I was looking through lycoris code to make enhancements, that the bypass_mode arg was not being properly handled, if you did not explicitly pass false, it would be None, and end up resolving to TRUE. This would end up bypassing weight decomposition for DoRA, as there exists no logic, despite original author's documentation, that it should be overridden to false. Now, i have fixed this in my fork so that bypass mode defaults to FALSE, and if dora is enabled, it will also be forced to false. This may have significant effects how training behaves in cases where bypass_mode was being erroneously being enabled, especially DoRA!
 
 In essence, during the forward pass, weight decomposition for DoRA was not being applied, the bypass route would also not apply DoRA style network decay if set.
