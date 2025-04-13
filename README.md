@@ -7,7 +7,7 @@ It came to my attention when I was looking through lycoris code to make enhancem
 
 In essence, during the forward pass, weight decomposition for DoRA was not being applied, the bypass route would also not apply DoRA style network decay if set.
 
-So, all DoRAs trained without explictly setting bypass_mode to false (which I doubt post people would do) were not trained correctly / fully, as such, the full benefits were not realized.
+So, all DoRAs trained without explictly setting bypass_mode to false (which I doubt most people would do) were not trained correctly / fully, as such, the full benefits were not realized.
 
 ## 1/28/2025 -> 4/13/2025
 - Bunch of things, will try to compile
