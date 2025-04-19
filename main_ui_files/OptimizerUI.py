@@ -211,9 +211,8 @@ class OptimizerWidget(BaseWidget):
         for arg in args:
             if arg in self.args:
                 del self.args[arg]
-        self.widget.huber_schedule_selector.setEnabled(value not in 
-                                                       {"l2", "x_sigmoid", "log_cosh", "squared_logarithmic"})
-        self.widget.huber_param_input.setEnabled(value not in {"l2", "x_sigmoid", "log_cosh","squared_logarithmic"})
+        self.widget.huber_schedule_selector.setEnabled(value not in {"l2", "x_sigmoid", "log_cosh","squared_logarithmic", "focal_frequency", "frequency_distribution"})
+        self.widget.huber_param_input.setEnabled(value not in {"l2", "x_sigmoid", "log_cosh","squared_logarithmic", "focal_frequency", "frequency_distribution"})
         self.edit_args("loss_type", value)
         if value in {"l2", "x_sigmoid", "log_cosh","squared_logarithmic"}:
             return
