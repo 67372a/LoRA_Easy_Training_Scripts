@@ -6,6 +6,9 @@ from main_ui_files.MainUI import MainWidget
 from pathlib import Path
 import json
 from modules.LoraResizePopupUi import LoraResizePopup
+import sys
+
+PLATFORM = "windows" if sys.platform == "win32" else "linux" if sys.platform == "linux" else ""
 
 
 class MainWindow(QMainWindow, QtStyleTools):
@@ -101,7 +104,11 @@ class MainWindow(QMainWindow, QtStyleTools):
             # Construct path to backend's virtual environment
             # Start from the root directory of LoRA_Easy_Training_Scripts
             root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Go up two levels from main_ui_files
-            tensorboard_exe = os.path.join(root_dir, "backend", "sd_scripts", "venv", "Scripts", "tensorboard.exe")
+
+            if PLATFORM == 'windows':
+                tensorboard_exe = os.path.join(root_dir, "backend", "sd_scripts", "venv", "Scripts", "tensorboard.exe")
+            else:
+                tensorboard_exe = os.path.join(root_dir, "backend", "sd_scripts", "venv", "bin", "tensorboard")
 
             print(f"Looking for TensorBoard at: {tensorboard_exe}")
             if not os.path.exists(tensorboard_exe):
