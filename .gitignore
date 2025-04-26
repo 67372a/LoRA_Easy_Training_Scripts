@@ -183,4 +183,4 @@ wd14_tagger_model
 wandb/
 .aiexclude
 config.json
-run.bat
+*.code-workspace
