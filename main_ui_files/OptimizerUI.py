@@ -103,7 +103,7 @@ class OptimizerWidget(BaseWidget):
         value_str_stripped = str(value).strip()
 
         if not value_str_stripped:
-            self.edit_args(name, value_str_stripped, optional)
+            self.edit_args(name, 0.0, optional)
             return
 
         # Regex to check for a valid float or scientific notation number
@@ -119,7 +119,6 @@ class OptimizerWidget(BaseWidget):
             else:
                 for part in parts:
                     if not re.match(float_pattern, part):
-                        print(part)
                         all_parts_valid = False
                         break # Exit loop early if one part is invalid
                     else:
@@ -128,13 +127,13 @@ class OptimizerWidget(BaseWidget):
             if all_parts_valid:
                 super().edit_args(name, float_parts, optional)
             else:
-                super().edit_args(name, value_str_stripped, optional)
+                super().edit_args(name, 0.0, optional)
         else:
             try:
                 value_float = float(value_str_stripped)
                 super().edit_args(name, value_float, optional)
             except ValueError:
-                super().edit_args(name, value_str_stripped, optional)
+                super().edit_args(name, 0.0, optional)
 
 
     @Slot(object)
