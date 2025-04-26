@@ -91,18 +91,24 @@ Manual method below for those that want it.
 ```
 git clone https://github.com/67372a/LoRA_Easy_Training_Scripts
 cd LoRA_Easy_Training_Scripts
-git submodule init
-git submodule update
-cd sd_scripts
-python3.10 -m venv venv //python3.10 and 3.11 both work
+git submodule init --recursive
+git submodule update --recursive
+python -m venv venv
 source venv/bin/activate
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
-pip install xformers --index-url https://download.pytorch.org/whl/cu124
-pip install -r ../requirements_ui.txt
-pip install ../LyCORIS/.
+
+cd backend/sd_scripts
+python -m venv venv
+source venv/bin/activate
+pip install -U typing-extensions==4.12.2
+pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+pip install xformers==v0.0.29.post3 --index-url https://download.pytorch.org/whl/cu124
+pip install -U --force-reinstall --no-deps ../installables/lycoris_lora-3.1.1.post1-py3-none-any.whl
+pip install -U --no-deps torchao --index-url https://download.pytorch.org/whl/cu124
+pip install -r requirements.txt
+pip install -r ../requirements.txt
 pip install ../custom_scheduler/.
-pip install bitsandbytes
+pip install -U ../custom_scheduler/.
 accelerate config
 ```
 
