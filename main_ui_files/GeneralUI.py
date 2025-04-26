@@ -76,6 +76,9 @@ class GeneralWidget(BaseWidget):
         self.widget.v_pred_enable.clicked.connect(
             lambda x: self.edit_args("scale_v_pred_loss_like_noise_pred", x, True)
         )
+        self.widget.debiased_estimation_loss_enable.clicked.connect(
+            lambda x: self.edit_args("debiased_estimation_loss", x, True)
+        )
         self.widget.FP16_enable.clicked.connect(lambda x: self.change_full_type(x, False))
         self.widget.BF16_enable.clicked.connect(lambda x: self.change_full_type(False, x))
         self.widget.FP8_enable.clicked.connect(lambda x: self.edit_args("fp8_base", x, True))
@@ -275,6 +278,7 @@ class GeneralWidget(BaseWidget):
         self.widget.high_vram_enable.setChecked(args.get("highvram", False))
         self.widget.v_param_enable.setChecked(args.get("v_parameterization", False))
         self.widget.v_pred_enable.setChecked(args.get("scale_v_pred_loss_like_noise_pred", False))
+        self.widget.debiased_estimation_loss_enable.setChecked(args.get("debiased_estimation_loss", False))
         self.widget.FP16_enable.setChecked(args.get("full_fp16", False))
         self.widget.BF16_enable.setChecked(args.get("full_bf16", False))
         self.widget.FP8_enable.setChecked(args.get("fp8_base", False))
@@ -314,6 +318,8 @@ class GeneralWidget(BaseWidget):
         self.edit_args("lowram", self.widget.low_ram_enable.isChecked(), True)
         self.edit_args("highvram", self.widget.high_vram_enable.isChecked(), True)
         self.enable_disable_v_param(self.widget.v_param_enable.isChecked())
+        # Update args for the new debiased estimation loss checkbox
+        self.edit_args("debiased_estimation_loss", self.widget.debiased_estimation_loss_enable.isChecked(), True)
         self.change_full_type(self.widget.FP16_enable.isChecked(), self.widget.BF16_enable.isChecked())
         self.edit_args("fp8_base", self.widget.FP8_enable.isChecked(), True)
         self.edit_args(

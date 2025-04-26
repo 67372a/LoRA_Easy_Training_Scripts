@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QGridLayout,
     QGroupBox, QHBoxLayout, QLabel, QPushButton,
-    QSizePolicy, QTextEdit, QWidget)
+    QSizePolicy, QTextEdit, QWidget, QSpacerItem)
 
 from modules.DragDropLineEdit import DragDropLineEdit
 from modules.LineEditHighlight import LineEditWithHighlight
@@ -27,7 +27,7 @@ class Ui_base_args_ui(object):
     def setupUi(self, base_args_ui):
         if not base_args_ui.objectName():
             base_args_ui.setObjectName(u"base_args_ui")
-        base_args_ui.resize(553, 548)
+        base_args_ui.resize(553, 568) # Adjusted height slightly
         self.gridLayout_3 = QGridLayout(base_args_ui)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.formLayout_6 = QFormLayout()
@@ -273,7 +273,7 @@ class Ui_base_args_ui(object):
 
         self.base_model_box = QGroupBox(base_args_ui)
         self.base_model_box.setObjectName(u"base_model_box")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred) # Changed to Preferred
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.base_model_box.sizePolicy().hasHeightForWidth())
@@ -331,6 +331,21 @@ class Ui_base_args_ui(object):
 
 
         self.formLayout_3.setLayout(3, QFormLayout.SpanningRole, self.horizontalLayout_6)
+
+        # --- Start Added Code ---
+        self.horizontalLayout_debiased = QHBoxLayout()
+        self.horizontalLayout_debiased.setObjectName(u"horizontalLayout_debiased")
+        self.debiased_estimation_loss_enable = QCheckBox(self.base_model_box)
+        self.debiased_estimation_loss_enable.setObjectName(u"debiased_estimation_loss_enable")
+        self.horizontalLayout_debiased.addWidget(self.debiased_estimation_loss_enable)
+
+        # Add spacer to push checkbox to the left if desired, otherwise remove spacer
+        spacerItem = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_debiased.addItem(spacerItem)
+
+        self.formLayout_3.setLayout(4, QFormLayout.SpanningRole, self.horizontalLayout_debiased)
+        # --- End Added Code ---
+
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -544,6 +559,10 @@ class Ui_base_args_ui(object):
         self.v_pred_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Scales the loss to be in line with EDM</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.v_pred_enable.setText(QCoreApplication.translate("base_args_ui", u"Scale V pred loss", None))
+#if QT_CONFIG(tooltip)
+        self.debiased_estimation_loss_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Enable debiased estimation loss.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.debiased_estimation_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"Debiased Estimation", None))
 #if QT_CONFIG(tooltip)
         self.FP16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows training on full fp16. Not compatable with full bf16 or training precision</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
