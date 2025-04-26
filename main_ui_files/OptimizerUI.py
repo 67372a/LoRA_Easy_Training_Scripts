@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QWidget
 from ui_files.OptimizerUI import Ui_optimizer_ui
 from modules.BaseWidget import BaseWidget
 from modules.OptimizerItem import OptimizerItem
+import re
 
 
 class OptimizerWidget(BaseWidget):
@@ -54,7 +55,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.unet_lr_input.textChanged.connect(lambda x: self.edit_lr("unet_lr", x, True))
         self.widget.poly_power_input.valueChanged.connect(lambda x: self.edit_args("lr_scheduler_power", x))
         self.widget.te_lr_enable.clicked.connect(self.enable_disable_te)
-        self.widget.te_lr_input.textChanged.connect(lambda x: self.edit_lr("text_encoder_lr", x))
+        self.widget.te_lr_input.textChanged.connect(lambda x: self.edit_te_lr("text_encoder_lr", x, True))
         self.widget.gamma_input.valueChanged.connect(lambda x: self.edit_lr_args("gamma", 1 - x))
         self.widget.scale_weight_enable.clicked.connect(self.enable_disable_scale_weight_norms)
         self.widget.scale_weight_input.valueChanged.connect(
@@ -92,6 +93,49 @@ class OptimizerWidget(BaseWidget):
             except ValueError:
                 return
         self.args["lr_scheduler_args"][name] = value
+
+    @Slot(str)
+    def edit_te_lr(self, name: str, value: object, optional: bool = False) -> None:
+        """Handles text changes for Text Encoder LR input.
+        Allows single float values or comma-separated strings representing floats.
+        Updates the 'text_encoder_lr' argument in self.args.
+        """
+        value_str_stripped = str(value).strip()
+
+        if not value_str_stripped:
+            self.edit_args(name, value_str_stripped, optional)
+            return
+
+        # Regex to check for a valid float or scientific notation number
+        float_pattern = r"^\s*[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?\s*$"
+
+        if ',' in value_str_stripped:
+            # Contains comma, treat as multiple LRs. Store as string.
+            parts = [p.strip() for p in value_str_stripped.split(',') if p.strip()]
+            all_parts_valid = True
+            float_parts = []
+            if not parts: # Only commas or whitespace resulted in empty list
+                all_parts_valid = False
+            else:
+                for part in parts:
+                    if not re.match(float_pattern, part):
+                        print(part)
+                        all_parts_valid = False
+                        break # Exit loop early if one part is invalid
+                    else:
+                        float_parts.append(float(part))
+
+            if all_parts_valid:
+                super().edit_args(name, float_parts, optional)
+            else:
+                super().edit_args(name, value_str_stripped, optional)
+        else:
+            try:
+                value_float = float(value_str_stripped)
+                super().edit_args(name, value_float, optional)
+            except ValueError:
+                super().edit_args(name, value_str_stripped, optional)
+
 
     @Slot(object)
     def remove_optimizer_arg(self, widget: OptimizerItem):
@@ -247,7 +291,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.te_lr_input.setEnabled(checked)
         if not checked:
             return
-        self.edit_lr("text_encoder_lr", self.widget.te_lr_input.text(), True)
+        self.edit_te_lr("text_encoder_lr", self.widget.te_lr_input.text(), True)
 
     @Slot(bool)
     def enable_disable_scale_weight_norms(self, checked: bool) -> None:
@@ -301,7 +345,16 @@ class OptimizerWidget(BaseWidget):
         self.widget.unet_lr_input.setText(str(args.get("unet_lr", "1e-4")))
         self.widget.poly_power_input.setValue(args.get("lr_scheduler_power", 1.0))
         self.widget.te_lr_enable.setChecked(bool(args.get("text_encoder_lr", False)))
-        self.widget.te_lr_input.setText(str(args.get("text_encoder_lr", "1e-4")))
+        te_lr_value = args.get("text_encoder_lr", "1e-4")
+
+        if isinstance(te_lr_value, list):
+            # Convert list back to comma-separated string for display
+            te_lr_display_text = ", ".join(map(str, te_lr_value))
+        elif te_lr_value is not None: # Handles float, int, or string representations
+            te_lr_display_text = str(te_lr_value)
+
+        self.widget.te_lr_input.setText(te_lr_display_text)
+
         self.widget.gamma_input.setValue(round(1 - args.get("lr_scheduler_args", {}).get("gamma", 0.9), 2))
         self.widget.scale_weight_enable.setChecked(bool(args.get("scale_weight_norms", False)))
         self.widget.scale_weight_input.setValue(args.get("scale_weight_norms", 1.0))
@@ -332,6 +385,7 @@ class OptimizerWidget(BaseWidget):
         self.edit_lr("learning_rate", self.widget.main_lr_input.text())
         self.enable_disable_warmup(self.widget.warmup_enable.isChecked())
         self.enable_disable_unet(self.widget.unet_lr_enable.isChecked())
+        self.edit_te_lr("text_encoder_lr", te_lr_display_text)
         self.enable_disable_te(self.widget.te_lr_enable.isChecked())
         self.enable_disable_scale_weight_norms(self.widget.scale_weight_enable.isChecked())
         self.edit_args("max_grad_norm", self.widget.max_grad_norm_input.value())

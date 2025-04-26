@@ -432,11 +432,15 @@ class Ui_optimizer_ui(object):
         self.unet_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"1e-4", None))
         self.unet_lr_input.setPlaceholderText(QCoreApplication.translate("optimizer_ui", u"Unet Learning Rate", None))
 #if QT_CONFIG(tooltip)
-        self.te_lr_enable.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>TE Learning Rate is the base learning rate for the Text Encoder</p></body></html>", None))
+       
 #endif // QT_CONFIG(tooltip)
         self.te_lr_enable.setText(QCoreApplication.translate("optimizer_ui", u"TE Learning Rate", None))
 #if QT_CONFIG(tooltip)
-        self.te_lr_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>TE Learning Rate is the base learning rate for the Text Encoder</p></body></html>", None))
+        self.te_lr_input.setToolTip(
+            "TE Learning Rate is the base learning rate for the Text Encoder.\n"
+            "Can accept a single value (e.g., 1e-5) or multiple comma-separated values (e.g., 1e-5, 5e-6)."
+        )
+        self.te_lr_enable.setToolTip(self.te_lr_input.toolTip())
 #endif // QT_CONFIG(tooltip)
         self.te_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"1e-4", None))
         self.te_lr_input.setPlaceholderText(QCoreApplication.translate("optimizer_ui", u"TE Learning Rate", None))
