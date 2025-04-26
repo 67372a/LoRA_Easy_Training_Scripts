@@ -63,9 +63,9 @@ class Ui_logging_ui(object):
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_2)
 
         self.log_mode_selector = ComboBox(self.logging_group)
-        self.log_mode_selector.addItem("")
-        self.log_mode_selector.addItem("")
-        self.log_mode_selector.addItem("")
+        self.log_mode_selector.addItem(QCoreApplication.translate("logging_ui", u"Tensorboard", None))
+        self.log_mode_selector.addItem(QCoreApplication.translate("logging_ui", u"Wandb", None))
+        self.log_mode_selector.addItem(QCoreApplication.translate("logging_ui", u"All", None))      
         self.log_mode_selector.setObjectName(u"log_mode_selector")
         self.log_mode_selector.setFocusPolicy(Qt.StrongFocus)
 
@@ -129,9 +129,6 @@ class Ui_logging_ui(object):
         self.label_2.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Logging System is the system that is used to log values such as LRs and loss</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_2.setText(QCoreApplication.translate("logging_ui", u"Logging System", None))
-        self.log_mode_selector.setItemText(0, QCoreApplication.translate("logging_ui", u"Tensorboard", None))
-        self.log_mode_selector.setItemText(1, QCoreApplication.translate("logging_ui", u"Wandb", None))
-        self.log_mode_selector.setItemText(2, QCoreApplication.translate("logging_ui", u"All", None))
 
 #if QT_CONFIG(tooltip)
         self.log_mode_selector.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Logging System is the system that is used to log values such as LRs and loss</p></body></html>", None))
