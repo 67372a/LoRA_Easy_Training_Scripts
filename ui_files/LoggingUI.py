@@ -27,8 +27,8 @@ class Ui_logging_ui(object):
     def setupUi(self, logging_ui):
         if not logging_ui.objectName():
             logging_ui.setObjectName(u"logging_ui")
-        # Increased height slightly to accommodate the change
-        logging_ui.resize(440, 230)
+        # Increased height further to accommodate two more rows
+        logging_ui.resize(440, 290) # Increased height
         logging_ui.setMinimumSize(QSize(440, 0))
         self.verticalLayout = QVBoxLayout(logging_ui)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -68,7 +68,7 @@ class Ui_logging_ui(object):
         self.horizontalLayout.addWidget(self.log_output_selector)
         self.formLayout.setLayout(1, QFormLayout.FieldRole, self.horizontalLayout)
 
-        # Row 2: Log Prefix Mode (NEW)
+        # Row 2: Log Prefix Mode
         self.log_prefix_mode_label = QLabel(self.logging_group)
         self.log_prefix_mode_label.setObjectName(u"log_prefix_mode_label")
         self.formLayout.setWidget(2, QFormLayout.LabelRole, self.log_prefix_mode_label)
@@ -81,38 +81,57 @@ class Ui_logging_ui(object):
         self.log_prefix_mode_selector.setFocusPolicy(Qt.StrongFocus)
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.log_prefix_mode_selector)
 
-        # Row 3: Manual Log Prefix (Previously Row 2 Field)
-        self.manual_log_prefix_label = QLabel(self.logging_group) # Optional: Add label for clarity
+        # Row 3: Manual Log Prefix
+        self.manual_log_prefix_label = QLabel(self.logging_group)
         self.manual_log_prefix_label.setObjectName(u"manual_log_prefix_label")
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.manual_log_prefix_label)
 
         self.log_prefix_input = LineEditWithHighlight(self.logging_group)
         self.log_prefix_input.setObjectName(u"log_prefix_input")
-        # Start disabled, enabled only when "Manual" mode is selected
-        self.log_prefix_input.setEnabled(False)
+        self.log_prefix_input.setEnabled(False) # Start disabled
         self.formLayout.setWidget(3, QFormLayout.FieldRole, self.log_prefix_input)
 
+        # Row 4: Run Name Mode (NEW)
+        self.run_name_mode_label = QLabel(self.logging_group)
+        self.run_name_mode_label.setObjectName(u"run_name_mode_label")
+        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.run_name_mode_label)
 
-        # Row 4: Log Tracker Name (Shifted down)
+        self.run_name_mode_selector = ComboBox(self.logging_group)
+        self.run_name_mode_selector.addItem(QCoreApplication.translate("logging_ui", u"Default", None))
+        self.run_name_mode_selector.addItem(QCoreApplication.translate("logging_ui", u"Manual", None))
+        self.run_name_mode_selector.addItem(QCoreApplication.translate("logging_ui", u"Output Name", None))
+        self.run_name_mode_selector.setObjectName(u"run_name_mode_selector")
+        self.run_name_mode_selector.setFocusPolicy(Qt.StrongFocus)
+        self.formLayout.setWidget(4, QFormLayout.FieldRole, self.run_name_mode_selector)
+
+        # Row 5: Manual Run Name (NEW)
+        self.manual_run_name_label = QLabel(self.logging_group)
+        self.manual_run_name_label.setObjectName(u"manual_run_name_label")
+        self.formLayout.setWidget(5, QFormLayout.LabelRole, self.manual_run_name_label)
+
+        self.run_name_input = LineEditWithHighlight(self.logging_group)
+        self.run_name_input.setObjectName(u"run_name_input")
+        self.run_name_input.setEnabled(False) # Start disabled
+        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.run_name_input)
+
+        # Row 6: Log Tracker Name (Shifted down)
         self.log_tracker_name_enable = QCheckBox(self.logging_group)
         self.log_tracker_name_enable.setObjectName(u"log_tracker_name_enable")
-        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.log_tracker_name_enable)
+        self.formLayout.setWidget(6, QFormLayout.LabelRole, self.log_tracker_name_enable) # Row index changed
 
         self.log_tracker_name_input = LineEditWithHighlight(self.logging_group)
         self.log_tracker_name_input.setObjectName(u"log_tracker_name_input")
-        self.formLayout.setWidget(4, QFormLayout.FieldRole, self.log_tracker_name_input)
+        self.formLayout.setWidget(6, QFormLayout.FieldRole, self.log_tracker_name_input) # Row index changed
 
 
-        # Row 5: Wandb API Key (Shifted down)
+        # Row 7: Wandb API Key (Shifted down)
         self.label_5 = QLabel(self.logging_group)
         self.label_5.setObjectName(u"label_5")
-        self.formLayout.setWidget(5, QFormLayout.LabelRole, self.label_5)
+        self.formLayout.setWidget(7, QFormLayout.LabelRole, self.label_5) # Row index changed
 
         self.log_wandb_key_input = LineEditWithHighlight(self.logging_group)
         self.log_wandb_key_input.setObjectName(u"log_wandb_key_input")
-        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.log_wandb_key_input)
-
-        # Removed: self.log_prefix_enable (QCheckBox)
+        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.log_wandb_key_input) # Row index changed
 
         self.verticalLayout.addWidget(self.logging_group)
 
@@ -148,7 +167,7 @@ class Ui_logging_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.log_output_selector.setText("")
 
-        # Row 2: Log Prefix Mode (NEW)
+        # Row 2: Log Prefix Mode
 #if QT_CONFIG(tooltip)
         self.log_prefix_mode_label.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Determines how the log folder prefix is set.</p><p>- Disabled: No prefix is used.</p><p>- Manual: Use the prefix entered below.</p><p>- Output Name: Use the 'Output Name' specified in the Saving Args section (if provided).</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -161,23 +180,42 @@ class Ui_logging_ui(object):
 #if QT_CONFIG(tooltip)
         self.manual_log_prefix_label.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Prefix For Log Folders prepends the log directory with a user provided prefix. Typically this is used to allow for an easier time differentiating different runs. Only used when 'Log Prefix Mode' is set to 'Manual'.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.manual_log_prefix_label.setText(QCoreApplication.translate("logging_ui", u"Manual Prefix", None)) # Label text
+        self.manual_log_prefix_label.setText(QCoreApplication.translate("logging_ui", u"Manual Prefix", None))
 #if QT_CONFIG(tooltip)
         self.log_prefix_input.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Prefix For Log Folders prepends the log directory with a user provided prefix. Typically this is used to allow for an easier time differentiating different runs. Only used when 'Log Prefix Mode' is set to 'Manual'.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.log_prefix_input.setPlaceholderText(QCoreApplication.translate("logging_ui", u"Prefix (Manual Mode)", None)) # Updated placeholder
+        self.log_prefix_input.setPlaceholderText(QCoreApplication.translate("logging_ui", u"Prefix (Manual Mode)", None))
 
-        # Row 4: Log Tracker Name
+        # Row 4: Run Name Mode (NEW)
 #if QT_CONFIG(tooltip)
-        self.log_tracker_name_enable.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Name For Log Tracker is the name of the log tracker.</p></body></html>", None))
+        self.run_name_mode_label.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Determines how the run name for logging (e.g., WandB run name) is set.</p><p>- Default: Use default naming (often timestamp-based).</p><p>- Manual: Use the run name entered below.</p><p>- Output Name: Use the 'Output Name' specified in the Saving Args section (if provided).</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.log_tracker_name_enable.setText(QCoreApplication.translate("logging_ui", u"Name For Log Tracker", None))
+        self.run_name_mode_label.setText(QCoreApplication.translate("logging_ui", u"Run Name Mode", None))
 #if QT_CONFIG(tooltip)
-        self.log_tracker_name_input.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Name For Log Tracker is the name of the log tracker.</p></body></html>", None))
+        self.run_name_mode_selector.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Determines how the run name for logging (e.g., WandB run name) is set.</p><p>- Disabled: Use default naming (often timestamp-based).</p><p>- Manual: Use the run name entered below.</p><p>- Output Name: Use the 'Output Name' specified in the Saving Args section (if provided).</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.log_tracker_name_input.setPlaceholderText(QCoreApplication.translate("logging_ui", u"Tracker Name", None))
 
-        # Row 5: Wandb API Key
+        # Row 5: Manual Run Name (NEW)
+#if QT_CONFIG(tooltip)
+        self.manual_run_name_label.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Specify a custom name for this training run in the logging system (e.g., WandB). Only used when 'Run Name Mode' is set to 'Manual'.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.manual_run_name_label.setText(QCoreApplication.translate("logging_ui", u"Manual Run Name", None))
+#if QT_CONFIG(tooltip)
+        self.run_name_input.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Specify a custom name for this training run in the logging system (e.g., WandB). Only used when 'Run Name Mode' is set to 'Manual'.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.run_name_input.setPlaceholderText(QCoreApplication.translate("logging_ui", u"Run Name (Manual Mode)", None))
+
+        # Row 6: Log Tracker Name
+#if QT_CONFIG(tooltip)
+        self.log_tracker_name_enable.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Name For Log Tracker is the name of the log tracker project (e.g., WandB project name).</p></body></html>", None)) # Clarified tooltip
+#endif // QT_CONFIG(tooltip)
+        self.log_tracker_name_enable.setText(QCoreApplication.translate("logging_ui", u"Log Tracker Project Name", None)) # Clarified text
+#if QT_CONFIG(tooltip)
+        self.log_tracker_name_input.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Name For Log Tracker is the name of the log tracker project (e.g., WandB project name).</p></body></html>", None)) # Clarified tooltip
+#endif // QT_CONFIG(tooltip)
+        self.log_tracker_name_input.setPlaceholderText(QCoreApplication.translate("logging_ui", u"Tracker Project Name", None)) # Clarified placeholder
+
+        # Row 7: Wandb API Key
 #if QT_CONFIG(tooltip)
         self.label_5.setToolTip(QCoreApplication.translate("logging_ui", u"<html><head/><body><p>Wandb API Key is a required field so that sd-scripts is able to interface with your Wandb account to log to it, without this key, it cannot log to Wandb</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -187,7 +225,4 @@ class Ui_logging_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.log_wandb_key_input.setPlaceholderText(QCoreApplication.translate("logging_ui", u"API Key", None))
 
-        # Removed retranslate for log_prefix_enable
-
     # retranslateUi
-
