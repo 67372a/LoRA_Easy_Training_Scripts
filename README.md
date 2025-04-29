@@ -91,8 +91,7 @@ Manual method below for those that want it.
 ```
 git clone https://github.com/67372a/LoRA_Easy_Training_Scripts
 cd LoRA_Easy_Training_Scripts
-git submodule init --recursive
-git submodule update --recursive
+git submodule update --init --recursive
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt

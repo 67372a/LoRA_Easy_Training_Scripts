@@ -14,7 +14,7 @@ def main():
     config = Path("config.json")
     config_dict = json.loads(config.read_text()) if config.exists() else {}
     if "run_local" in config_dict and config_dict["run_local"]:
-        check_call("git submodule update", shell=platform == "linux")
+        check_call("git submodule update --init --recursive", shell=platform == "linux")
         os.chdir("backend")
         check_call(
             f"{backend_python} updater.py",

@@ -50,8 +50,7 @@ def main():
     config_dict["run_local"] = True
     config.write_text(json.dumps(config_dict, indent=2))
 
-    subprocess.check_call("git submodule init", shell=sys.platform == "linux")
-    subprocess.check_call("git submodule update", shell=sys.platform == "linux")
+    subprocess.check_call("git submodule update --init --recursive", shell=sys.platform == "linux")
     os.chdir(Path("backend"))
     subprocess.check_call(f"{python} installer.py local", shell=sys.platform == "linux")
 
