@@ -167,7 +167,7 @@ class NetworkWidget(BaseWidget):
         self.widget.bypass_mode_enable.setEnabled(self.lycoris and not dora)
         self.edit_network_args(
             "bypass_mode",
-            self.widget.bypass_mode_enable.isChecked() if self.lycoris else False,
+            self.widget.bypass_mode_enable.isChecked() if self.lycoris and not dora else False,
             True,
         )
         self.toggle_dylora(algo == "dylora")
@@ -310,7 +310,7 @@ class NetworkWidget(BaseWidget):
         )
 
     def toggle_dora_bypass(self, dora: bool, bypass: bool) -> None:
-        if bypass:
+        if bypass or self.widget.algo_select.currentText().lower() == "glora":
             self.widget.dora_enable.setChecked(False)
             dora = False
         self.widget.dora_enable.setEnabled(
@@ -392,6 +392,7 @@ class NetworkWidget(BaseWidget):
                 "boft": "BOFT",
                 "diag-oft": "Diag-OFT",
                 "full": "Full",
+                "glora": "GLoRA",
             }
             self.widget.algo_select.setCurrentText(algo_modes[network_args["algo"]])
 

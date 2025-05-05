@@ -371,18 +371,6 @@ class Ui_network_ui(object):
         self.algo_select.setObjectName(u"algo_select")
         self.algo_select.setFocusPolicy(Qt.StrongFocus)
 
-        self.algo_select.setItemText(0, QCoreApplication.translate("network_ui", u"LoRA", None))
-        self.algo_select.setItemText(1, QCoreApplication.translate("network_ui", u"LoCon", None))
-        self.algo_select.setItemText(2, QCoreApplication.translate("network_ui", u"LoCon (LyCORIS)", None))
-        self.algo_select.setItemText(3, QCoreApplication.translate("network_ui", u"LoHa", None))
-        self.algo_select.setItemText(4, QCoreApplication.translate("network_ui", u"IA3", None))
-        self.algo_select.setItemText(5, QCoreApplication.translate("network_ui", u"Lokr", None))
-        self.algo_select.setItemText(6, QCoreApplication.translate("network_ui", u"DyLoRA", None))
-        self.algo_select.setItemText(7, QCoreApplication.translate("network_ui", u"BOFT", None))
-        self.algo_select.setItemText(8, QCoreApplication.translate("network_ui", u"Diag-OFT", None))
-        self.algo_select.setItemText(9, QCoreApplication.translate("network_ui", u"Full", None))
-
-
         self.gridLayout.addWidget(self.algo_select, 0, 0, 1, 2)
 
         self.tabWidget.addTab(self.main_tab, "")
