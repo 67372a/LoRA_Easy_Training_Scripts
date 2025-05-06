@@ -310,7 +310,7 @@ class NetworkWidget(BaseWidget):
         )
 
     def toggle_dora_bypass(self, dora: bool, bypass: bool) -> None:
-        if bypass or self.widget.algo_select.currentText().lower() == "glora":
+        if bypass or self.widget.algo_select.currentText().lower() in {"glora", "glora-ex"}:
             self.widget.dora_enable.setChecked(False)
             dora = False
         self.widget.dora_enable.setEnabled(
@@ -393,6 +393,7 @@ class NetworkWidget(BaseWidget):
                 "diag-oft": "Diag-OFT",
                 "full": "Full",
                 "glora": "GLoRA",
+                "glora-ex": "GLoRA-Ex",
             }
             self.widget.algo_select.setCurrentText(algo_modes[network_args["algo"]])
 
