@@ -317,7 +317,7 @@ class NetworkWidget(BaseWidget):
             not bypass
             and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr"}
         )
-        self.widget.bypass_mode_enable.setEnabled(not dora)
+        self.widget.bypass_mode_enable.setEnabled(not dora and not self.widget.algo_select.currentText().lower() == "glora-ex")
         self.edit_network_args("dora_wd", dora if self.widget.dora_enable.isEnabled() else False, True)
         self.edit_network_args(
             "bypass_mode",
