@@ -151,8 +151,9 @@ class Ui_network_ui(object):
         self.conv_dim_input.setObjectName(u"conv_dim_input")
         self.conv_dim_input.setEnabled(False)
         self.conv_dim_input.setFocusPolicy(Qt.StrongFocus)
+        self.conv_dim_input.setMinimum(-1)
         self.conv_dim_input.setMaximum(16777215)
-        self.conv_dim_input.setValue(32)
+        self.conv_dim_input.setValue(16)
 
         self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.conv_dim_input)
 
@@ -167,7 +168,7 @@ class Ui_network_ui(object):
         self.conv_alpha_input.setEnabled(False)
         self.conv_alpha_input.setFocusPolicy(Qt.StrongFocus)
         self.conv_alpha_input.setMaximum(16777215.000000000000000)
-        self.conv_alpha_input.setValue(16.000000000000000)
+        self.conv_alpha_input.setValue(32.000000000000000)
 
         self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.conv_alpha_input)
 
@@ -314,9 +315,9 @@ class Ui_network_ui(object):
         self.network_dim_input.setObjectName(u"network_dim_input")
         self.network_dim_input.setMaximumSize(QSize(16777215, 16777215))
         self.network_dim_input.setFocusPolicy(Qt.StrongFocus)
-        self.network_dim_input.setMinimum(1)
+        self.network_dim_input.setMinimum(-1)
         self.network_dim_input.setMaximum(16777215)
-        self.network_dim_input.setValue(32)
+        self.network_dim_input.setValue(16)
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.network_dim_input)
 
@@ -331,7 +332,7 @@ class Ui_network_ui(object):
         self.network_alpha_input.setFocusPolicy(Qt.StrongFocus)
         self.network_alpha_input.setDecimals(2)
         self.network_alpha_input.setMaximum(16777215.000000000000000)
-        self.network_alpha_input.setValue(16.000000000000000)
+        self.network_alpha_input.setValue(32.000000000000000)
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.network_alpha_input)
 
