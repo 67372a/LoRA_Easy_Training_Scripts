@@ -151,7 +151,7 @@ class Ui_network_ui(object):
         self.conv_dim_input.setObjectName(u"conv_dim_input")
         self.conv_dim_input.setEnabled(False)
         self.conv_dim_input.setFocusPolicy(Qt.StrongFocus)
-        self.conv_dim_input.setMinimum(-1)
+        self.conv_dim_input.setMinimum(0)
         self.conv_dim_input.setMaximum(16777215)
         self.conv_dim_input.setValue(16)
 
@@ -315,7 +315,7 @@ class Ui_network_ui(object):
         self.network_dim_input.setObjectName(u"network_dim_input")
         self.network_dim_input.setMaximumSize(QSize(16777215, 16777215))
         self.network_dim_input.setFocusPolicy(Qt.StrongFocus)
-        self.network_dim_input.setMinimum(-1)
+        self.network_dim_input.setMinimum(1)
         self.network_dim_input.setMaximum(16777215)
         self.network_dim_input.setValue(16)
 
