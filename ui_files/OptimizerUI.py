@@ -158,6 +158,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassADOPT", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassADOPTMARS", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassPlus", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CStableAdamW", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DAdaptAdaGrad", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DAdaptAdam", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"DAdaptAdan", None))
