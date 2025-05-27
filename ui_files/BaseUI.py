@@ -257,6 +257,7 @@ class Ui_base_args_ui(object):
         self.grad_accumulation_input.setEnabled(False)
         self.grad_accumulation_input.setFocusPolicy(Qt.StrongFocus)
         self.grad_accumulation_input.setMinimum(1)
+        self.grad_accumulation_input.setMaximum(999)
 
         self.gridLayout.addWidget(self.grad_accumulation_input, 1, 1, 1, 1)
 
