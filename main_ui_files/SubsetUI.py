@@ -90,7 +90,7 @@ class SubsetWidget(BaseWidget):
             lambda x: self.edit_dataset_args("random_crop", x, True)
         )
         self.widget.random_crop_padding_percent_input.valueChanged.connect(
-            lambda x: self.edit_dataset_args("random_crop_padding_percent", x, True)
+            lambda x: self.edit_dataset_args("random_crop_padding_percent", x, False)
         )
 
         self.widget.caption_extension_selector.currentTextChanged.connect(
