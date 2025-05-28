@@ -263,7 +263,7 @@ class SubsetWidget(BaseWidget):
         self.widget.random_crop_padding_percent_input.setEnabled(not checked)
         self.edit_dataset_args(
             "random_crop_padding_percent",
-            False if checked else self.widget.random_crop_padding_percent_input.value(),
+            self.widget.random_crop_padding_percent_input.value(),
             True,
         )
 
@@ -383,7 +383,7 @@ class SubsetWidget(BaseWidget):
             "caption_extension", self.widget.caption_extension_selector.currentText()
         )
         self.edit_dataset_args(
-            "random_crop_padding_percent", self.widget.random_crop_padding_percent_input.value(), True
+            "random_crop_padding_percent", self.widget.random_crop_padding_percent_input.value(), False
         )
         self.edit_dataset_args(
             "is_reg", self.widget.regularization_images_enable.isChecked(), True
