@@ -161,7 +161,7 @@ class NetworkWidget(BaseWidget):
         self.toggle_kohya(algo in {"lora", "locon", "dylora"})
         dora = self.toggle_lycoris(
             algo not in {"lora", "locon", "dylora"},
-            algo in {"locon (lycoris)", "loha", "lokr"},
+            algo in {"locon (lycoris)", "loha", "lokr", "abba"},
         )
         self.lycoris = algo not in {"lora", "locon", "dylora"}
         self.widget.bypass_mode_enable.setEnabled(self.lycoris and not dora)
@@ -174,7 +174,7 @@ class NetworkWidget(BaseWidget):
         self.toggle_block_weight(algo in {"lora", "locon", "dylora"}, algo == "lora")
         self.toggle_dropout(
             algo != "ia3",
-            algo in {"locon (lycoris)", "loha", "lokr"} and self.widget.dora_enable.isChecked(),
+            algo in {"locon (lycoris)", "loha", "lokr", "abba"} and self.widget.dora_enable.isChecked(),
         )
 
     def change_min_timestep(self, value: int) -> None:
@@ -310,14 +310,14 @@ class NetworkWidget(BaseWidget):
         )
 
     def toggle_dora_bypass(self, dora: bool, bypass: bool) -> None:
-        if bypass or self.widget.algo_select.currentText().lower() in {"glora", "glora-ex", "abba"}:
+        if bypass or self.widget.algo_select.currentText().lower() in {"glora", "glora-ex"}:
             self.widget.dora_enable.setChecked(False)
             dora = False
         self.widget.dora_enable.setEnabled(
             not bypass
-            and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr"}
+            and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr", "abba"}
         )
-        self.widget.bypass_mode_enable.setEnabled(not dora and not self.widget.algo_select.currentText().lower() == "glora-ex" and not self.widget.algo_select.currentText().lower() == "abba")
+        self.widget.bypass_mode_enable.setEnabled(not dora and not self.widget.algo_select.currentText().lower() == "glora-ex")
         self.edit_network_args("dora_wd", dora if self.widget.dora_enable.isEnabled() else False, True)
         self.edit_network_args(
             "bypass_mode",
