@@ -181,6 +181,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"FishMonger", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"GaLore", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Glyph", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"GOODDOG", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"GrokFastAdamW", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"LPFAdamW", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Lion", None))
