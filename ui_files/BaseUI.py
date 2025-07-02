@@ -41,7 +41,7 @@ class Ui_base_args_ui(object):
         self.seed_input.setObjectName(u"seed_input")
         self.seed_input.setFocusPolicy(Qt.StrongFocus)
         self.seed_input.setMinimum(-1)
-        self.seed_input.setMaximum(4294967296)
+        self.seed_input.setMaximum(2147483647)
         self.seed_input.setValue(23)
 
         self.formLayout_6.setWidget(0, QFormLayout.FieldRole, self.seed_input)
