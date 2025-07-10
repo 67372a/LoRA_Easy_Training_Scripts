@@ -208,6 +208,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SimplifiedAdEMAMix", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SimplifiedAdEMAMixExM", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"StableSPAM", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"TALON", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"VSGD", None))
         self.optimizer_type_selector.setObjectName(u"optimizer_type_selector")
         self.optimizer_type_selector.setFocusPolicy(Qt.StrongFocus)
