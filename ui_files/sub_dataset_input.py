@@ -57,6 +57,27 @@ class Ui_sub_dataset_input(object):
 
         self.gridLayout.addLayout(self.image_dir_grid, 0, 0, 1, 2)
 
+        self.target_image_dir_grid = QGridLayout()
+        self.target_image_dir_grid.setObjectName(u"target_image_dir_grid")
+        self.target_image_dir_grid.setHorizontalSpacing(8)
+        self.target_image_folder_selector = QPushButton(sub_dataset_input)
+        self.target_image_folder_selector.setObjectName(u"target_image_folder_selector")
+
+        self.target_image_dir_grid.addWidget(self.target_image_folder_selector, 1, 1, 1, 1)
+
+        self.target_image_dir_label = QLabel(sub_dataset_input)
+        self.target_image_dir_label.setObjectName(u"target_image_dir_label")
+
+        self.target_image_dir_grid.addWidget(self.target_image_dir_label, 0, 0, 1, 2)
+
+        self.target_image_folder_input = DragDropLineEdit(sub_dataset_input)
+        self.target_image_folder_input.setObjectName(u"target_image_folder_input")
+
+        self.target_image_dir_grid.addWidget(self.target_image_folder_input, 1, 0, 1, 1)
+
+
+        self.gridLayout.addLayout(self.target_image_dir_grid, 1, 0, 1, 2)
+
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -91,7 +112,7 @@ class Ui_sub_dataset_input(object):
         self.gridLayout_2.addWidget(self.validation_images_enable, 2, 1, 1, 2, Qt.AlignLeft)
 
 
-        self.gridLayout.addLayout(self.gridLayout_2, 2, 1, 1, 1)
+        self.gridLayout.addLayout(self.gridLayout_2, 3, 1, 1, 1)
 
         self.other_form_layout = QFormLayout()
         self.other_form_layout.setObjectName(u"other_form_layout")
@@ -153,12 +174,12 @@ class Ui_sub_dataset_input(object):
         # Random crop padding
 
 
-        self.gridLayout.addLayout(self.other_form_layout, 2, 0, 1, 1)
+        self.gridLayout.addLayout(self.other_form_layout, 3, 0, 1, 1)
 
         self.extra_args = CollapsibleWidget(sub_dataset_input)
         self.extra_args.setObjectName(u"extra_args")
 
-        self.gridLayout.addWidget(self.extra_args, 4, 0, 1, 2)
+        self.gridLayout.addWidget(self.extra_args, 5, 0, 1, 2)
 
         self.gridLayout_3 = QGridLayout()
         self.gridLayout_3.setObjectName(u"gridLayout_3")
@@ -180,7 +201,7 @@ class Ui_sub_dataset_input(object):
         self.gridLayout_3.addWidget(self.label, 0, 0, 1, 2)
 
 
-        self.gridLayout.addLayout(self.gridLayout_3, 1, 0, 1, 2)
+        self.gridLayout.addLayout(self.gridLayout_3, 2, 0, 1, 2)
 
 
         self.retranslateUi(sub_dataset_input)
@@ -202,6 +223,10 @@ class Ui_sub_dataset_input(object):
         self.image_folder_input.setToolTip(QCoreApplication.translate("sub_dataset_input", u"<html><head/><body><p>The folder that contains images and caption file pairs. The images and captions must be in that folder and not in folders in that folder.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.image_folder_input.setPlaceholderText(QCoreApplication.translate("sub_dataset_input", u"Image Folder", None))
+        self.target_image_folder_selector.setText("")
+        self.target_image_dir_label.setText(QCoreApplication.translate("sub_dataset_input", u"Target Image Dir", None))
+#if QT_CONFIG(tooltip)
+        self.target_image_folder_input.setToolTip(QCoreApplication.translate("sub_dataset_input", u"<html><head/><body><p>The folder that contains the target/edited images for ADDifT training. Filenames must match the input image directory.</p></body></html>", None))
 #if QT_CONFIG(tooltip)
         self.flip_augment_enable.setToolTip(QCoreApplication.translate("sub_dataset_input", u"<html><head/><body><p>Flip Augment Flips the latents of the images during training.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

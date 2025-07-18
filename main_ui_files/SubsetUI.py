@@ -44,6 +44,12 @@ class SubsetWidget(BaseWidget):
         self.widget.image_folder_selector.setIcon(
             QIcon(str(Path("icons/more-horizontal.svg")))
         )
+        self.widget.target_image_folder_input.setMode("folder")
+        self.widget.target_image_folder_input.highlight = True
+        self.widget.target_image_folder_input.allow_empty = True
+        self.widget.target_image_folder_selector.setIcon(
+            QIcon(str(Path("icons/more-horizontal.svg")))
+         )
         self.widget.masked_image_input.setMode("folder")
         self.widget.masked_image_input.highlight = True
         self.widget.masked_image_selector.setIcon(
@@ -63,6 +69,14 @@ class SubsetWidget(BaseWidget):
                 "Subset Image Folder", self.widget.image_folder_input
             )
         )
+        self.widget.target_image_folder_input.textChanged.connect(
+            lambda x: self.edit_dataset_args("target_image_dir", x, True)
+        )
+        self.widget.target_image_folder_selector.clicked.connect(
+            lambda: self.set_folder_from_dialog(
+                "Target Image Folder", self.widget.target_image_folder_input, False
+            )
+         )
         self.widget.masked_image_input.textChanged.connect(
             lambda x: self.edit_dataset_args("conditioning_data_dir", x, True)
         )
@@ -281,6 +295,10 @@ class SubsetWidget(BaseWidget):
     def load_dataset_args(self, dataset_args: dict) -> bool:
         # update element inputs
         self.widget.image_folder_input.setText(dataset_args.get("image_dir", ""))
+        self.widget.target_image_folder_input.setText(
+            dataset_args.get("target_image_dir", "")
+        )
+        
         self.widget.masked_image_input.setText(
             dataset_args.get("conditioning_data_dir", "")
         )
@@ -360,6 +378,9 @@ class SubsetWidget(BaseWidget):
 
         # edit dataset args to match
         self.edit_dataset_args("image_dir", self.widget.image_folder_input.text(), True)
+        self.edit_dataset_args(
+            "target_image_dir", self.widget.target_image_folder_input.text(), True
+        )
         self.edit_dataset_args(
             "conditioning_data_dir", self.widget.masked_image_input.text(), True
         )
