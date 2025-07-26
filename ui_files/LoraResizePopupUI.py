@@ -102,6 +102,7 @@ class Ui_lora_resize_ui(object):
 
         self.dynamic_param_enable = QCheckBox(lora_resize_ui)
         self.dynamic_param_enable.setObjectName(u"dynamic_param_enable")
+        self.dynamic_param_enable.setChecked(True)
 
         self.formLayout.setWidget(6, QFormLayout.LabelRole, self.dynamic_param_enable)
 
@@ -112,7 +113,7 @@ class Ui_lora_resize_ui(object):
         self.dynamic_param_select.addItem("")
         self.dynamic_param_select.addItem("")
         self.dynamic_param_select.setObjectName(u"dynamic_param_select")
-        self.dynamic_param_select.setEnabled(False)
+        self.dynamic_param_select.setEnabled(True)
 
         self.horizontalLayout_3.addWidget(self.dynamic_param_select)
 
