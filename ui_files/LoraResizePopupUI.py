@@ -58,6 +58,7 @@ class Ui_lora_resize_ui(object):
         self.new_rank_input = SpinBox(lora_resize_ui)
         self.new_rank_input.setObjectName(u"new_rank_input")
         self.new_rank_input.setMinimum(1)
+        self.new_rank_input.setMaximum(1024)
         self.new_rank_input.setValue(4)
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.new_rank_input)
@@ -71,6 +72,7 @@ class Ui_lora_resize_ui(object):
         self.new_conv_rank_input.setObjectName(u"new_conv_rank_input")
         self.new_conv_rank_input.setEnabled(False)
         self.new_conv_rank_input.setMinimum(1)
+        self.new_conv_rank_input.setMaximum(1024)
         self.new_conv_rank_input.setValue(1)
 
         self.formLayout.setWidget(3, QFormLayout.FieldRole, self.new_conv_rank_input)
@@ -116,7 +118,7 @@ class Ui_lora_resize_ui(object):
 
         self.dynamic_param_input = DoubleSpinBox(lora_resize_ui)
         self.dynamic_param_input.setObjectName(u"dynamic_param_input")
-        self.dynamic_param_input.setEnabled(False)
+        self.dynamic_param_input.setEnabled(True)
         self.dynamic_param_input.setDecimals(4)
         self.dynamic_param_input.setMinimum(0.000100000000000)
         self.dynamic_param_input.setMaximum(1.000000000000000)
