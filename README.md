@@ -76,20 +76,22 @@ after that, it will begin installing, asking a few questions along the way. Just
 
 ### Linux
 
-If you are on linux all you need to do to install the scripts is open up a shell within the folder that you want to install to then type the following line,
-
 ```
+git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts
+cd LoRA_Easy_Training_Scripts
+git submodule update --init --recursive
+
 if you are using python 3.10
-sh -c "$(wget https://raw.githubusercontent.com/67372a/LoRA_Easy_Training_Scripts/flux/install310.sh -O -)"
+./install310.sh
 
 if you are using python 3.11
-sh -c "$(wget https://raw.githubusercontent.com/67372a/LoRA_Easy_Training_Scripts/flux/install311.sh -O -)"
+./install311.sh
 ```
 
-Manual method below for those that want it.
+Manual method below if above doesn't work.
 
 ```
-git clone https://github.com/67372a/LoRA_Easy_Training_Scripts
+git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts
 cd LoRA_Easy_Training_Scripts
 git submodule update --init --recursive
 python -m venv venv
