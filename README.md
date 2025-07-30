@@ -80,10 +80,10 @@ If you are on linux all you need to do to install the scripts is open up a shell
 
 ```
 if you are using python 3.10
-sh -c "$(wget https://raw.githubusercontent.com/67372a/LoRA_Easy_Training_Scripts/main/install310.sh -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/67372a/LoRA_Easy_Training_Scripts/flux/install310.sh -O -)"
 
 if you are using python 3.11
-sh -c "$(wget https://raw.githubusercontent.com/67372a/LoRA_Easy_Training_Scripts/main/install311.sh -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/67372a/LoRA_Easy_Training_Scripts/flux/install311.sh -O -)"
 ```
 
 Manual method below for those that want it.
@@ -99,11 +99,11 @@ pip install -r requirements.txt
 cd backend/sd_scripts
 python -m venv venv
 source venv/bin/activate
-pip install -U typing-extensions==4.12.2
-pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
-pip install xformers==v0.0.29.post3 --index-url https://download.pytorch.org/whl/cu124
-pip install -U --force-reinstall --no-deps ../installables/lycoris_lora-3.1.1.post1-py3-none-any.whl
-pip install -U --no-deps torchao --index-url https://download.pytorch.org/whl/cu124
+pip install -U typing-extensions==4.14.1
+pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128
+pip install -U --no-deps xformers==0.0.31.post1 --index-url https://download.pytorch.org/whl/cu128
+pip install -U --force-reinstall --no-deps ../installables/lycoris_lora-3.2.0.post2-py3-none-any.whl
+pip install -U --no-deps torchao --index-url https://download.pytorch.org/whl/cu128
 pip install -r requirements.txt
 pip install -r ../requirements.txt
 pip install ../custom_scheduler/.
