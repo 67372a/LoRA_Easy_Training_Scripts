@@ -68,8 +68,6 @@ class EDMLossWidget(BaseWidget):
             lambda x: self.edit_args("edm2_loss_weighting_optimizer_lr", x))
         self.widget.optimizer_args_input.textChanged.connect(
             lambda x: self.edit_args("edm2_loss_weighting_optimizer_args", x))
-        self.widget.max_grad_norm_input.textChanged.connect(
-            lambda x: self.edit_args("edm2_loss_weighting_max_grad_norm", x))
         
         # Scheduler
         self.widget.scheduler_enable.clicked.connect(self.enable_disable_scheduler)
@@ -190,7 +188,6 @@ class EDMLossWidget(BaseWidget):
         self.widget.optimizer_type_input.setText(args.get("edm2_loss_weighting_optimizer", ""))
         self.widget.lr_input.setText(args.get("edm2_loss_weighting_optimizer_lr", ""))
         self.widget.optimizer_args_input.setText(args.get("edm2_loss_weighting_optimizer_args", ""))
-        self.widget.max_grad_norm_input.setText(args.get("edm2_loss_weighting_max_grad_norm", "0"))
         
         # Load scheduler arguments
         self.widget.scheduler_enable.setChecked(args.get("edm2_loss_weighting_lr_scheduler", False))
