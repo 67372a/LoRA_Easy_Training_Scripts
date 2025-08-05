@@ -68,11 +68,6 @@ class Ui_edm_loss_UI(object):
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.optimizer_args_input)
 
-        self.label3 = QLabel(self.optimizer_group)
-        self.label3.setObjectName(u"label3")
-
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label3)
-
         self.verticalLayout.addWidget(self.optimizer_group)
 
         self.scheduler_group = QGroupBox(edm_loss_UI)
@@ -208,7 +203,6 @@ class Ui_edm_loss_UI(object):
         self.label.setText(QCoreApplication.translate("edm_loss_UI", u"Optimizer Type:", None))
         self.label1.setText(QCoreApplication.translate("edm_loss_UI", u"Learning Rate:", None))
         self.label2.setText(QCoreApplication.translate("edm_loss_UI", u"Optimizer Args:", None))
-        self.label3.setText(QCoreApplication.translate("edm_loss_UI", u"Max Grad Norm:", None))
         self.scheduler_group.setTitle(QCoreApplication.translate("edm_loss_UI", u"Learning Rate Scheduler", None))
         self.scheduler_enable.setText(QCoreApplication.translate("edm_loss_UI", u"Enable Scheduler", None))
         self.label4.setText(QCoreApplication.translate("edm_loss_UI", u"Warmup %:", None))
