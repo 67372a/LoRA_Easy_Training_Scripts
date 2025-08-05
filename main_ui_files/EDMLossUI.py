@@ -111,16 +111,15 @@ class EDMLossWidget(BaseWidget):
 
     def setup_defaults(self):
         # Set default values
-        self.widget.optimizer_type_input.setText("LoraEasyCustomOptimizer.fmarscrop.FMARSCropV2ExMachina")
-        self.widget.lr_input.setText("5e-3")
-        self.widget.optimizer_args_input.setText("{'update_strategy':'cautious', 'gamma':0.0, 'betas':(0.99,0.9999,0.999), 'adaptive_clip':0}")
-        self.widget.max_grad_norm_input.setText("0")
+        self.widget.optimizer_type_input.setText("LoraEasyCustomOptimizer.adopt.ADOPT")
+        self.widget.lr_input.setText("2e-2")
+        self.widget.optimizer_args_input.setText("{'weight_decay':0}")
         self.widget.warmup_input.setValue(0.1)
         self.widget.constant_input.setValue(0.9)
-        self.widget.num_channels_input.setValue(448)
+        self.widget.num_channels_input.setValue(128)
         self.widget.generate_graph_enable.setChecked(False)
         self.widget.graph_steps_input.setValue(10)
-        self.widget.graph_y_limit_input.setValue(5)
+        self.widget.graph_y_limit_input.setValue(50)
 
     def enable_disable(self, checked: bool):
         self.args = {}
@@ -140,7 +139,6 @@ class EDMLossWidget(BaseWidget):
             self.widget.optimizer_type_input.textChanged.emit(self.widget.optimizer_type_input.text())
             self.widget.lr_input.textChanged.emit(self.widget.lr_input.text())
             self.widget.optimizer_args_input.textChanged.emit(self.widget.optimizer_args_input.text())
-            self.widget.max_grad_norm_input.textChanged.emit(self.widget.max_grad_norm_input.text())
             
             # Call the enable/disable methods with current checkbox states
             self.enable_disable_scheduler(self.widget.scheduler_enable.isChecked())

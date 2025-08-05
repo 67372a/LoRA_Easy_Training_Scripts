@@ -73,12 +73,6 @@ class Ui_edm_loss_UI(object):
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label3)
 
-        self.max_grad_norm_input = LineEditWithHighlight(self.optimizer_group)
-        self.max_grad_norm_input.setObjectName(u"max_grad_norm_input")
-
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.max_grad_norm_input)
-
-
         self.verticalLayout.addWidget(self.optimizer_group)
 
         self.scheduler_group = QGroupBox(edm_loss_UI)
