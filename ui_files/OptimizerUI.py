@@ -204,6 +204,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SGDSaI", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ScalableShampoo", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ScheduleFreeWrapper", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCGOpt", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCORN", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCORNMachina", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SimplifiedAdEMAMix", None))
