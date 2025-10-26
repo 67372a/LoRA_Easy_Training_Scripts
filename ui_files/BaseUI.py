@@ -370,6 +370,15 @@ class Ui_base_args_ui(object):
         self.low_ram_enable.setObjectName(u"low_ram_enable")
 
         self.horizontalLayout_2.addWidget(self.low_ram_enable)
+        
+        
+        
+        self.vae_reflection_enable = QCheckBox(self.base_model_box)        
+        self.vae_reflection_enable.setObjectName(u"vae_reflection_enable")        
+        self.horizontalLayout_2.addWidget(self.vae_reflection_enable)
+        
+        
+        
 
         self.high_vram_enable = QCheckBox(self.base_model_box)
         self.high_vram_enable.setObjectName(u"high_vram_enable")
@@ -593,6 +602,15 @@ class Ui_base_args_ui(object):
         self.low_ram_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Enable this if it is crashing due to you running out of system RAM. Typically, this would only be used when interfacing with Google Colab</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
+        
+        
+#if QT_CONFIG(tooltip)        
+        self.vae_reflection_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Uses the reflect padding mode in the conv layers of the VAE</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)        
+        self.vae_reflection_enable.setText(QCoreApplication.translate("base_args_ui", u"VAE Reflection", None))
+        
+        
+        
         self.high_vram_enable.setText(QCoreApplication.translate("base_args_ui", u"High VRAM", None))
 #if QT_CONFIG(tooltip)
         self.label_11.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality</p></body></html>", None))

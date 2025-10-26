@@ -590,6 +590,20 @@
           </property>
          </widget>
         </item>
+
+
+        <item>         
+        <widget class="QCheckBox" name="vae_reflection_enable">          
+        <property name="toolTip">           
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uses the reflect padding mode in the conv layers of the VAE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>          
+        <property name="text">           
+        <string>VAE Reflection</string>          
+        </property>         
+        </widget>        
+        </item>
+
+
         <item>
          <widget class="QCheckBox" name="high_vram_enable">
           <property name="text">
