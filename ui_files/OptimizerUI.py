@@ -135,6 +135,7 @@ class Ui_optimizer_ui(object):
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.optimizer_type_label)
 
         self.optimizer_type_selector = ComboBox(self.optimizer_tab_main)
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ABMOG", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdaGC", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPT", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Adopt_adv", None))
