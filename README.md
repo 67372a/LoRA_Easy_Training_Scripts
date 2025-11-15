@@ -103,10 +103,9 @@ pip install torch~=2.7.1 torchvision~=0.22.1 --index-url https://download.pytorc
 pip install -U --no-deps xformers==0.0.31.post1 --index-url https://download.pytorch.org/whl/cu128
 pip install -U --no-deps torchao~=0.12.0 --index-url https://download.pytorch.org/whl/cu128
 pip install -U --force-reinstall --no-deps ../installables/lycoris_lora-3.2.0.post2-py3-none-any.whl
-pip install -r requirements.txt
-pip install -r ../requirements.txt
-pip install ../custom_scheduler/.
+pip install -U -r requirements.txt
 pip install -U ../custom_scheduler/.
+pip install -U -r ../requirements.txt
 accelerate config
 ```
 
