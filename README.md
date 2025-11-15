@@ -67,7 +67,7 @@ A set of training scripts written in python for use in Kohya's [SD-Scripts](http
 If you are on windows all you need to do to install the scripts is follow these commands. Open up a command line within the folder that you want to install to then type these one line at a time
 
 ```
-git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b flux
+git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
 cd LoRA_Easy_Training_Scripts
 install.bat
 ```
@@ -77,12 +77,9 @@ after that, it will begin installing, asking a few questions along the way. Just
 ### Linux
 
 ```
-git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts
+git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
 cd LoRA_Easy_Training_Scripts
 git submodule update --init --recursive
-
-if you are using python 3.10
-./install310.sh
 
 if you are using python 3.11
 ./install311.sh
@@ -91,7 +88,7 @@ if you are using python 3.11
 Manual method below if above doesn't work.
 
 ```
-git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts
+git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
 cd LoRA_Easy_Training_Scripts
 git submodule update --init --recursive
 python -m venv venv
@@ -101,11 +98,11 @@ pip install -r requirements.txt
 cd backend/sd_scripts
 python -m venv venv
 source venv/bin/activate
-pip install -U typing-extensions==4.14.1
-pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128
+pip install -U typing-extensions~=4.15.0
+pip install torch~=2.7.1 torchvision~=0.22.1 --index-url https://download.pytorch.org/whl/cu128
 pip install -U --no-deps xformers==0.0.31.post1 --index-url https://download.pytorch.org/whl/cu128
+pip install -U --no-deps torchao~=0.12.0 --index-url https://download.pytorch.org/whl/cu128
 pip install -U --force-reinstall --no-deps ../installables/lycoris_lora-3.2.0.post2-py3-none-any.whl
-pip install -U --no-deps torchao --index-url https://download.pytorch.org/whl/cu128
 pip install -r requirements.txt
 pip install -r ../requirements.txt
 pip install ../custom_scheduler/.
