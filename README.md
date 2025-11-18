@@ -1,7 +1,5 @@
 # Updates
 
-# USE THE NEW BRANCH FOR RAMTORCH, FASTER TRAINING, LOWER VRAM USE, I advise cloning the new branch into a seperate folder to use: git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
-
 ## 11/17/2025
 I am currently working on a new branch to rebase off the latested sd3 from upstream sd_scripts, the new branch chain (refresh/refresh/sd-upstream) doesn't have all the features of current default branch chain (flux/flux/sd3), but runs leaner and supports newer models. I am still working on adding back features deemed useful. Critical new feature that works correctly in the new branch which is not reducing vram use correctly in the old branch is ramtorch.
 
@@ -30,8 +28,6 @@ With any reasonable batch size (4+), the overhead of ramtorch and CPU offloading
 The quality of outputs is not degraded in anyway as far as I have observed.
 
 I havent nesscarily tested every lycoris setting or type fully, there may be some gaps. We have a discussion thread going around RamTorch in this context at https://github.com/67372a/LoRA_Easy_Training_Scripts/discussions/51, but feel free to open issues for any encountered.
-
-# USE THE NEW BRANCH FOR RAMTORCH, FASTER TRAINING, LOWER VRAM USE, I advise cloning the new branch into a seperate folder to use: git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
 
 ## 4/13/2025 IMPORTANT
 - IMPORTANT: Fixed defect related to Lycoris bypass mode
