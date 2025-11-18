@@ -1,5 +1,31 @@
 # Updates
 
+I am currently working on a new branch to rebase off the latest sd3 from upstream sd_scripts, the new branch chain (refresh/refresh/sd-upstream) doesn't have all the features of current default branch chain (flux/flux/sd3), but runs leaner and supports newer models. I am still working on adding back features deemed useful. RamTorch is not working correctly in the existing default branch (flux), please switch to the new branch (refresh)
+
+Right now some of the significant things that aren't present are:
+- is_val subsets
+- wavelet loss
+- full_bf16 stochastic accumulation
+- probably some other stuff I don't recall atm.
+
+Ramtorch (Shout out to lodestone for his great work! https://github.com/lodestone-rock/RamTorch) is supported for network training, it can be applied to the base model and network/lora, in addition, optimizer state offload is implemented to two optimizers currently.
+
+To use ramtorch:
+- extra training arg use_ramtorch=True enables it for the base model
+- extra training arg use_ramtorch_network=True enables it for the network/lora, NOTE, this requires the optimizer to have .to()s defined that move the parameter to the correct device, I have implemented that currently for OCGOpt and SimplifiedAdEmaMixExM, plan to see about a generalized solution to avoid having to manually update all the optimizers.
+- the previously mentioned optimizers default to offloading state to CPU/RAM (controllable vis storage_device optimizer argument, e.x. setting it to CUDA would place the states in vram). Defaulting behaviors below if not explictly set:
+  - If state_storage_dtype is not provided as an arg, default to training dtype
+  - If state_storage_device is not provided as an arg, default to accelerator's device, unless use_ramtorch_network is true, then use cpu
+- use lycoris based networks/loras, I have not tested or implemented changes to allow Kohyas's implementations to work, only lycoris
+
+The vram savings can be absurdly massive, for example, someone I have testing was able to train a 512 linear dim, 256 conv dim locon for SDXL, BS 7, and still didn't fully fill their VRAM, ~22GB out of 24GB, ofc, filled more system RAM. Others have been running as high as BS 18 with smaller dims.
+
+With any reasonable batch size (4+), the overhead of ramtorch and CPU offloading appears to be negligible, in fact, it may actually speed up things due to use of streams, asynchronous operations, non blocking, etc.
+
+The quality of outputs is not degraded in anyway as far as I have observed.
+
+I havent nesscarily tested every lycoris setting or type fully, there may be some gaps. We have a discussion thread going around RamTorch in this context at https://github.com/67372a/LoRA_Easy_Training_Scripts/discussions/51, but feel free to open issues for any encountered.
+
 ## 4/13/2025 IMPORTANT
 - IMPORTANT: Fixed defect related to Lycoris bypass mode
 
