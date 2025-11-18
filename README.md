@@ -1,7 +1,7 @@
 # Updates
 
 ## 11/17/2025
-I am currently working on a new branch to rebase off the latested sd3 from upstream sd_scripts, the new branch chain (refresh/refresh/sd-upstream) doesn't have all the features of current default branch chain (flux/flux/sd3), but runs leaner and supports newer models. I am still working on adding back features deemed useful. RamTorch is not working correctly in the existing default branch (flux), please switch to the new branch (refresh)
+I am currently working on a new branch to rebase off the latest sd3 from upstream sd_scripts, the new branch chain (refresh/refresh/sd-upstream) doesn't have all the features of current default branch chain (flux/flux/sd3), but runs leaner and supports newer models. I am still working on adding back features deemed useful. RamTorch is not working correctly in the existing default branch (flux), please switch to the new branch (refresh)
 
 Right now some of the significant things that aren't present are:
 - is_val subsets
