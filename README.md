@@ -9,7 +9,8 @@ Right now some of the significant things that aren't present are:
 - full_bf16 stochastic accumulation
 - probably some other stuff I don't recall atm.
 
-# USE THE NEW BRANCH FOR RAMTORCH, FASTER TRAINING, LOWER VRAM USE, I advise cloning the new branch into a seperate folder to use: git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
+# USE THE NEW BRANCH FOR RAMTORCH, FASTER TRAINING, LOWER VRAM USE
+I advise cloning the new branch into a seperate folder to use: git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
 
 Ramtorch (Shout out to lodestone for his great work! https://github.com/lodestone-rock/RamTorch) is supported for network training, it can be applied to the base model and network/lora, in addition, optimizer state offload is implemented to two optimizers currently.
 
