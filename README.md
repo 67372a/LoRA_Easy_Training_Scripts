@@ -28,14 +28,14 @@ With any reasonable batch size (4+), the overhead of ramtorch and CPU offloading
 
 The quality of outputs is not degraded in anyway as far as I have observed.
 
-I havent nesscarily tested every lycoris setting or type fully, there may be some gaps. We have a discussion thread going around RamTorch in this context at https://github.com/67372a/LoRA_Easy_Training_Scripts/discussions/51, but feel free to open issues for any encountered.
+I havent necessarily tested every lycoris setting or type fully, there may be some gaps. We have a discussion thread going around RamTorch in this context at https://github.com/67372a/LoRA_Easy_Training_Scripts/discussions/51, but feel free to open issues for any encountered.
 
 ## 4/13/2025 IMPORTANT
 - IMPORTANT: Fixed defect related to Lycoris bypass mode
 
 It came to my attention when I was looking through lycoris code to make enhancements, that the bypass_mode arg was not being properly handled, if you did not explicitly pass false, it would be None, and end up resolving to TRUE. This would end up bypassing weight decomposition for DoRA, as there exists no logic, despite original author's documentation, that it should be overridden to false. Now, i have fixed this in my fork so that bypass mode defaults to FALSE, and if dora is enabled, it will also be forced to false. This may have significant effects how training behaves in cases where bypass_mode was being erroneously being enabled, especially DoRA!
 
-In essence, during the forward pass, weight decomposition for DoRA was not being applied, the bypass route would also not apply DoRA style network dropout if set.
+In essence, during the forward pass, weight decomposition for DoRA was not being applied, the bypass route would also not apply DoRA style necessarilytested dropout if set.
 
 So, all DoRAs trained without explictly setting bypass_mode to false (which I doubt most people would do) were not trained correctly / fully, as such, the full benefits were not realized.
 
