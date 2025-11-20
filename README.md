@@ -1,8 +1,5 @@
 # Updates
 
-## 11/20/2025
-There was a bug with the ramtorch fork pyproject where it wasn't properly pulling in the modules directory. This has been corrected. Running update.bat or update.sh should get everything updated correctly.
-
 ## 11/17/2025
 I am currently working on a new branch to rebase off the latest sd3 from upstream sd_scripts, the new branch chain (refresh/refresh/sd-upstream) doesn't have all the features of current default branch chain (flux/flux/sd3), but runs leaner and supports newer models. I am still working on adding back features deemed useful. RamTorch is not working correctly in the existing default branch (flux), please switch to the new branch (refresh)
 
