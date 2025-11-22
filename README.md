@@ -1,5 +1,10 @@
 # Updates
 
+## 11/21/2025
+Reimplemented is_val subset support, also reimplemented making all subset parameters static for is_val or val split, this was missed when I reimplemented validation loss in the new branch. 
+
+As a result, even if you change nothing, after updating, validation loss metrics will change given the same training settings due to the enforcement of static parameters (e.x. cropping, shuffling captions, etc, anything that introduces randomization is disabled for is_val subsets OR dynamic subsets created by val split). Ultimately this will lead to a more consistent measure of validation loss going forward.
+
 ## 11/20/2025
 There was a bug with the ramtorch fork pyproject where it wasn't properly pulling in the modules directory. This has been corrected. Running update.bat or update.sh should get everything updated correctly.
 
