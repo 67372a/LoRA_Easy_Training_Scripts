@@ -1,5 +1,21 @@
 # Updates
 
+## 11/22/2025
+Pushed some fixes and enhancements for ramtorch's helper for applying it to modules generally and lycoris specifically. use_ramtorch_network wasn't working as intended, now it appears to be working.
+
+RamTorch
+- now properly maintains pinning of memory for it's weights and biases, before was losing the due to reassignment vs copy. This should make it faster, as without pinning, all transfers would become blocking silently
+- passes forward requires_grad from original tensor setting during ramtorch init
+- now accepts and sets a target dtype, before it would always store the RAM weights as fp32 first, so now it should use less RAM and result in faster transfers. This is set in sd_scripts to align with weight_dtype.
+
+lycoris
+- now properly async transfers weights from RAM, before it wasn't. To be transparent, bad impl by one LLM vs another for that piece as not really familiar, was more thorough this time and based on testing this new approach does look to work.
+
+sd_scripts
+- Added a CUDA sync explicitly after backward in sd_scripts to make sure all streams complete 
+
+So overall, fixed use_ramtorch_network for lycoris, improved ramtorch application to models so it should be faster and use less RAM.
+
 ## 11/21/2025
 Reimplemented is_val subset support, also reimplemented making all subset parameters static for is_val or val split, this was missed when I reimplemented validation loss in the new branch. 
 
@@ -138,9 +154,10 @@ python -m venv venv
 source venv/bin/activate
 pip install -U typing-extensions~=4.15.0
 pip install torch~=2.7.1 torchvision~=0.22.1 --index-url https://download.pytorch.org/whl/cu128
+pip install -U --no-deps --force-reinstall git+https://github.com/67372a/RamTorch
 pip install -U --no-deps xformers==0.0.31.post1 --index-url https://download.pytorch.org/whl/cu128
 pip install -U --no-deps torchao~=0.12.0 --index-url https://download.pytorch.org/whl/cu128
-pip install -U --force-reinstall --no-deps ../installables/lycoris_lora-3.2.0.post2-py3-none-any.whl
+pip install -U --no-deps --force-reinstall ../installables/lycoris_lora-3.2.0.post2-py3-none-any.whl
 pip install -U -r requirements.txt
 pip install -U ../custom_scheduler/.
 pip install -U -r ../requirements.txt
