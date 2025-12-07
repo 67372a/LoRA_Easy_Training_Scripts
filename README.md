@@ -1,5 +1,19 @@
 # Updates
 
+## 12/07/2025
+- Fixes to ramtorch fork handling of weight's to devices where stochastic_to is applied (fp32->bf16)
+- Made all gradient accumlation in ramtorch fork always fp32, casting to weight dtype as needed
+- Adjusted application of ramtorch to the network in train_network, was incorrectly forcing to the base weights dtype, now left at fp32 (full modes still cast network to the full dtype)
+  - This fixes fp16 handling, though bf16 is still recommended over fp16
+ 
+After these changes, use_ramtorch_network training as it relates to glora via lycoris seems more effective. I still need to review other network types for any issues.
+
+A larger change I made was incorporating EXPERIMENTAL support for sdxl flow matching (Based on Bluvoll et alls work: https://github.com/bluvoll/sd-scripts).
+
+I did regression to make sure that SDXL non-flow matching still worked and that flow matching will run without error, I did not do complete regression of all model and configuration permutations. 
+
+Please open issues if any are observed.
+
 ## 11/22/2025
 Pushed some fixes and enhancements for ramtorch's helper for applying it to modules generally and lycoris specifically. use_ramtorch_network wasn't working as intended, now it appears to be working.
 
