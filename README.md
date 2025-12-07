@@ -10,6 +10,25 @@ After these changes, use_ramtorch_network training as it relates to glora via ly
 
 A larger change I made was incorporating EXPERIMENTAL support for sdxl flow matching (Based on Bluvoll et alls work: https://github.com/bluvoll/sd-scripts).
 
+Model: https://civitai.com/models/2071356/experimental-noobai-with-rectified-flow-eq-vae
+
+Args as pulled from Bluvoll's readme (pass as extra training args in easy scripts)
+```
+--flow_model Required to train into Rectified Flow target
+--flow_use_ot Not needed, want info? ask lodestone
+--flow_timestep_distribution = uniform or logit_normal, just run uniform
+--flow_uniform_static_ratio allows static values for shift, default 2.5
+--contrastive_flow_matching Magic thingie that makes training results a bit sharper
+--cfm_lambda needed by the one above, default 0.05, I prefer 0.02
+--flow_logit_mean needed by logit_normal timestep_distribution
+--flow_logit_std needed by logit_normal timestep_distribution
+--flow_uniform_base_pixels default 1048576 or 1024x1024 allows dynamic shifting based on resolutions useful for higher than 1024x1024 training.
+--flow_uniform_shift allows dynamic shifting
+--vae_custom_scale suggested for Anzhc's eq-vae put 0.1406
+--vae_custom_shift suggested for Anzhc's eq-vae put -0.4743
+--vae_reflection_padding suggested to use with Anzhc's eq-vae, my shitty experiment wasn't trained with this.
+```
+
 I did regression to make sure that SDXL non-flow matching still worked and that flow matching will run without error, I did not do complete regression of all model and configuration permutations. 
 
 Please open issues if any are observed.
