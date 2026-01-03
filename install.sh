@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python install3.py
+python3 install.py
