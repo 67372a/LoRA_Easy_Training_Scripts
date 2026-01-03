@@ -475,7 +475,7 @@ class Ui_sub_dataset_input(object):
         self.protected_tags_input.setToolTip(
             QCoreApplication.translate(
                 "sub_dataset_input",
-                "<html><head/><body><p>File containing tags to protect from dropout (one tag per line). These tags will never be dropped during caption tag dropout. </p></body></html>",
+                "<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. </p></body></html>",
                 None,
             )
         )
@@ -487,7 +487,7 @@ class Ui_sub_dataset_input(object):
         self.protected_tags_selector.setToolTip(
             QCoreApplication.translate(
                 "sub_dataset_input",
-                "<html><head/><body><p>File containing tags to protect from dropout (one tag per line). These tags will never be dropped during caption tag dropout.</p></body></html>",
+                "<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. </p></body></html>",
                 None,
             )
         )
@@ -497,7 +497,7 @@ class Ui_sub_dataset_input(object):
         self.protected_tags_label.setToolTip(
             QCoreApplication.translate(
                 "sub_dataset_input",
-                "<html><head/><body><p>File containing tags to protect from dropout (one tag per line). These tags will never be dropped during caption tag dropout.</p></body></html>",
+                "<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. </p></body></html>",
                 None,
             )
         )

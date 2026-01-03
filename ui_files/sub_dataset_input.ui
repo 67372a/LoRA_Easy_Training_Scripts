@@ -270,7 +270,7 @@
             <bool>true</bool>
         </property>
         <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File containing tags to protect from dropout (one tag per line). These tags will never be dropped during caption tag dropout. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="placeholderText">
             <string>Protected Tags File</string>
@@ -283,7 +283,7 @@
             <bool>true</bool>
         </property>
         <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File containing tags to protect from dropout (one tag per line). These tags will never be dropped during caption tag dropout.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
             <string/>
@@ -293,7 +293,7 @@
         <item row="0" column="0" colspan="2">
         <widget class="QLabel" name="protected_tags_label">
         <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File containing tags to protect from dropout (one tag per line). These tags will never be dropped during caption tag dropout.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
             <string>Protected Tags File</string>
