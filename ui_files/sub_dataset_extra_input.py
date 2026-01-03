@@ -16,9 +16,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QFormLayout, QGroupBox,
-    QLabel, QSizePolicy, QVBoxLayout, QWidget)
+        QLabel, QSizePolicy, QVBoxLayout, QWidget, QGridLayout, QPushButton)
 
 from modules.ScrollOnSelect import (DoubleSpinBox, SpinBox)
+from modules.DragDropLineEdit import DragDropLineEdit
 
 class Ui_sub_dataset_extra_input(object):
     def setupUi(self, sub_dataset_extra_input):
@@ -142,6 +143,29 @@ class Ui_sub_dataset_extra_input(object):
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.caption_tag_dropout_input)
 
+        self.protected_tags_label = QLabel(self.caption_dropout_group)
+        self.protected_tags_label.setObjectName(u"protected_tags_label")
+        self.protected_tags_label.setEnabled(True)
+
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.protected_tags_label)
+
+        self.protected_tags_grid = QGridLayout()
+        self.protected_tags_grid.setObjectName(u"protected_tags_grid")
+        self.protected_tags_grid.setHorizontalSpacing(8)
+        self.protected_tags_input = DragDropLineEdit(self.caption_dropout_group)
+        self.protected_tags_input.setObjectName(u"protected_tags_input")
+        self.protected_tags_input.setEnabled(True)
+
+        self.protected_tags_grid.addWidget(self.protected_tags_input, 0, 0, 1, 1)
+
+        self.protected_tags_selector = QPushButton(self.caption_dropout_group)
+        self.protected_tags_selector.setObjectName(u"protected_tags_selector")
+        self.protected_tags_selector.setEnabled(True)
+
+        self.protected_tags_grid.addWidget(self.protected_tags_selector, 0, 1, 1, 1)
+
+        self.formLayout.setLayout(3, QFormLayout.FieldRole, self.protected_tags_grid)
+
 
         self.verticalLayout.addWidget(self.caption_dropout_group)
 
@@ -245,6 +269,18 @@ class Ui_sub_dataset_extra_input(object):
 #if QT_CONFIG(tooltip)
         self.caption_tag_dropout_input.setToolTip(QCoreApplication.translate("sub_dataset_extra_input", u"<html><head/><body><p>The default rate that any one caption tag gets dropped.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.protected_tags_label.setToolTip(QCoreApplication.translate("sub_dataset_extra_input", u"<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.protected_tags_label.setText(QCoreApplication.translate("sub_dataset_extra_input", u"Protected Tags File", None))
+#if QT_CONFIG(tooltip)
+        self.protected_tags_input.setToolTip(QCoreApplication.translate("sub_dataset_extra_input", u"<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.protected_tags_input.setPlaceholderText(QCoreApplication.translate("sub_dataset_extra_input", u"Protected Tags File", None))
+#if QT_CONFIG(tooltip)
+        self.protected_tags_selector.setToolTip(QCoreApplication.translate("sub_dataset_extra_input", u"<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.protected_tags_selector.setText("")
 #if QT_CONFIG(tooltip)
         self.token_warmup_group.setToolTip(QCoreApplication.translate("sub_dataset_extra_input", u"<html><head/><body><p>Token Warmup is a way to add tokens into the training data as the training continues</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

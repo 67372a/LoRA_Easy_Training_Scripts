@@ -57,10 +57,10 @@ class SubsetWidget(BaseWidget):
         self.widget.masked_image_selector.setIcon(
             QIcon(str(Path("icons/more-horizontal.svg")))
         )
-        self.widget.protected_tags_input.setMode("file", [".txt"])
-        self.widget.protected_tags_input.highlight = True
-        self.widget.protected_tags_input.allow_empty = True
-        self.widget.protected_tags_selector.setIcon(
+        self.extra_widget.protected_tags_input.setMode("file", [".txt"])
+        self.extra_widget.protected_tags_input.highlight = True
+        self.extra_widget.protected_tags_input.allow_empty = True
+        self.extra_widget.protected_tags_selector.setIcon(
             QIcon(str(Path("icons/more-horizontal.svg")))
         )
 
@@ -159,12 +159,12 @@ class SubsetWidget(BaseWidget):
         self.extra_widget.token_warmup_step_input.valueChanged.connect(
             lambda x: self.edit_dataset_args("token_warmup_step", x)
         )
-        self.widget.protected_tags_input.textChanged.connect(
+        self.extra_widget.protected_tags_input.textChanged.connect(
             lambda x: self.edit_dataset_args("protected_tags_file", x, True)
         )
-        self.widget.protected_tags_selector.clicked.connect(
+        self.extra_widget.protected_tags_selector.clicked.connect(
             lambda: self.set_file_from_dialog(
-                "Protected Tags File", self.widget.protected_tags_input
+                "Protected Tags File", self.extra_widget.protected_tags_input
             )
         )
 
@@ -413,7 +413,7 @@ class SubsetWidget(BaseWidget):
         self.extra_widget.token_warmup_step_input.setValue(
             dataset_args.get("token_warmup_step", 1)
         )
-        self.widget.protected_tags_input.setText(
+        self.extra_widget.protected_tags_input.setText(
             dataset_args.get("protected_tags_file", "")
         )
 
@@ -464,7 +464,7 @@ class SubsetWidget(BaseWidget):
             self.extra_widget.shuffle_caption_group.isChecked()
         )
         self.edit_dataset_args(
-            "protected_tags_file", self.widget.protected_tags_input. text(), True
+            "protected_tags_file", self.extra_widget.protected_tags_input.text(), True
         )
 
         self.edited.emit(self.dataset_args, self.name)

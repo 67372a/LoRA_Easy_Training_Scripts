@@ -203,27 +203,6 @@ class Ui_sub_dataset_input(object):
 
         self.gridLayout.addLayout(self.gridLayout_3, 2, 0, 1, 2)
 
-        self.protected_tags_grid = QGridLayout()
-        self.protected_tags_grid.setObjectName("protected_tags_grid")
-        self.protected_tags_grid.setHorizontalSpacing(8)
-        self.protected_tags_input = DragDropLineEdit(sub_dataset_input)
-        self.protected_tags_input.setObjectName("protected_tags_input")
-        self.protected_tags_input.setEnabled(True)
-
-        self.protected_tags_grid.addWidget(self.protected_tags_input, 1, 0, 1, 1)
-
-        self.protected_tags_selector = QPushButton(sub_dataset_input)
-        self.protected_tags_selector.setObjectName("protected_tags_selector")
-        self.protected_tags_selector.setEnabled(True)
-
-        self.protected_tags_grid.addWidget(self.protected_tags_selector, 1, 1, 1, 1)
-
-        self.protected_tags_label = QLabel(sub_dataset_input)
-        self.protected_tags_label.setObjectName("protected_tags_label")
-
-        self.protected_tags_grid.addWidget(self.protected_tags_label, 0, 0, 1, 2)
-
-        self.gridLayout.addLayout(self.protected_tags_grid, 3, 0, 1, 2)
 
         self.retranslateUi(sub_dataset_input)
 
@@ -312,40 +291,4 @@ class Ui_sub_dataset_input(object):
         self.label.setToolTip(QCoreApplication.translate("sub_dataset_input", u"<html><head/><body><p>Masked Image Dir is only used when masked loss is checked. This is where the masks for the images in the given folder are to be provided</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label.setText(QCoreApplication.translate("sub_dataset_input", u"Masked Image Dir", None))
-        self.protected_tags_grid.setObjectName(
-            QCoreApplication.translate("sub_dataset_input", "protected_tags_grid", None)
-        )
-        # if QT_CONFIG(tooltip)
-        self.protected_tags_input.setToolTip(
-            QCoreApplication.translate(
-                "sub_dataset_input",
-                "<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. </p></body></html>",
-                None,
-            )
-        )
-        # endif // QT_CONFIG(tooltip)
-        self.protected_tags_input.setPlaceholderText(
-            QCoreApplication.translate("sub_dataset_input", "Protected Tags File", None)
-        )
-        # if QT_CONFIG(tooltip)
-        self.protected_tags_selector.setToolTip(
-            QCoreApplication.translate(
-                "sub_dataset_input",
-                "<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. </p></body></html>",
-                None,
-            )
-        )
-        # endif // QT_CONFIG(tooltip)
-        self.protected_tags_selector.setText("")
-        # if QT_CONFIG(tooltip)
-        self.protected_tags_label.setToolTip(
-            QCoreApplication.translate(
-                "sub_dataset_input",
-                "<html><head/><body><p>'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting. </p></body></html>",
-                None,
-            )
-        )
-        # endif // QT_CONFIG(tooltip)
-        self.protected_tags_label.setText(QCoreApplication.translate("sub_dataset_input", "Protected Tags File", None))
-
     # retranslateUi
