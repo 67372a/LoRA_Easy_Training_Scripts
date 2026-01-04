@@ -1,3 +1,4 @@
+import subprocess
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import QMainWindow, QApplication
 from qt_material import QtStyleTools, apply_stylesheet
