@@ -109,6 +109,14 @@ class ArgsWidget(QtWidgets.QWidget):
                 dataset_args[widget.name] = widget.dataset_args
         return {"args": args, "dataset": dataset_args}
 
+    def get_validation_errors(self) -> list[str]:
+        errors: list[str] = []
+        for widget in self.args_widget_array:
+            validator = getattr(widget, "get_validation_errors", None)
+            if callable(validator):
+                errors.extend(validator())
+        return errors
+
     def load_args(self, args: dict, dataset_args: dict) -> None:
         for widget in self.args_widget_array:
             widget.load_args(args)
