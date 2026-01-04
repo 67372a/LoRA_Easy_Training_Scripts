@@ -264,6 +264,52 @@
         </property>
        </widget>
       </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="protected_tags_label">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Protected Tags File</string>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <layout class="QGridLayout" name="protected_tags_grid">
+      <property name="horizontalSpacing">
+       <number>8</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="DragDropLineEdit" name="protected_tags_input">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Protected Tags File</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="protected_tags_selector">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
      </layout>
     </widget>
    </item>

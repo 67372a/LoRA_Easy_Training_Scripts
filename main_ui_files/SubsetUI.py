@@ -1,12 +1,14 @@
 import contextlib
 from pathlib import Path
-from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QWidget, QFileDialog
+
 from PySide6.QtCore import Signal
-from modules.DragDropLineEdit import DragDropLineEdit
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QFileDialog, QWidget
+
 from modules.BaseWidget import BaseWidget
-from ui_files.sub_dataset_input import Ui_sub_dataset_input
+from modules.DragDropLineEdit import DragDropLineEdit
 from ui_files.sub_dataset_extra_input import Ui_sub_dataset_extra_input
+from ui_files.sub_dataset_input import Ui_sub_dataset_input
 
 
 class SubsetWidget(BaseWidget):
@@ -49,12 +51,19 @@ class SubsetWidget(BaseWidget):
         self.widget.target_image_folder_input.allow_empty = True
         self.widget.target_image_folder_selector.setIcon(
             QIcon(str(Path("icons/more-horizontal.svg")))
-         )
+        )
         self.widget.masked_image_input.setMode("folder")
         self.widget.masked_image_input.highlight = True
         self.widget.masked_image_selector.setIcon(
             QIcon(str(Path("icons/more-horizontal.svg")))
         )
+        self.extra_widget.protected_tags_input.setMode("file", [".txt"])
+        self.extra_widget.protected_tags_input.highlight = True
+        self.extra_widget.protected_tags_input.allow_empty = True
+        self.extra_widget.protected_tags_selector.setIcon(
+            QIcon(str(Path("icons/more-horizontal.svg")))
+        )
+
         self.extra_widget.face_crop_group.setChecked(False)
         self.extra_widget.caption_dropout_group.setChecked(False)
         self.extra_widget.token_warmup_group.setChecked(False)
@@ -150,6 +159,14 @@ class SubsetWidget(BaseWidget):
         self.extra_widget.token_warmup_step_input.valueChanged.connect(
             lambda x: self.edit_dataset_args("token_warmup_step", x)
         )
+        self.extra_widget.protected_tags_input.textChanged.connect(
+            lambda x: self.edit_dataset_args("protected_tags_file", x, True)
+        )
+        self.extra_widget.protected_tags_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                "Protected Tags File", self.extra_widget.protected_tags_input
+            )
+        )
 
     def edit_dataset_args(
         self, name: str, value: object, optional: bool = False
@@ -183,6 +200,27 @@ class SubsetWidget(BaseWidget):
         with contextlib.suppress(ValueError):
             repeats = int(file_name.name.split("_")[0])
             self.widget.repeats_input.setValue(repeats)
+
+    def set_file_from_dialog(
+        self,
+        title_str: str,
+        element: DragDropLineEdit,
+        extensions: str = "Text Files (*.txt);;All Files (*.*)",
+    ) -> None:
+        """Open file picker dialog for file selection"""
+        default_dir = Path(element.text())
+        file_name, _ = QFileDialog.getOpenFileName(
+            self,
+            title_str,
+            dir=str(default_dir. parent) if default_dir. exists() else "",
+            filter=extensions,
+        )
+        if not file_name:
+            return
+        file_name = Path(file_name)
+        element.setText(file_name.as_posix())
+        element.update_stylesheet()
+
 
     def enable_disable_masked_loss(self, checked: bool) -> None:
         if "conditioning_data_dir" in self.dataset_args:
@@ -375,6 +413,9 @@ class SubsetWidget(BaseWidget):
         self.extra_widget.token_warmup_step_input.setValue(
             dataset_args.get("token_warmup_step", 1)
         )
+        self.extra_widget.protected_tags_input.setText(
+            dataset_args.get("protected_tags_file", "")
+        )
 
         # edit dataset args to match
         self.edit_dataset_args("image_dir", self.widget.image_folder_input.text(), True)
@@ -421,6 +462,9 @@ class SubsetWidget(BaseWidget):
         )
         self.enable_disable_shuffle_caption_modifers(
             self.extra_widget.shuffle_caption_group.isChecked()
+        )
+        self.edit_dataset_args(
+            "protected_tags_file", self.extra_widget.protected_tags_input.text(), True
         )
 
         self.edited.emit(self.dataset_args, self.name)

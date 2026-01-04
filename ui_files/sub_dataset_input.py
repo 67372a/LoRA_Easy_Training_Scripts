@@ -112,7 +112,7 @@ class Ui_sub_dataset_input(object):
         self.gridLayout_2.addWidget(self.validation_images_enable, 2, 1, 1, 2, Qt.AlignLeft)
 
 
-        self.gridLayout.addLayout(self.gridLayout_2, 3, 1, 1, 1)
+        self.gridLayout.addLayout(self.gridLayout_2, 4, 1, 1, 1)
 
         self.other_form_layout = QFormLayout()
         self.other_form_layout.setObjectName(u"other_form_layout")
@@ -174,7 +174,7 @@ class Ui_sub_dataset_input(object):
         # Random crop padding
 
 
-        self.gridLayout.addLayout(self.other_form_layout, 3, 0, 1, 1)
+        self.gridLayout.addLayout(self.other_form_layout, 4, 0, 1, 1)
 
         self.extra_args = CollapsibleWidget(sub_dataset_input)
         self.extra_args.setObjectName(u"extra_args")
@@ -292,4 +292,3 @@ class Ui_sub_dataset_input(object):
 #endif // QT_CONFIG(tooltip)
         self.label.setText(QCoreApplication.translate("sub_dataset_input", u"Masked Image Dir", None))
     # retranslateUi
-

@@ -69,7 +69,7 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="1">
+    <item row="4" column="1">
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
@@ -126,7 +126,7 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
+    <item row="4" column="0">
     <layout class="QFormLayout" name="other_form_layout">
      <property name="horizontalSpacing">
       <number>12</number>
@@ -215,10 +215,10 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="0" colspan="2">
+    <item row="5" column="0" colspan="2">
     <widget class="CollapsibleWidget" name="extra_args" native="true"/>
    </item>
-   <item row="1" column="0" colspan="2">
+    <item row="2" column="0" colspan="2">
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="1" column="0">
       <widget class="DragDropLineEdit" name="masked_image_input">
@@ -254,8 +254,7 @@
       </widget>
      </item>
     </layout>
-   </item>
-  </layout>
+    </item>
  </widget>
  <customwidgets>
   <customwidget>
