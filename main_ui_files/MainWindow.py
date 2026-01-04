@@ -58,6 +58,22 @@ class MainWindow(QMainWindow, QtStyleTools):
         for theme in self.light_themes:
             self.widget.light_theme_menu.addAction(theme)
 
+        self.compact_mode_action = QAction("Compact Mode (Material)", self)
+        self.compact_mode_action.setCheckable(True)
+
+        config = Path("config.json")
+        if config.exists():
+            try:
+                config_dict = json.loads(config.read_text())
+                is_compact = config_dict.get("theme", {}).get("density_scale") == "-2"
+                self.compact_mode_action.setChecked(is_compact)
+            except Exception:
+                pass
+
+        self.widget.menuTheme.addSeparator()
+        self.widget.menuTheme.addAction(self.compact_mode_action)
+
+
     def setup_connections(self) -> None:
         self.widget.save_toml.triggered.connect(self.main_widget.save_toml)
         self.widget.load_toml.triggered.connect(self.main_widget.load_toml)
@@ -78,6 +94,8 @@ class MainWindow(QMainWindow, QtStyleTools):
         )
         self.widget.set_train_ti_action.triggered.connect(self.main_widget.set_train_ti)
         self.tensorboard_action.triggered.connect(self.launch_tensorboard)
+        self.compact_mode_action.triggered.connect(lambda: self.change_theme())
+
 
     def launch_tensorboard(self) -> None:
         try:
@@ -177,28 +195,44 @@ class MainWindow(QMainWindow, QtStyleTools):
         super().closeEvent(event)
 
     def change_theme(
-        self, index: int, is_light: bool = False, no_theme: bool = False
+        self, index: int = -1, is_light: bool = False, no_theme: bool = False
     ) -> None:
+        """Updates the theme. If index is -1, it re-applies the current theme 
+        (used for toggling compact mode)."""
+        config = Path("config.json")
+        config_dict = json.loads(config.read_text()) if config.exists() else {}
+        
         if no_theme:
             theme_path = None
             self.app.setStyleSheet("")
         else:
-            prefix = "light" if is_light else "dark"
-            if is_light:
-                name = self.light_themes[index].text()
+            if index == -1:
+                current_cfg = config_dict.get("theme", {})
+                theme_path_str = current_cfg.get("location")
+                if not theme_path_str:
+                    return
+                theme_path = Path(theme_path_str)
+                is_light = current_cfg.get("is_light", False)
             else:
-                name = self.dark_themes[index].text()
-            theme_path = Path(f"css/themes/{prefix}_{name}.xml")
+                prefix = "light" if is_light else "dark"
+                name = self.light_themes[index].text() if is_light else self.dark_themes[index].text()
+                theme_path = Path(f"css/themes/{prefix}_{name}.xml")
+
+            is_compact = self.compact_mode_action.isChecked()
+            density_val = "-2" if is_compact else "0"
+            extra = {'density_scale': density_val}
+
             apply_stylesheet(
                 self.app,
                 theme=str(theme_path),
                 invert_secondary=is_light,
+                extra=extra
             )
-        config = Path("config.json")
-        config_dict = json.loads(config.read_text()) if config.exists() else {}
+
         config_dict["theme"] = {
             "location": theme_path.as_posix() if theme_path else None,
             "is_light": is_light,
+            "density_scale": "-2" if self.compact_mode_action.isChecked() else "0"
         }
         config.write_text(json.dumps(config_dict, indent=2))
 
