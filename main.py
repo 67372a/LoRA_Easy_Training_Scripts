@@ -53,7 +53,7 @@ def main() -> None:
         
         # Add larger font size when using compact mode
         if density == "-2":
-            extra['font_size'] = '16px'
+            extra['font_size'] = '15px'
 
         apply_stylesheet(
             app,
