@@ -50,6 +50,10 @@ def main() -> None:
     if config_dict["theme"]["location"]:
         density = config_dict["theme"].get("density_scale", "0")
         extra = {'density_scale': density} if density != "0" else {}
+        
+        # Add larger font size when using compact mode
+        if density == "-2":
+            extra['font_size'] = '16px'
 
         apply_stylesheet(
             app,

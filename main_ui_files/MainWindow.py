@@ -221,6 +221,9 @@ class MainWindow(QMainWindow, QtStyleTools):
             is_compact = self.compact_mode_action.isChecked()
             density_val = "-2" if is_compact else "0"
             extra = {'density_scale': density_val}
+            
+            if is_compact:
+                extra['font_size'] = '16px'
 
             apply_stylesheet(
                 self.app,
