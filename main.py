@@ -28,6 +28,7 @@ def CreateConfig():
         "theme": {
             "location": Path("css/themes/dark_teal.xml").as_posix(),
             "is_light": False,
+            "density_scale": "0",
         }
     }
 
@@ -47,11 +48,20 @@ def main() -> None:
         backend_thread.start()
     app = QtWidgets.QApplication(sys.argv)
     if config_dict["theme"]["location"]:
+        density = config_dict["theme"].get("density_scale", "0")
+        extra = {'density_scale': density} if density != "0" else {}
+        
+        # Add larger font size when using compact mode
+        if density == "-2":
+            extra['font_size'] = '15px'
+
         apply_stylesheet(
             app,
             theme=config_dict["theme"]["location"],
             invert_secondary=config_dict["theme"]["is_light"],
+            extra=extra
         )
+
     window = MainWindow(app)
     window.setWindowTitle("LoRA Trainer - 67372a Fork - Refresh Branch")
     window.show()
