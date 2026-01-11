@@ -43,12 +43,16 @@ class ExtraArgsWidget(BaseWidget):
         self.dataset_args = {}
         for arg in self.extra_args:
             name, value, is_dataset = arg.get_arg()
-            if not name or not value:
+            if not name:
                 continue
+            value_str = "" if value is None else str(value)
+            if not value_str.strip():
+                continue
+            parsed_value = self._parse_value(value_str)
             if is_dataset:
-                self.edit_dataset_args(name, value)
+                self.edit_dataset_args(name, parsed_value)
             else:
-                self.edit_args(name, value)
+                self.edit_args(name, parsed_value)
 
     def remove_extra_arg(self, widget: ExtraItem):
         self.layout().removeWidget(widget)
@@ -86,3 +90,32 @@ class ExtraArgsWidget(BaseWidget):
             self.extra_args[-1].arg_value_input.setText(str(value))
             self.extra_args[-1].is_dataset_toggle.setChecked(is_dataset)
         self.modify_extra_args()
+
+    def get_validation_errors(self) -> list[str]:
+        errors: list[str] = []
+        for arg in self.extra_args:
+            name, value, _ = arg.get_arg()
+            if not name:
+                continue
+            value_str = "" if value is None else str(value)
+            if not value_str.strip():
+                errors.append(
+                    f"Extra arg '{name}' has no value; remove it or provide a value (use 'true'/'false' for booleans) before saving TOML or training."
+                )
+        return errors
+
+    @staticmethod
+    def _parse_value(value: str) -> object:
+        stripped = value.strip()
+        lower = stripped.lower()
+        if lower == "true":
+            return True
+        if lower == "false":
+            return False
+        try:
+            return int(stripped)
+        except ValueError:
+            try:
+                return float(stripped)
+            except ValueError:
+                return stripped

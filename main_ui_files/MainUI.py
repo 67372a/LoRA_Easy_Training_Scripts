@@ -83,6 +83,13 @@ class MainWidget(QWidget):
         return base_args, subset_args
 
     def save_toml(self, file_name: Path | None = None) -> None:
+        validation_errors = self.args_widget.get_validation_errors()
+        if validation_errors:
+            message = "\n".join(validation_errors)
+            QtWidgets.QMessageBox.warning(self, "Invalid Extra Args", message)
+            print("Cannot save TOML while extra args lack values:")
+            print(message)
+            return
         args, subset_args = self.get_args()
         new_args = {arg: {"args": val} for arg, val in args["args"].items()}
         for arg, val in args["dataset"].items():
@@ -141,6 +148,13 @@ class MainWidget(QWidget):
             with contextlib.suppress(Exception):
                 requests.get(f"{self.backend_url_input.text()}/stop_training")
             self.begin_training_button.setText("Start Training")
+            return
+        validation_errors = self.args_widget.get_validation_errors()
+        if validation_errors:
+            error_text = "\n".join(validation_errors)
+            QtWidgets.QMessageBox.warning(self, "Invalid Extra Args", error_text)
+            print("Training blocked until extra args are fixed:")
+            print(error_text)
             return
         self.training_thread = Thread(target=self.start_training_thread)
         self.training_thread.start()
