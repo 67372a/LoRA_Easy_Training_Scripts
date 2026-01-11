@@ -120,7 +120,7 @@ So, all DoRAs trained without explictly setting bypass_mode to false (which I do
   - Use the following args under Extra Args to manage
   - validation_split - float 0.0 - 1.0: The percentage amount of all training datasets to split off for validation. Recommend a value of at least 0.1
   - validation_seed - string - A seed that used by the process to determine the images split off, order, etc. 
-  - validation_every_n_step - int - Every n steps, run validation, if not set, runs every epoch. Recommend a value of 25, depending on your effective batch size and number of steps.
+  - validate_every_n_steps - int - Every n steps, run validation, if not set, runs every epoch. Recommend a value of 25, depending on your effective batch size and number of steps.
   - max_validation_steps - int - The maximum number of batches of images that will be processed during a validation, recommend setting this to a high value and not worrying about it, so all images in the val dataset are processed each time.
 - Options to scale IP noise gamma based on timestep or apply to last channel only.
   - Use the following args under Extra Args to manage
