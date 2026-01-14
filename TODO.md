@@ -38,6 +38,8 @@
 
 ## Tooltips
 
+- [ ] Add if a setting is suggested/recommended to tooltips, eg latent caching and sdpa is likely suggested, or protected tags over keep tokens/tags
+
 - [ ] Think about adding the CLI arg each option uses to tooltip
   - [ ] Yes
   - [ ] No
@@ -64,6 +66,7 @@
 
 - [ ] Global Protected Tags file | BaseUI
   - [ ] Hook up global protected tags file to logic
+    - [ ] Make textbox disabled when checkbox is unchecked
   - [ ] give selector button same 3 dot icon as base model/external vae ones
   - [ ] Add tooltip
 
