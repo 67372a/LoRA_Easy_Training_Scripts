@@ -118,7 +118,6 @@ class MainWindow(QMainWindow, QtStyleTools):
 
             import subprocess
             import os
-            import sys
 
             # Construct path to backend's virtual environment
             # Start from the root directory of LoRA_Easy_Training_Scripts
