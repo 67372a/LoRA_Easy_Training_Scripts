@@ -42,7 +42,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Token Length represents the largest size a training prompt can be. Note that tokens are not the same as words.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Token Length represents the largest size a training prompt can be. Note that tokens are not the same as words&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Max Token Length</string>
@@ -55,7 +55,7 @@
         <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Token Length represents the largest size a training prompt can be. Note that tokens are not the same as words.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Token Length represents the largest size a training prompt can be. Note that tokens are not the same as words&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <item>
         <property name="text">
@@ -77,7 +77,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_5">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Training Precision, otherwise known as Mixed Precision, is the main precision that is trained at. Generally, there are parts of the model that trains better at FP32 (full), so mixed precision allows for such parts to be in full precision while keeping the majority in a lower, more VRAM friendly precision.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Training Precision, otherwise known as Mixed Precision, is the main precision that is trained at. Generally, there are parts of the model that trains better at FP32 (full), so mixed precision allows for such parts to be in full precision while keeping the majority in a lower, more VRAM friendly precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Training Precision</string>
@@ -90,7 +90,7 @@
         <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Training Precision, otherwise known as Mixed Precision, is the main precision that is trained at. Generally, there are parts of the model that trains better at FP32 (full), so mixed precision allows for such parts to be in full precision while keeping the majority in a lower, more VRAM friendly precision.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Training Precision, otherwise known as Mixed Precision, is the main precision that is trained at. Generally, there are parts of the model that trains better at FP32 (full), so mixed precision allows for such parts to be in full precision while keeping the majority in a lower, more VRAM friendly precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <item>
         <property name="text">
@@ -112,7 +112,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_6">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Training Time can be in epochs or in steps. The step calculation for epochs will match perfectly with how sd-scripts calculates their steps if used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Training Time can be in epochs or in steps. The step calculation for epochs will match perfectly with how sd-scripts calculates their steps if used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Max Training Time</string>
@@ -127,7 +127,7 @@
           <enum>Qt::FocusPolicy::StrongFocus</enum>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Training Time can be in epochs or in steps. The step calculation for epochs will match perfectly with how sd-scripts calculates their steps if used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Training Time can be in epochs or in steps. The step calculation for epochs will match perfectly with how sd-scripts calculates their steps if used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <item>
           <property name="text">
@@ -147,7 +147,7 @@
           <enum>Qt::FocusPolicy::StrongFocus</enum>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formerly named: Keep Tokens Separator&lt;/p&gt;&lt;p&gt;Keep Tags Seperator is an alternative way to Keep Tokens/Tags to allow for dynamic keep tags per file versus per folder by using a separator string such as ||| which is all but guaranteed to show up in any caption.&lt;/p&gt;&lt;p&gt;Protected Tags File is suggested as a better alternative.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max Training Time can be in epochs or in steps. The step calculation for epochs will match perfectly with how sd-scripts calculates their steps if used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="minimum">
           <number>1</number>
@@ -162,7 +162,7 @@
      <item row="4" column="0">
       <widget class="QCheckBox" name="keep_tokens_seperator_enable">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formerly named: Keep Tokens Separator&lt;/p&gt;&lt;p&gt;Keep Tags Seperator is an alternative way to Keep Tokens/Tags to allow for dynamic keep tags per file versus per folder by using a separator string such as ||| which is all but guaranteed to show up in any caption.&lt;/p&gt;&lt;p&gt;Protected Tags File is suggested as a better alternative.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formerly named: Keep Tokens Separator&lt;/p&gt;&lt;p&gt;Keep Tags Seperator is an alternative way to Keep Tokens/Tags to allow for dynamic keep tags per file versus per folder by using a separator string such as ||| which is all but guaranteed to show up in any caption.&lt;/p&gt;&lt;p&gt;Protected Tags File is suggested as a better alternative&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Keep Tags Seperator</string>
@@ -175,7 +175,7 @@
         <bool>false</bool>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keep Tokens Seperator is an alternative way to allow for dynamic keep tokens per file versus per folder. Typically this would be used with a string like ||| which is all but guarenteed not to show up within any caption&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formerly named: Keep Tokens Separator&lt;/p&gt;&lt;p&gt;Keep Tags Seperator is an alternative way to Keep Tokens/Tags to allow for dynamic keep tags per file versus per folder by using a separator string such as ||| which is all but guaranteed to show up in any caption.&lt;/p&gt;&lt;p&gt;Protected Tags File is suggested as a better alternative&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -217,7 +217,7 @@
      <item row="0" column="0">
       <widget class="QCheckBox" name="comment_enable">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Comment is a place where you can provide a comment within the metadata of the model. Unfortunately you are fairly limited on what works within the metadata, as things such as quotes, newlines, and slashes are iffy at best, or don't work at all at worst.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Comment is a place where you can provide a comment within the metadata of the model. Unfortunately you are fairly limited on what works within the metadata, as things such as quotes, newlines, and slashes are iffy at best, or don't work at all at worst&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Comment</string>
@@ -230,7 +230,7 @@
         <bool>false</bool>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Comment is a place where you can provide a comment within the metadata of the model. Unfortunately you are fairly limited on what works within the metadata, as things such as quotes, newlines, and slashes are iffy at best, or don't work at all at worst.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Comment is a place where you can provide a comment within the metadata of the model. Unfortunately you are fairly limited on what works within the metadata, as things such as quotes, newlines, and slashes are iffy at best, or don't work at all at worst&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="placeholderText">
         <string>Enter a comment you want in the metadata</string>
@@ -332,7 +332,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_7">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The random seed that is used to do all randomization within the training process.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The random seed that is used to do all randomization within the training process&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Seed</string>
@@ -345,7 +345,7 @@
         <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The random seed that is used to do all randomization within the training process.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The random seed that is used to do all randomization within the training process&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="decimals">
         <number>0</number>
@@ -403,7 +403,7 @@
         <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prior Loss Weight is the weight of the Prior Loss. Prior Loss is a loss specifically designed to help the model not erase concepts while it trains in new concepts. The weight is how much of an effect the Prior Loss has.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prior Loss Weight is the weight of the Prior Loss. Prior Loss is a loss specifically designed to help the model not erase concepts while it trains in new concepts. The weight is how much of an effect the Prior Loss has&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="minimum">
         <double>0.010000000000000</double>
@@ -584,7 +584,7 @@
         <item>
          <widget class="QCheckBox" name="FP16_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows training on full fp16. Not compatable with full bf16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows training on full FP16. Not compatable with full bf16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Full FP16</string>
@@ -594,7 +594,7 @@
         <item>
          <widget class="QCheckBox" name="BF16_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full bf16. Not compatable with full fp16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatable with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Full BF16</string>
@@ -604,7 +604,7 @@
         <item>
          <widget class="QCheckBox" name="FP8_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in fp8, which should reduce VRAM usage by roughly half of fp16. Training Precision must be one of fp16 or bf16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>FP8 Base</string>
@@ -638,7 +638,7 @@
         <item>
          <widget class="QCheckBox" name="no_half_vae_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage, but is sometimes required on older graphics cards&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>No Half Vae</string>
