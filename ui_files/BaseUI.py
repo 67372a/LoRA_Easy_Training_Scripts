@@ -602,7 +602,7 @@ class Ui_base_args_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.v_pred_enable.setText(QCoreApplication.translate("base_args_ui", u"Scale V pred loss", None))
 #if QT_CONFIG(tooltip)
-        self.FP16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows training on full FP16. Not compatable with full bf16 or training precision</p></body></html>", None))
+        self.FP16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows training on full FP16. Not compatable with full BF16 or training precision</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.FP16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full FP16", None))
 #if QT_CONFIG(tooltip)
