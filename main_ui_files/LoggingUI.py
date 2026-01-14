@@ -1,6 +1,6 @@
 from PySide6.QtCore import Slot
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QWidget, QComboBox # Import QComboBox
+from PySide6.QtWidgets import QWidget
 from modules.DragDropLineEdit import DragDropLineEdit
 from modules.LineEditHighlight import LineEditWithHighlight
 from ui_files.LoggingUI import Ui_logging_ui
