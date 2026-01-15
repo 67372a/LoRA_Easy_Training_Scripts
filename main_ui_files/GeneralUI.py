@@ -50,7 +50,7 @@ class GeneralWidget(BaseWidget):
         setup_file(self.widget.base_model_input, self.widget.base_model_selector)
         setup_file(self.widget.vae_input, self.widget.vae_selector)
         self.widget.vae_input.allow_empty = True
-        
+
         # global protected tags file input/selector
         self.widget.global_protected_tags_file_input.setMode("file", [".txt"])
         self.widget.global_protected_tags_file_input.highlight = True
@@ -269,6 +269,8 @@ class GeneralWidget(BaseWidget):
             del self.args["keep_tokens_separator"]
         self.widget.keep_tokens_seperator_input.setEnabled(checked)
         self.keepTokensSepChecked.emit(checked)
+        if not checked:
+            return
         self.edit_args(
             "keep_tokens_separator",
             self.widget.keep_tokens_seperator_input.text(),
