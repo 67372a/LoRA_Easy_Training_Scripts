@@ -425,7 +425,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="max_data_loader_n_workers_label">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of PyTorch DataLoader worker processes used to prepare batches in parallel, increases CPU/RAM use (decoding/preprocessing/etc) so GPUs stay busy&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of PyTorch DataLoader worker processes used to prepare batches in parallel, increases CPU/RAM use (decoding/preprocessing/etc) so GPUs stay busy. &lt;br/&gt;Persistent DataLoader workers is enabled by default.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Max Data Loader Workers</string>
@@ -438,7 +438,7 @@
         <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of PyTorch DataLoader worker processes used to prepare batches in parallel, increases CPU/RAM use (decoding/preprocessing/etc) so GPUs stay busy&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of PyTorch DataLoader worker processes used to prepare batches in parallel, increases CPU/RAM use (decoding/preprocessing/etc) so GPUs stay busy. &lt;br/&gt;Persistent DataLoader workers is enabled by default.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="minimum">
         <number>1</number>
@@ -459,7 +459,7 @@
           <bool>true</bool>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;xFormers Is a memory optimization library that drastically reduces VRAM usage while not reducing speed of training very much&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;xFormers is a memory optimization library that drastically reduces VRAM usage while not reducing speed of training very much&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>xFormers</string>
@@ -475,7 +475,7 @@
           <bool>true</bool>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;SDPA Is a PyTorch memory optimization that drastically reduces VRAM usage while not reducing speed of training very much&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;SDPA is a PyTorch memory optimization that drastically reduces VRAM usage while not reducing speed of training very much&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>SDPA</string>

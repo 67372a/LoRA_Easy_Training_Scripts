@@ -60,7 +60,9 @@
 ## Set new default values to accomodate newer, more commonly used standards
 
 - [x] Width/Height default to 1024 from 512 | BaseUI
+  - [ ] Change bucket resolutions to accomodate res increase
   - [ ] Contemplate: Since this was made for sd1.5 in mind, setting SDXL to default true probably bad but unlikely people will train sub 1mp model
+
 - [ ] Cache Latents default true? | BaseUI
 - [ ] SDPA default true? | BaseUI
 
