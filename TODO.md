@@ -67,9 +67,9 @@
 ## Implement new elements
 
 - [ ] Global Protected Tags file | BaseUI
-  - [ ] Hook up global protected tags file to logic
-    - [ ] Make textbox disabled when checkbox is unchecked
-  - [ ] give selector button same 3 dot icon as base model/external vae ones
+  - [x] Hook up global protected tags file to logic
+    - [x] Make textbox disabled when checkbox is unchecked
+  - [x] give selector button same 3 dot icon as base model/external vae ones
   - [ ] Add tooltip
 
 - [ ] FlowMatch/Rectified Flow settings
@@ -80,6 +80,13 @@
 
 - [ ] Option to ignore or delete/overwrite existing cached latents
 
-## other
+## Other
 
 check generalui.py for code-set ui defaults/fallbacks
+
+### Fixes
+
+- [x] Keep Tokens/Tags Separator now correctly won't pass on it's value, if populated, downstream/when saving toml
+- [ ] Infer values from UI instead of hardcoded dict to use UI defaults correctly
+  - [x] General Args/GeneralUI
+  - [ ] ... find it in the other files ...
