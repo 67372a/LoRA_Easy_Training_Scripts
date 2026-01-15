@@ -9,6 +9,8 @@
 - [ ] ~~Add vertical separator (Line) to visually separate Layouts better~~ | BaseUI
   - is currently removed because idk yet how to make the QGroupBoxes "take it as middle", also the line seems off in qt-material themes
 
+- [x] Use QGridLayout instead of 3 QHBoxLayouts for model checkboxes, makes them look more orderly
+
 ### Dev
 
 - [ ] Fix .ui Pyside6/Qt Designer files being out of sync with generated .py files
@@ -77,3 +79,7 @@
 ## Requires backend change (probably)
 
 - [ ] Option to ignore or delete/overwrite existing cached latents
+
+## other
+
+check generalui.py for code-set ui defaults/fallbacks
