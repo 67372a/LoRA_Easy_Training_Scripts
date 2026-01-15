@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>758</width>
+    <width>877</width>
     <height>573</height>
    </rect>
   </property>
@@ -185,7 +185,7 @@
         <string>TDOO | is overwritten by subset specific protected tags file</string>
        </property>
        <property name="text">
-        <string>Global Protected Tags File</string>
+        <string>Protected Tags File (Global)</string>
        </property>
       </widget>
      </item>
@@ -193,6 +193,9 @@
       <layout class="QHBoxLayout" name="global_protected_tags_file_hLayout">
        <item>
         <widget class="DragDropLineEdit" name="global_protected_tags_file_input">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="toolTip">
           <string>TDOO | is overwritten by subset specific protected tags file</string>
          </property>
@@ -200,6 +203,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="global_protected_tags_file_selector">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="toolTip">
           <string>TDOO | is overwritten by subset specific protected tags file</string>
          </property>
@@ -803,22 +809,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
-         <widget class="QCheckBox" name="FP8_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>FP8 Base</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="4">
          <widget class="QCheckBox" name="high_vram_enable">
           <property name="sizePolicy">
@@ -845,6 +835,22 @@
           </property>
           <property name="text">
            <string>VAE Reflection</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QCheckBox" name="FP8_enable">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>FP8 Base</string>
           </property>
          </widget>
         </item>

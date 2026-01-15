@@ -27,7 +27,7 @@ class Ui_base_args_ui(object):
     def setupUi(self, base_args_ui):
         if not base_args_ui.objectName():
             base_args_ui.setObjectName(u"base_args_ui")
-        base_args_ui.resize(758, 573)
+        base_args_ui.resize(877, 573)
         self.gridLayout_3 = QGridLayout(base_args_ui)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.formLayout_5 = QFormLayout()
@@ -118,11 +118,13 @@ class Ui_base_args_ui(object):
         self.global_protected_tags_file_hLayout.setObjectName(u"global_protected_tags_file_hLayout")
         self.global_protected_tags_file_input = DragDropLineEdit(base_args_ui)
         self.global_protected_tags_file_input.setObjectName(u"global_protected_tags_file_input")
+        self.global_protected_tags_file_input.setEnabled(False)
 
         self.global_protected_tags_file_hLayout.addWidget(self.global_protected_tags_file_input)
 
         self.global_protected_tags_file_selector = QPushButton(base_args_ui)
         self.global_protected_tags_file_selector.setObjectName(u"global_protected_tags_file_selector")
+        self.global_protected_tags_file_selector.setEnabled(False)
 
         self.global_protected_tags_file_hLayout.addWidget(self.global_protected_tags_file_selector)
 
@@ -437,13 +439,6 @@ class Ui_base_args_ui(object):
 
         self.model_checkbox_gridLayout.addWidget(self.no_half_vae_enable, 0, 2, 1, 1)
 
-        self.FP8_enable = QCheckBox(self.base_model_box)
-        self.FP8_enable.setObjectName(u"FP8_enable")
-        sizePolicy1.setHeightForWidth(self.FP8_enable.sizePolicy().hasHeightForWidth())
-        self.FP8_enable.setSizePolicy(sizePolicy1)
-
-        self.model_checkbox_gridLayout.addWidget(self.FP8_enable, 1, 4, 1, 1)
-
         self.high_vram_enable = QCheckBox(self.base_model_box)
         self.high_vram_enable.setObjectName(u"high_vram_enable")
         sizePolicy1.setHeightForWidth(self.high_vram_enable.sizePolicy().hasHeightForWidth())
@@ -457,6 +452,13 @@ class Ui_base_args_ui(object):
         self.vae_reflection_enable.setSizePolicy(sizePolicy1)
 
         self.model_checkbox_gridLayout.addWidget(self.vae_reflection_enable, 2, 2, 1, 1)
+
+        self.FP8_enable = QCheckBox(self.base_model_box)
+        self.FP8_enable.setObjectName(u"FP8_enable")
+        sizePolicy1.setHeightForWidth(self.FP8_enable.sizePolicy().hasHeightForWidth())
+        self.FP8_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.FP8_enable, 1, 4, 1, 1)
 
 
         self.formLayout_3.setLayout(2, QFormLayout.ItemRole.SpanningRole, self.model_checkbox_gridLayout)
@@ -524,7 +526,7 @@ class Ui_base_args_ui(object):
 #if QT_CONFIG(tooltip)
         self.global_protected_tags_file_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"TDOO | is overwritten by subset specific protected tags file", None))
 #endif // QT_CONFIG(tooltip)
-        self.global_protected_tags_file_enable.setText(QCoreApplication.translate("base_args_ui", u"Global Protected Tags File", None))
+        self.global_protected_tags_file_enable.setText(QCoreApplication.translate("base_args_ui", u"Protected Tags File (Global)", None))
 #if QT_CONFIG(tooltip)
         self.global_protected_tags_file_input.setToolTip(QCoreApplication.translate("base_args_ui", u"TDOO | is overwritten by subset specific protected tags file", None))
 #endif // QT_CONFIG(tooltip)
@@ -669,14 +671,14 @@ class Ui_base_args_ui(object):
         self.no_half_vae_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.no_half_vae_enable.setText(QCoreApplication.translate("base_args_ui", u"No Half Vae", None))
-#if QT_CONFIG(tooltip)
-        self.FP8_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.FP8_enable.setText(QCoreApplication.translate("base_args_ui", u"FP8 Base", None))
         self.high_vram_enable.setText(QCoreApplication.translate("base_args_ui", u"High VRAM", None))
 #if QT_CONFIG(tooltip)
         self.vae_reflection_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Uses the reflect padding mode in the conv layers of the VAE</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.vae_reflection_enable.setText(QCoreApplication.translate("base_args_ui", u"VAE Reflection", None))
+#if QT_CONFIG(tooltip)
+        self.FP8_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.FP8_enable.setText(QCoreApplication.translate("base_args_ui", u"FP8 Base", None))
     # retranslateUi
 
