@@ -19,20 +19,8 @@ class GeneralWidget(BaseWidget):
         self.widget = Ui_base_args_ui()
 
         self.name = "general_args"
-        self.args = {
-            "mixed_precision": "fp16",
-            "seed": 23,
-            "clip_skip": 2,
-            "max_train_epochs": 1,
-            "max_data_loader_n_workers": 1,
-            "persistent_data_loader_workers": True,
-            "max_token_length": 225,
-            "prior_loss_weight": 1.0,
-        }
-        self.dataset_args = {
-            "resolution": 512,
-            "batch_size": 1,
-        }
+        self.args = {}
+        self.dataset_args = {}
 
         self.setup_widget()
         self.setup_connections()
@@ -51,13 +39,31 @@ class GeneralWidget(BaseWidget):
         setup_file(self.widget.vae_input, self.widget.vae_selector)
         self.widget.vae_input.allow_empty = True
 
-        # global protected tags file input/selector
+        # global protected tags file input/selector setup
         self.widget.global_protected_tags_file_input.setMode("file", [".txt"])
         self.widget.global_protected_tags_file_input.highlight = True
         self.widget.global_protected_tags_file_input.allow_empty = True
         self.widget.global_protected_tags_file_selector.setIcon(
             QIcon(str(Path("icons/more-horizontal.svg")))
         )
+
+        # initialize args from UI values
+        self.args["seed"] = int(self.widget.seed_input.value()) # explicit cast since we use DoubleSpinBox for seed, even at decimals = 0 it adds .0
+        self.args["clip_skip"] = self.widget.clip_skip_input.value()
+        self.args["max_train_epochs"] = self.widget.max_train_input.value()
+        self.args["max_data_loader_n_workers"] = self.widget.max_data_loader_n_workers_input.value()
+        self.args["persistent_data_loader_workers"] = True
+        self.args["max_token_length"] = int(self.widget.max_token_selector.currentText())
+        self.widget.max_token_selector.currentTextChanged.connect(
+            lambda t: self.edit_args("max_token_length", int(t))
+        )
+        self.args["prior_loss_weight"] = self.widget.loss_weight_input.value()
+
+        mixed_prec_text = self.widget.mixed_precision_selector.currentText()
+        self.args["mixed_precision"] = mixed_prec_text if mixed_prec_text != "float" else "no"
+
+        self.dataset_args["resolution"] = self.widget.width_input.value()
+        self.dataset_args["batch_size"] = self.widget.batch_size_input.value()
 
     def setup_connections(self) -> None:
         self.widget.base_model_input.textChanged.connect(
