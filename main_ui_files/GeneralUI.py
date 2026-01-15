@@ -50,6 +50,14 @@ class GeneralWidget(BaseWidget):
         setup_file(self.widget.base_model_input, self.widget.base_model_selector)
         setup_file(self.widget.vae_input, self.widget.vae_selector)
         self.widget.vae_input.allow_empty = True
+        
+        # global protected tags file input/selector
+        self.widget.global_protected_tags_file_input.setMode("file", [".txt"])
+        self.widget.global_protected_tags_file_input.highlight = True
+        self.widget.global_protected_tags_file_input.allow_empty = True
+        self.widget.global_protected_tags_file_selector.setIcon(
+            QIcon(str(Path("icons/more-horizontal.svg")))
+        )
 
     def setup_connections(self) -> None:
         self.widget.base_model_input.textChanged.connect(
@@ -67,6 +75,15 @@ class GeneralWidget(BaseWidget):
         self.widget.vae_selector.clicked.connect(
             lambda: self.set_file_from_dialog(self.widget.vae_input, "External VAE", "VAE file")
         )
+        self.widget.global_protected_tags_file_input.textChanged.connect(
+            lambda x: self.edit_args("protected_tags_file", x, optional=True)
+        )
+        self.widget.global_protected_tags_file_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                self.widget.global_protected_tags_file_input, "Protected Tags File (Global)", "Text file"
+            )
+        )
+        self.widget.global_protected_tags_file_enable.clicked.connect(self.enable_disable_global_protected_tags)
         self.widget.v2_enable.clicked.connect(lambda x: self.change_model_type(x, False))
         self.widget.sdxl_enable.clicked.connect(lambda x: self.change_model_type(False, x))
         self.widget.no_half_vae_enable.clicked.connect(lambda x: self.edit_args("no_half_vae", x, True))
@@ -266,6 +283,15 @@ class GeneralWidget(BaseWidget):
             return
         self.edit_args("training_comment", self.widget.comment_input.toPlainText(), True)
 
+    def enable_disable_global_protected_tags(self, checked: bool) -> None:
+        if "protected_tags_file" in self.args:
+            del self.args["protected_tags_file"]
+        self.widget.global_protected_tags_file_input.setEnabled(checked)
+        self.widget.global_protected_tags_file_selector.setEnabled(checked)
+        if not checked:
+            return
+        self.edit_args("protected_tags_file", self.widget.global_protected_tags_file_input.text(), optional=True)
+
     def load_args(self, args: dict) -> bool:
         args = args.get(self.name, {})
 
@@ -304,6 +330,8 @@ class GeneralWidget(BaseWidget):
         self.widget.keep_tokens_seperator_input.setText(args.get("keep_tokens_separator", ""))
         self.widget.comment_enable.setChecked(bool(args.get("training_comment", False)))
         self.widget.comment_input.setText(args.get("training_comment", ""))
+        self.widget.global_protected_tags_file_enable.setChecked(bool(args.get("protected_tags_file", False)))
+        self.widget.global_protected_tags_file_input.setText(args.get("protected_tags_file", ""))
 
         # update args to match
         self.edit_args(
@@ -344,6 +372,7 @@ class GeneralWidget(BaseWidget):
         self.enable_disable_cache_latents(self.widget.cache_latents_enable.isChecked())
         self.enable_disable_keep_tokens_sep(self.widget.keep_tokens_seperator_enable.isChecked())
         self.enable_disable_comment(self.widget.comment_enable.isChecked())
+        self.enable_disable_global_protected_tags(self.widget.global_protected_tags_file_enable.isChecked())
         return True
 
     def load_dataset_args(self, dataset_args: dict) -> bool:
