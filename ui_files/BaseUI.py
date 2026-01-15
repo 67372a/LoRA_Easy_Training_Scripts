@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QGridLayout,
-    QGroupBox, QHBoxLayout, QLabel, QPushButton,
-    QSizePolicy, QTextEdit, QWidget)
+    QGroupBox, QHBoxLayout, QLabel, QLayout,
+    QPushButton, QSizePolicy, QTextEdit, QWidget)
 
 from modules.DragDropLineEdit import DragDropLineEdit
 from modules.LineEditHighlight import LineEditWithHighlight
@@ -27,7 +27,7 @@ class Ui_base_args_ui(object):
     def setupUi(self, base_args_ui):
         if not base_args_ui.objectName():
             base_args_ui.setObjectName(u"base_args_ui")
-        base_args_ui.resize(670, 577)
+        base_args_ui.resize(758, 573)
         self.gridLayout_3 = QGridLayout(base_args_ui)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.formLayout_5 = QFormLayout()
@@ -287,135 +287,6 @@ class Ui_base_args_ui(object):
 
         self.gridLayout_3.addLayout(self.formLayout_6, 5, 1, 1, 1)
 
-        self.base_model_box = QGroupBox(base_args_ui)
-        self.base_model_box.setObjectName(u"base_model_box")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.base_model_box.sizePolicy().hasHeightForWidth())
-        self.base_model_box.setSizePolicy(sizePolicy1)
-        self.formLayout_3 = QFormLayout(self.base_model_box)
-        self.formLayout_3.setObjectName(u"formLayout_3")
-        self.label_4 = QLabel(self.base_model_box)
-        self.label_4.setObjectName(u"label_4")
-
-        self.formLayout_3.setWidget(0, QFormLayout.ItemRole.LabelRole, self.label_4)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.base_model_input = DragDropLineEdit(self.base_model_box)
-        self.base_model_input.setObjectName(u"base_model_input")
-
-        self.horizontalLayout.addWidget(self.base_model_input)
-
-        self.base_model_selector = QPushButton(self.base_model_box)
-        self.base_model_selector.setObjectName(u"base_model_selector")
-
-        self.horizontalLayout.addWidget(self.base_model_selector)
-
-
-        self.formLayout_3.setLayout(0, QFormLayout.ItemRole.FieldRole, self.horizontalLayout)
-
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.v_param_enable = QCheckBox(self.base_model_box)
-        self.v_param_enable.setObjectName(u"v_param_enable")
-        self.v_param_enable.setEnabled(True)
-
-        self.horizontalLayout_6.addWidget(self.v_param_enable)
-
-        self.v_pred_enable = QCheckBox(self.base_model_box)
-        self.v_pred_enable.setObjectName(u"v_pred_enable")
-        self.v_pred_enable.setEnabled(False)
-
-        self.horizontalLayout_6.addWidget(self.v_pred_enable)
-
-        self.FP16_enable = QCheckBox(self.base_model_box)
-        self.FP16_enable.setObjectName(u"FP16_enable")
-
-        self.horizontalLayout_6.addWidget(self.FP16_enable)
-
-        self.BF16_enable = QCheckBox(self.base_model_box)
-        self.BF16_enable.setObjectName(u"BF16_enable")
-
-        self.horizontalLayout_6.addWidget(self.BF16_enable)
-
-        self.FP8_enable = QCheckBox(self.base_model_box)
-        self.FP8_enable.setObjectName(u"FP8_enable")
-
-        self.horizontalLayout_6.addWidget(self.FP8_enable)
-
-
-        self.formLayout_3.setLayout(3, QFormLayout.ItemRole.SpanningRole, self.horizontalLayout_6)
-
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.v2_enable = QCheckBox(self.base_model_box)
-        self.v2_enable.setObjectName(u"v2_enable")
-
-        self.horizontalLayout_2.addWidget(self.v2_enable)
-
-        self.sdxl_enable = QCheckBox(self.base_model_box)
-        self.sdxl_enable.setObjectName(u"sdxl_enable")
-
-        self.horizontalLayout_2.addWidget(self.sdxl_enable)
-
-        self.no_half_vae_enable = QCheckBox(self.base_model_box)
-        self.no_half_vae_enable.setObjectName(u"no_half_vae_enable")
-
-        self.horizontalLayout_2.addWidget(self.no_half_vae_enable)
-
-        self.low_ram_enable = QCheckBox(self.base_model_box)
-        self.low_ram_enable.setObjectName(u"low_ram_enable")
-
-        self.horizontalLayout_2.addWidget(self.low_ram_enable)
-
-        self.vae_reflection_enable = QCheckBox(self.base_model_box)
-        self.vae_reflection_enable.setObjectName(u"vae_reflection_enable")
-
-        self.horizontalLayout_2.addWidget(self.vae_reflection_enable)
-
-        self.high_vram_enable = QCheckBox(self.base_model_box)
-        self.high_vram_enable.setObjectName(u"high_vram_enable")
-
-        self.horizontalLayout_2.addWidget(self.high_vram_enable)
-
-
-        self.formLayout_3.setLayout(2, QFormLayout.ItemRole.SpanningRole, self.horizontalLayout_2)
-
-        self.label_11 = QLabel(self.base_model_box)
-        self.label_11.setObjectName(u"label_11")
-
-        self.formLayout_3.setWidget(1, QFormLayout.ItemRole.LabelRole, self.label_11)
-
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.vae_input = DragDropLineEdit(self.base_model_box)
-        self.vae_input.setObjectName(u"vae_input")
-
-        self.horizontalLayout_4.addWidget(self.vae_input)
-
-        self.vae_selector = QPushButton(self.base_model_box)
-        self.vae_selector.setObjectName(u"vae_selector")
-
-        self.horizontalLayout_4.addWidget(self.vae_selector)
-
-
-        self.formLayout_3.setLayout(1, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_4)
-
-        self.horizontalLayout_debiased = QHBoxLayout()
-        self.horizontalLayout_debiased.setObjectName(u"horizontalLayout_debiased")
-        self.debiased_estimation_loss_enable = QCheckBox(self.base_model_box)
-        self.debiased_estimation_loss_enable.setObjectName(u"debiased_estimation_loss_enable")
-
-        self.horizontalLayout_debiased.addWidget(self.debiased_estimation_loss_enable)
-
-
-        self.formLayout_3.setLayout(4, QFormLayout.ItemRole.SpanningRole, self.horizontalLayout_debiased)
-
-
-        self.gridLayout_3.addWidget(self.base_model_box, 3, 1, 1, 2)
-
         self.groupBox = QGroupBox(base_args_ui)
         self.groupBox.setObjectName(u"groupBox")
         self.horizontalLayout_8 = QHBoxLayout(self.groupBox)
@@ -447,6 +318,151 @@ class Ui_base_args_ui(object):
 
 
         self.gridLayout_3.addWidget(self.groupBox, 4, 2, 1, 1)
+
+        self.base_model_box = QGroupBox(base_args_ui)
+        self.base_model_box.setObjectName(u"base_model_box")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.base_model_box.sizePolicy().hasHeightForWidth())
+        self.base_model_box.setSizePolicy(sizePolicy1)
+        self.formLayout_3 = QFormLayout(self.base_model_box)
+        self.formLayout_3.setObjectName(u"formLayout_3")
+        self.base_model_label = QLabel(self.base_model_box)
+        self.base_model_label.setObjectName(u"base_model_label")
+
+        self.formLayout_3.setWidget(0, QFormLayout.ItemRole.LabelRole, self.base_model_label)
+
+        self.base_model_selection_hLayout = QHBoxLayout()
+        self.base_model_selection_hLayout.setObjectName(u"base_model_selection_hLayout")
+        self.base_model_input = DragDropLineEdit(self.base_model_box)
+        self.base_model_input.setObjectName(u"base_model_input")
+
+        self.base_model_selection_hLayout.addWidget(self.base_model_input)
+
+        self.base_model_selector = QPushButton(self.base_model_box)
+        self.base_model_selector.setObjectName(u"base_model_selector")
+
+        self.base_model_selection_hLayout.addWidget(self.base_model_selector)
+
+
+        self.formLayout_3.setLayout(0, QFormLayout.ItemRole.FieldRole, self.base_model_selection_hLayout)
+
+        self.vae_label = QLabel(self.base_model_box)
+        self.vae_label.setObjectName(u"vae_label")
+
+        self.formLayout_3.setWidget(1, QFormLayout.ItemRole.LabelRole, self.vae_label)
+
+        self.vae_selection_hLayout = QHBoxLayout()
+        self.vae_selection_hLayout.setObjectName(u"vae_selection_hLayout")
+        self.vae_input = DragDropLineEdit(self.base_model_box)
+        self.vae_input.setObjectName(u"vae_input")
+
+        self.vae_selection_hLayout.addWidget(self.vae_input)
+
+        self.vae_selector = QPushButton(self.base_model_box)
+        self.vae_selector.setObjectName(u"vae_selector")
+
+        self.vae_selection_hLayout.addWidget(self.vae_selector)
+
+
+        self.formLayout_3.setLayout(1, QFormLayout.ItemRole.FieldRole, self.vae_selection_hLayout)
+
+        self.model_checkbox_gridLayout = QGridLayout()
+        self.model_checkbox_gridLayout.setObjectName(u"model_checkbox_gridLayout")
+        self.model_checkbox_gridLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
+        self.model_checkbox_gridLayout.setContentsMargins(-1, 0, 0, -1)
+        self.FP16_enable = QCheckBox(self.base_model_box)
+        self.FP16_enable.setObjectName(u"FP16_enable")
+        sizePolicy1.setHeightForWidth(self.FP16_enable.sizePolicy().hasHeightForWidth())
+        self.FP16_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.FP16_enable, 1, 2, 1, 1)
+
+        self.v_param_enable = QCheckBox(self.base_model_box)
+        self.v_param_enable.setObjectName(u"v_param_enable")
+        self.v_param_enable.setEnabled(True)
+        sizePolicy1.setHeightForWidth(self.v_param_enable.sizePolicy().hasHeightForWidth())
+        self.v_param_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.v_param_enable, 1, 0, 1, 1)
+
+        self.v_pred_enable = QCheckBox(self.base_model_box)
+        self.v_pred_enable.setObjectName(u"v_pred_enable")
+        self.v_pred_enable.setEnabled(False)
+        sizePolicy1.setHeightForWidth(self.v_pred_enable.sizePolicy().hasHeightForWidth())
+        self.v_pred_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.v_pred_enable, 1, 1, 1, 1)
+
+        self.low_ram_enable = QCheckBox(self.base_model_box)
+        self.low_ram_enable.setObjectName(u"low_ram_enable")
+        sizePolicy1.setHeightForWidth(self.low_ram_enable.sizePolicy().hasHeightForWidth())
+        self.low_ram_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.low_ram_enable, 0, 3, 1, 1)
+
+        self.debiased_estimation_loss_enable = QCheckBox(self.base_model_box)
+        self.debiased_estimation_loss_enable.setObjectName(u"debiased_estimation_loss_enable")
+        sizePolicy1.setHeightForWidth(self.debiased_estimation_loss_enable.sizePolicy().hasHeightForWidth())
+        self.debiased_estimation_loss_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.debiased_estimation_loss_enable, 2, 0, 1, 2)
+
+        self.sdxl_enable = QCheckBox(self.base_model_box)
+        self.sdxl_enable.setObjectName(u"sdxl_enable")
+        sizePolicy1.setHeightForWidth(self.sdxl_enable.sizePolicy().hasHeightForWidth())
+        self.sdxl_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.sdxl_enable, 0, 1, 1, 1)
+
+        self.BF16_enable = QCheckBox(self.base_model_box)
+        self.BF16_enable.setObjectName(u"BF16_enable")
+        sizePolicy1.setHeightForWidth(self.BF16_enable.sizePolicy().hasHeightForWidth())
+        self.BF16_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.BF16_enable, 1, 3, 1, 1)
+
+        self.v2_enable = QCheckBox(self.base_model_box)
+        self.v2_enable.setObjectName(u"v2_enable")
+        sizePolicy1.setHeightForWidth(self.v2_enable.sizePolicy().hasHeightForWidth())
+        self.v2_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.v2_enable, 0, 0, 1, 1)
+
+        self.no_half_vae_enable = QCheckBox(self.base_model_box)
+        self.no_half_vae_enable.setObjectName(u"no_half_vae_enable")
+        sizePolicy1.setHeightForWidth(self.no_half_vae_enable.sizePolicy().hasHeightForWidth())
+        self.no_half_vae_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.no_half_vae_enable, 0, 2, 1, 1)
+
+        self.FP8_enable = QCheckBox(self.base_model_box)
+        self.FP8_enable.setObjectName(u"FP8_enable")
+        sizePolicy1.setHeightForWidth(self.FP8_enable.sizePolicy().hasHeightForWidth())
+        self.FP8_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.FP8_enable, 1, 4, 1, 1)
+
+        self.high_vram_enable = QCheckBox(self.base_model_box)
+        self.high_vram_enable.setObjectName(u"high_vram_enable")
+        sizePolicy1.setHeightForWidth(self.high_vram_enable.sizePolicy().hasHeightForWidth())
+        self.high_vram_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.high_vram_enable, 0, 4, 1, 1)
+
+        self.vae_reflection_enable = QCheckBox(self.base_model_box)
+        self.vae_reflection_enable.setObjectName(u"vae_reflection_enable")
+        sizePolicy1.setHeightForWidth(self.vae_reflection_enable.sizePolicy().hasHeightForWidth())
+        self.vae_reflection_enable.setSizePolicy(sizePolicy1)
+
+        self.model_checkbox_gridLayout.addWidget(self.vae_reflection_enable, 2, 2, 1, 1)
+
+
+        self.formLayout_3.setLayout(2, QFormLayout.ItemRole.SpanningRole, self.model_checkbox_gridLayout)
+
+
+        self.gridLayout_3.addWidget(self.base_model_box, 3, 1, 1, 2)
 
 
         self.retranslateUi(base_args_ui)
@@ -580,76 +596,6 @@ class Ui_base_args_ui(object):
         self.cache_latents_to_disk_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Cache Latents, but saves the cached files to disk, this means that if you intend to train on the same dataset multiple times, using the same VAE, you are able to skip the caching step the second time onward. NOTE: it is recommended to manually delete all cached latent .npz files if VAE is changed, such as when switching models that use a different VAE</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.cache_latents_to_disk_enable.setText(QCoreApplication.translate("base_args_ui", u"To Disk", None))
-        self.base_model_box.setTitle(QCoreApplication.translate("base_args_ui", u"Model", None))
-#if QT_CONFIG(tooltip)
-        self.label_4.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.label_4.setText(QCoreApplication.translate("base_args_ui", u"Base Model", None))
-#if QT_CONFIG(tooltip)
-        self.base_model_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.base_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Base Model To Train With", None))
-#if QT_CONFIG(tooltip)
-        self.base_model_selector.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.base_model_selector.setText("")
-#if QT_CONFIG(tooltip)
-        self.v_param_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.v_param_enable.setText(QCoreApplication.translate("base_args_ui", u"V Param", None))
-#if QT_CONFIG(tooltip)
-        self.v_pred_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Scales the loss to be in line with EDM</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.v_pred_enable.setText(QCoreApplication.translate("base_args_ui", u"Scale V pred loss", None))
-#if QT_CONFIG(tooltip)
-        self.FP16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows training on full FP16. Not compatable with full BF16 or training precision</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.FP16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full FP16", None))
-#if QT_CONFIG(tooltip)
-        self.BF16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Train in full BF16. Not compatable with full FP16 or training precision</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.BF16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full BF16", None))
-#if QT_CONFIG(tooltip)
-        self.FP8_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.FP8_enable.setText(QCoreApplication.translate("base_args_ui", u"FP8 Base", None))
-#if QT_CONFIG(tooltip)
-        self.v2_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SD2.X based model</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.v2_enable.setText(QCoreApplication.translate("base_args_ui", u"SD2.X Based", None))
-#if QT_CONFIG(tooltip)
-        self.sdxl_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SDXL based model</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.sdxl_enable.setText(QCoreApplication.translate("base_args_ui", u"SDXL Based", None))
-#if QT_CONFIG(tooltip)
-        self.no_half_vae_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.no_half_vae_enable.setText(QCoreApplication.translate("base_args_ui", u"No Half Vae", None))
-#if QT_CONFIG(tooltip)
-        self.low_ram_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
-#if QT_CONFIG(tooltip)
-        self.vae_reflection_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Uses the reflect padding mode in the conv layers of the VAE</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.vae_reflection_enable.setText(QCoreApplication.translate("base_args_ui", u"VAE Reflection", None))
-        self.high_vram_enable.setText(QCoreApplication.translate("base_args_ui", u"High VRAM", None))
-#if QT_CONFIG(tooltip)
-        self.label_11.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.label_11.setText(QCoreApplication.translate("base_args_ui", u"External VAE", None))
-#if QT_CONFIG(tooltip)
-        self.vae_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.vae_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Vae to train with", None))
-#if QT_CONFIG(tooltip)
-        self.vae_selector.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.vae_selector.setText("")
-#if QT_CONFIG(tooltip)
-        self.debiased_estimation_loss_enable.setToolTip("")
-#endif // QT_CONFIG(tooltip)
-        self.debiased_estimation_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"Debiased Estimation Loss", None))
         self.groupBox.setTitle(QCoreApplication.translate("base_args_ui", u"Gradient", None))
 #if QT_CONFIG(tooltip)
         self.grad_accumulation_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets</p></body></html>", None))
@@ -662,5 +608,75 @@ class Ui_base_args_ui(object):
 #if QT_CONFIG(tooltip)
         self.grad_accumulation_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
+        self.base_model_box.setTitle(QCoreApplication.translate("base_args_ui", u"Model", None))
+#if QT_CONFIG(tooltip)
+        self.base_model_label.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.base_model_label.setText(QCoreApplication.translate("base_args_ui", u"Base Model", None))
+#if QT_CONFIG(tooltip)
+        self.base_model_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.base_model_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Base Model To Train With", None))
+#if QT_CONFIG(tooltip)
+        self.base_model_selector.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.base_model_selector.setText("")
+#if QT_CONFIG(tooltip)
+        self.vae_label.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.vae_label.setText(QCoreApplication.translate("base_args_ui", u"External VAE", None))
+#if QT_CONFIG(tooltip)
+        self.vae_input.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.vae_input.setPlaceholderText(QCoreApplication.translate("base_args_ui", u"Vae to train with", None))
+#if QT_CONFIG(tooltip)
+        self.vae_selector.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.vae_selector.setText("")
+#if QT_CONFIG(tooltip)
+        self.FP16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows training on full FP16. Not compatable with full BF16 or training precision</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.FP16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full FP16", None))
+#if QT_CONFIG(tooltip)
+        self.v_param_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.v_param_enable.setText(QCoreApplication.translate("base_args_ui", u"V Param", None))
+#if QT_CONFIG(tooltip)
+        self.v_pred_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Scales the loss to be in line with EDM</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.v_pred_enable.setText(QCoreApplication.translate("base_args_ui", u"Scale V pred loss", None))
+#if QT_CONFIG(tooltip)
+        self.low_ram_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
+#if QT_CONFIG(tooltip)
+        self.debiased_estimation_loss_enable.setToolTip("")
+#endif // QT_CONFIG(tooltip)
+        self.debiased_estimation_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"Debiased Estimation Loss", None))
+#if QT_CONFIG(tooltip)
+        self.sdxl_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SDXL based model</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sdxl_enable.setText(QCoreApplication.translate("base_args_ui", u"SDXL Based", None))
+#if QT_CONFIG(tooltip)
+        self.BF16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Train in full BF16. Not compatable with full FP16 or training precision</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.BF16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full BF16", None))
+#if QT_CONFIG(tooltip)
+        self.v2_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SD2.X based model</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.v2_enable.setText(QCoreApplication.translate("base_args_ui", u"SD2.X Based", None))
+#if QT_CONFIG(tooltip)
+        self.no_half_vae_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.no_half_vae_enable.setText(QCoreApplication.translate("base_args_ui", u"No Half Vae", None))
+#if QT_CONFIG(tooltip)
+        self.FP8_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.FP8_enable.setText(QCoreApplication.translate("base_args_ui", u"FP8 Base", None))
+        self.high_vram_enable.setText(QCoreApplication.translate("base_args_ui", u"High VRAM", None))
+#if QT_CONFIG(tooltip)
+        self.vae_reflection_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Uses the reflect padding mode in the conv layers of the VAE</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.vae_reflection_enable.setText(QCoreApplication.translate("base_args_ui", u"VAE Reflection", None))
     # retranslateUi
 
