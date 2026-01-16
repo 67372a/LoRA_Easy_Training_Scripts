@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>877</width>
+    <width>675</width>
     <height>573</height>
    </rect>
   </property>
@@ -16,6 +16,9 @@
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="5" column="2">
     <layout class="QFormLayout" name="formLayout_5">
+     <property name="leftMargin">
+      <number>3</number>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label_3">
        <property name="toolTip">
@@ -245,100 +248,73 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="1">
-    <widget class="QGroupBox" name="resolution_box">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="sizeIncrement">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The base resolution that you are training at. If Height isn't checked, Width acts as both Width and Height. Typically SD1.X models are trained at 512x512, and SDXL models are trained at 1024x1024&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
+   <item row="4" column="2">
+    <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Resolution</string>
+      <string>Gradient</string>
      </property>
-     <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Width</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="SpinBox" name="width_input">
-        <property name="focusPolicy">
-         <enum>Qt::FocusPolicy::StrongFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16777215</number>
-        </property>
-        <property name="value">
-         <number>1024</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="SpinBox" name="height_input">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::FocusPolicy::StrongFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16777215</number>
-        </property>
-        <property name="value">
-         <number>1024</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="height_enable">
-        <property name="text">
-         <string>Height</string>
-        </property>
-       </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="1">
+         <widget class="SpinBox" name="grad_accumulation_input">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::FocusPolicy::StrongFocus</enum>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="grad_accumulation_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>Gradient Accumuation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QCheckBox" name="grad_checkpointing_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Checkpointing sacrifices some speed for a reduction of VRAM. Particularly useful if you are using a GPU with less VRAM&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>Gradient Checkpointing</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
    </item>
    <item row="5" column="1">
     <layout class="QFormLayout" name="formLayout_6">
+     <property name="rightMargin">
+      <number>3</number>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label_7">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The random seed that is used to do all randomization within the training process&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LayoutDirection::LeftToRight</enum>
        </property>
        <property name="text">
         <string>Seed</string>
@@ -513,57 +489,90 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="2">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Gradient</string>
+   <item row="4" column="1">
+    <widget class="QGroupBox" name="resolution_box">
+     <property name="enabled">
+      <bool>true</bool>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0">
-      <property name="spacing">
-       <number>6</number>
-      </property>
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="grad_accumulation_enable">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>Gradient Accumuation</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QCheckBox" name="grad_checkpointing_enable">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Checkpointing sacrifices some speed for a reduction of VRAM. Particularly useful if you are using a GPU with less VRAM&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>Gradient Checkpointing</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="SpinBox" name="grad_accumulation_input">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::FocusPolicy::StrongFocus</enum>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="minimum">
-           <number>1</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="sizeIncrement">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The base resolution that you are training at. If Height isn't checked, Width acts as both Width and Height. Typically SD1.X models are trained at 512x512, and SDXL models are trained at 1024x1024&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="title">
+      <string>Resolution</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="SpinBox" name="width_input">
+        <property name="focusPolicy">
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16777215</number>
+        </property>
+        <property name="value">
+         <number>1024</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="height_enable">
+        <property name="text">
+         <string>Height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="SpinBox" name="height_input">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16777215</number>
+        </property>
+        <property name="value">
+         <number>1024</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -598,7 +607,7 @@
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The base model you want to train on. Typically this would be a model from the SD1.X, 2.X and SDXL families&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="placeholderText">
-           <string>Base Model To Train With</string>
+           <string>Base model to train with</string>
           </property>
          </widget>
         </item>
@@ -632,7 +641,7 @@
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An external VAE. Typically used if the VAE in the base model is of poor quality or if the base model does not come with a bundled VAE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="placeholderText">
-           <string>Vae to train with</string>
+           <string>VAE to train with</string>
           </property>
          </widget>
         </item>
@@ -650,60 +659,23 @@
       </item>
       <item row="2" column="0" colspan="2">
        <layout class="QGridLayout" name="model_checkbox_gridLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+        <property name="verticalSpacing">
+         <number>1</number>
         </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <item row="1" column="2">
-         <widget class="QCheckBox" name="FP16_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="0" column="3">
+         <widget class="QCheckBox" name="low_ram_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows training on full FP16. Not compatable with full BF16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Full FP16</string>
+           <string>Low RAM</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="v_param_enable">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>V Param</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
+        <item row="1" column="1" rowspan="2">
          <widget class="QCheckBox" name="v_pred_enable">
           <property name="enabled">
            <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
           </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scales the loss to be in line with EDM&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -713,23 +685,27 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="QCheckBox" name="low_ram_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="1" column="3" rowspan="2">
+         <widget class="QCheckBox" name="BF16_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatable with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Low RAM</string>
+           <string>Full BF16</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2">
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="no_half_vae_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>No Half Vae</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
          <widget class="QCheckBox" name="debiased_estimation_loss_enable">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -745,46 +721,18 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="sdxl_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="1" column="2" rowspan="2">
+         <widget class="QCheckBox" name="FP16_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select this if you are using an SDXL based model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows training on full FP16. Not compatable with full BF16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>SDXL Based</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QCheckBox" name="BF16_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatable with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>Full BF16</string>
+           <string>Full FP16</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QCheckBox" name="v2_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select this if you are using an SD2.X based model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -793,64 +741,43 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QCheckBox" name="no_half_vae_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>No Half Vae</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QCheckBox" name="high_vram_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>High VRAM</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QCheckBox" name="vae_reflection_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uses the reflect padding mode in the conv layers of the VAE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>VAE Reflection</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
+        <item row="1" column="4" rowspan="2">
          <widget class="QCheckBox" name="FP8_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>FP8 Base</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="sdxl_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select this if you are using an SDXL based model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>SDXL Based</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="2">
+         <widget class="QCheckBox" name="v_param_enable">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>V Param</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QCheckBox" name="high_vram_enable">
+          <property name="text">
+           <string>High VRAM</string>
           </property>
          </widget>
         </item>
