@@ -263,6 +263,7 @@ class Ui_optimizer_ui(object):
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Focal Frequency", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Scaled Quadratic", None))
         self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Smooth L2 Log", None))
+        self.loss_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"MSE Pyramid 2D", None))
         self.loss_type_selector.setObjectName(u"loss_type_selector")
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.loss_type_selector)
