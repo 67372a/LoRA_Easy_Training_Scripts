@@ -39,7 +39,7 @@ class MainWindow(QMainWindow, QtStyleTools):
         self.setGeometry(
             screen_size.width() / 2 - (self.geometry().width() / 2),
             screen_size.height() / 2 - (self.geometry().height() / 2),
-            self.geometry().width() + 10,
+            self.geometry().width() + 171,
             750,
         )
         self.centralWidget().layout().addWidget(self.main_widget)
