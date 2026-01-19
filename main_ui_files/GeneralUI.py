@@ -144,7 +144,7 @@ class GeneralWidget(BaseWidget):
         self.widget.max_data_loader_n_workers_input.valueChanged.connect(
             lambda x: self.edit_args("max_data_loader_n_workers", x)
         )
-        self.widget.seed_input.valueChanged.connect(lambda x: self.edit_args("seed", x))
+        self.widget.seed_input.valueChanged.connect(lambda x: self.edit_args("seed", int(x)))
         self.widget.batch_size_input.valueChanged.connect(lambda x: self.edit_dataset_args("batch_size", x))
         self.widget.clip_skip_input.valueChanged.connect(lambda x: self.edit_args("clip_skip", x))
         self.widget.max_token_selector.currentIndexChanged.connect(
@@ -347,7 +347,7 @@ class GeneralWidget(BaseWidget):
         self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", False))
         self.widget.grad_accumulation_enable.setChecked(bool(args.get("gradient_accumulation_steps", False)))
         self.widget.grad_accumulation_input.setValue(args.get("gradient_accumulation_steps", 1))
-        self.widget.seed_input.setValue(args.get("seed", 42))
+        self.widget.seed_input.setValue(int(args.get("seed", 42)))
         self.widget.max_data_loader_n_workers_input.setValue(args.get("max_data_loader_n_workers", 1))
         self.widget.clip_skip_input.setValue(args.get("clip_skip", 2))
         self.widget.max_token_selector.setCurrentText(str(args.get("max_token_length", 225)))
@@ -390,7 +390,7 @@ class GeneralWidget(BaseWidget):
             True,
         )
         self.enable_disable_grad_acc(self.widget.grad_accumulation_enable.isChecked())
-        self.edit_args("seed", self.widget.seed_input.value())
+        self.edit_args("seed", int(self.widget.seed_input.value()))
         self.edit_args("max_data_loader_n_workers", self.widget.max_data_loader_n_workers_input.value())
         self.edit_args(
             "max_token_length",
