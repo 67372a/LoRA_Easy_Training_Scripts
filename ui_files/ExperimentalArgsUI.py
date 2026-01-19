@@ -272,6 +272,7 @@ class Ui_base_args_ui(object):
 
         self.cfm_enable = QCheckBox(base_args_ui)
         self.cfm_enable.setObjectName(u"cfm_enable")
+        self.cfm_enable.setEnabled(False)
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)

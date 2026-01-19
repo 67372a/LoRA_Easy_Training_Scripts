@@ -111,6 +111,16 @@ class ExperimentalArgsUI(QWidget):
         else:
             self._clear_flow_args()
 
+    def update_cfm_availability(self, v_param_enabled: bool) -> None:
+        """Update CFM availability based on flow model and v_param states."""
+        flow_enabled = self.widget.flow_model_settings_box.isChecked()
+        cfm_should_be_enabled = flow_enabled or v_param_enabled
+        self.widget.cfm_enable.setEnabled(cfm_should_be_enabled)
+        if not cfm_should_be_enabled and self.widget.cfm_enable.isChecked():
+            # If CFM becomes disabled while checked, uncheck it and clear args
+            self.widget.cfm_enable.setChecked(False)
+            self.on_cfm_toggled(False)
+
     def on_vae_custom_scale_toggled(self, checked: bool) -> None:
         """Handle VAE custom scale checkbox toggle."""
         self.widget.vae_custom_scale_input.setEnabled(checked)
@@ -210,7 +220,7 @@ class ExperimentalArgsUI(QWidget):
 
         # adv. vae args
         self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
-        if self.widget.vae_batch_size_input.value() != 1: # no need to add if it's 1 (default)
+        if self.widget.vae_batch_size_input.value() != 1:  # no need to add if it's 1 (default)
             self.edit_args("vae_batch_size", self.widget.vae_batch_size_input.value(), True)
         if self.widget.vae_custom_scale_enable.isChecked():
             self.edit_args("vae_custom_scale", self.widget.vae_custom_scale_input.value(), True)

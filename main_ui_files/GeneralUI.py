@@ -125,6 +125,9 @@ class GeneralWidget(BaseWidget):
         self.experimental_args_widget.flowModelToggled.connect(
             lambda x: self.widget.v_param_enable.setEnabled(not x) if x else self.widget.v_param_enable.setEnabled(True)
         )
+        # update CFM availability when flow model or v_param changes
+        self.widget.v_param_enable.clicked.connect(self._update_cfm_availability)
+        self.experimental_args_widget.flowModelToggled.connect(lambda: self._update_cfm_availability())
         self.widget.v_pred_enable.clicked.connect(
             lambda x: self.edit_args("scale_v_pred_loss_like_noise_pred", x, True)
         )
@@ -268,6 +271,11 @@ class GeneralWidget(BaseWidget):
             self.widget.v_pred_enable.isChecked(),
             True,
         )
+
+    def _update_cfm_availability(self) -> None:
+        """Update CFM availability based on flow model and v_param states."""
+        v_param_enabled = self.widget.v_param_enable.isChecked()
+        self.experimental_args_widget.update_cfm_availability(v_param_enabled)
 
     def enable_disable_grad_acc(self, checked: bool) -> None:
         if "gradient_accumulation_steps" in self.args:
