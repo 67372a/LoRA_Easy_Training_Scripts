@@ -88,7 +88,17 @@ check generalui.py for code-set ui defaults/fallbacks
 
 ### Fixes
 
-- [x] Keep Tokens/Tags Separator now correctly won't pass on it's value, if populated, downstream/when saving toml
-- [ ] Infer values from UI instead of hardcoded dict to use UI defaults correctly
-  - [x] General Args/GeneralUI
+- [ ] UI Elements passing on values to training/save toml even when unchecked, if value inputs are populated
+  - [ ] Flow Model GroupBox
+  - [ ] VAE Custom Shift/Scale
+  - [ ] CFM Lambda
+  - [x] Keep Tokens/Tags Separator now correctly won't pass on it's value, if populated, downstream/when saving toml
+  - [ ] Fix all 4 Subset Args' Optional Args checkbox groups
+
+- [ ] Disable UI elements when incompatible elements get checked (eg V Param check <-> Flow Model GroupBox)
+  - [ ] Train Flux / Flow Model / V Param; Incompatible (Flow impl here is SDXL specific iirc)
+  - [ ] No V Param or Flow Model = No CFM (CLI desc says works on either V or Flow, didn't test)
+
+- [ ] Fix getting values from hardcoded dict and use actual UI default values correctly
+  - [x] General Args/GeneralUI (Resolution, seed, etc)
   - [ ] ... find it in the other files ...

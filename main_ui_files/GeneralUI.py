@@ -54,7 +54,8 @@ class GeneralWidget(BaseWidget):
         # initialize args from UI values
         self.args["seed"] = int(
             self.widget.seed_input.value()
-        )  # explicit cast since we use DoubleSpinBox for seed, even at decimals = 0 it adds .0
+        )  # explicit cast since we use custom DoubleSpinBox for seed, even at decimals = 0 it adds .0
+        # todo: apply to other places here
         self.args["clip_skip"] = self.widget.clip_skip_input.value()
         self.args["max_train_epochs"] = self.widget.max_train_input.value()
         self.args["max_data_loader_n_workers"] = self.widget.max_data_loader_n_workers_input.value()

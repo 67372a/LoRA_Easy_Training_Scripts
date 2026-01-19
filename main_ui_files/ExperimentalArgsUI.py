@@ -18,26 +18,33 @@ class ExperimentalArgsUI(QWidget):
 
     def setup_connections(self) -> None:
         """Wire up all experimental args UI elements."""
-        self.widget.vae_reflection_enable.clicked.connect(
-            lambda x: self.edit_args("vae_reflection", x, True)
-        )
+
+        # (sdxl) flow args
         self.widget.flow_optimal_transport_enable.clicked.connect(
             lambda x: self.edit_args("flow_use_ot", x, True)
         )
         self.widget.flow_timestep_distribution_selector.currentTextChanged.connect(
             lambda x: self.edit_args("flow_timestep_distribution", x, True)
         )
-        self.widget.flow_unfirom_static_ratio_shift_selector.valueChanged.connect(
-            lambda x: self.edit_args("flow_uniform_static_ratio_shift", x, True)
+        self.widget.flow_uniform_static_ratio_shift_input.valueChanged.connect(
+            lambda x: self.edit_args("flow_uniform_static_ratio", x, True)
         )
-        self.widget.flow_logit_mean_selector.valueChanged.connect(
+        self.widget.flow_logit_mean_input.valueChanged.connect(
             lambda x: self.edit_args("flow_logit_mean", x, True)
         )
-        self.widget.flow_logit_std_selector.valueChanged.connect(
+        self.widget.flow_logit_std_input.valueChanged.connect(
             lambda x: self.edit_args("flow_logit_std", x, True)
         )
-        self.widget.flow_cfm_enable.clicked.connect(
-            lambda x: self.edit_args("flow_cfm", x, True)
+
+
+        # adv. vae args
+        self.widget.vae_reflection_enable.clicked.connect(
+            lambda x: self.edit_args("vae_reflection", x, True)
+        )
+
+        # misc args
+        self.widget.cfm_enable.clicked.connect(
+            lambda x: self.edit_args("contrastive_flow_matching", x, True)
         )
 
     def edit_args(self, name: str, value: object, optional: bool = False) -> None:
@@ -50,28 +57,34 @@ class ExperimentalArgsUI(QWidget):
 
     def set_flow_model_enabled(self, enabled: bool) -> None:
         """Enable/disable the flow model settings group."""
-        self.widget.flow_model_settings_group.setEnabled(enabled)
+        self.widget.flow_model_settings_box.setEnabled(enabled)
 
     def load_args(self, args: dict) -> bool:
         """Load experimental args from dict."""
         args = args.get("experimental_args", {})
 
-        self.widget.vae_reflection_enable.setChecked(args.get("vae_reflection", False))
-        self.widget.flow_model_settings_group.setChecked(args.get("flow_model", False))
+        # (sdxl) flow args
+        self.widget.flow_model_settings_box.setChecked(args.get("flow_model", False))
         self.widget.flow_optimal_transport_enable.setChecked(args.get("flow_use_ot", True))
         self.widget.flow_timestep_distribution_selector.setCurrentText(
             args.get("flow_timestep_distribution", "logit_normal")
         )
-        self.widget.flow_unfirom_static_ratio_shift_selector.setValue(
-            args.get("flow_uniform_static_ratio_shift", 2.0)
+        self.widget.flow_uniform_static_ratio_shift_input.setValue(
+            args.get("flow_uniform_static_ratio", 2.0)
         )
-        self.widget.flow_logit_mean_selector.setValue(args.get("flow_logit_mean", 0.0))
-        self.widget.flow_logit_std_selector.setValue(args.get("flow_logit_std", 1.0))
-        self.widget.flow_cfm_enable.setChecked(args.get("flow_cfm", False))
+        self.widget.flow_logit_mean_input.setValue(args.get("flow_logit_mean", 0.0))
+        self.widget.flow_logit_std_input.setValue(args.get("flow_logit_std", 1.0))
+
+        # adv. vae args
+        self.widget.vae_reflection_enable.setChecked(args.get("vae_reflection", False))
+
+        # misc args
+        self.widget.cfm_enable.setChecked(args.get("contrastive_flow_matching", False))
+
 
         # sync args from UI
-        self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
-        self.edit_args("flow_model", self.widget.flow_model_settings_group.isChecked(), True)
+        # (sdxl) flow args
+        self.edit_args("flow_model", self.widget.flow_model_settings_box.isChecked(), True)
         self.edit_args("flow_use_ot", self.widget.flow_optimal_transport_enable.isChecked(), True)
         self.edit_args(
             "flow_timestep_distribution",
@@ -79,13 +92,18 @@ class ExperimentalArgsUI(QWidget):
             True,
         )
         self.edit_args(
-            "flow_uniform_static_ratio_shift",
-            self.widget.flow_unfirom_static_ratio_shift_selector.value(),
+            "flow_uniform_static_ratio",
+            self.widget.flow_uniform_static_ratio_shift_input.value(),
             True,
         )
-        self.edit_args("flow_logit_mean", self.widget.flow_logit_mean_selector.value(), True)
-        self.edit_args("flow_logit_std", self.widget.flow_logit_std_selector.value(), True)
-        self.edit_args("flow_cfm", self.widget.flow_cfm_enable.isChecked(), True)
+        self.edit_args("flow_logit_mean", self.widget.flow_logit_mean_input.value(), True)
+        self.edit_args("flow_logit_std", self.widget.flow_logit_std_input.value(), True)
+
+        # adv. vae args
+        self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
+
+        # misc args
+        self.edit_args("contrastive_flow_matching", self.widget.cfm_enable.isChecked(), True)
 
         return True
 
