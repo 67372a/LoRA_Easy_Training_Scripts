@@ -244,7 +244,8 @@ class ExperimentalArgsUI(QWidget):
 
         # adv. vae args
         self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
-        self.edit_args("vae_batch_size", self.widget.vae_batch_size_input.value(), True)
+        if self.widget.vae_batch_size_input.value() != 1:  # no need to add if it's 1 (default)
+            self.edit_args("vae_batch_size", self.widget.vae_batch_size_input.value(), True)
         if self.widget.vae_custom_scale_enable.isChecked():
             self.edit_args("vae_custom_scale", self.widget.vae_custom_scale_input.value(), True)
         if self.widget.vae_custom_shift_enable.isChecked():
