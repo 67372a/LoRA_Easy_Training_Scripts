@@ -85,9 +85,10 @@ class Ui_base_args_ui(object):
 
         self.flow_logit_mean_input = DoubleSpinBox(self.flow_model_settings_box)
         self.flow_logit_mean_input.setObjectName(u"flow_logit_mean_input")
+        self.flow_logit_mean_input.setDecimals(3)
         self.flow_logit_mean_input.setMinimum(-100.000000000000000)
         self.flow_logit_mean_input.setMaximum(100.000000000000000)
-        self.flow_logit_mean_input.setSingleStep(0.100000000000000)
+        self.flow_logit_mean_input.setSingleStep(0.010000000000000)
         self.flow_logit_mean_input.setValue(0.000000000000000)
 
         self.formLayout_2.setWidget(0, QFormLayout.ItemRole.FieldRole, self.flow_logit_mean_input)
@@ -99,8 +100,10 @@ class Ui_base_args_ui(object):
 
         self.flow_logit_std_input = DoubleSpinBox(self.flow_model_settings_box)
         self.flow_logit_std_input.setObjectName(u"flow_logit_std_input")
+        self.flow_logit_std_input.setDecimals(3)
+        self.flow_logit_std_input.setMinimum(-100.000000000000000)
         self.flow_logit_std_input.setMaximum(100.000000000000000)
-        self.flow_logit_std_input.setSingleStep(0.100000000000000)
+        self.flow_logit_std_input.setSingleStep(0.010000000000000)
         self.flow_logit_std_input.setValue(1.000000000000000)
 
         self.formLayout_2.setWidget(1, QFormLayout.ItemRole.FieldRole, self.flow_logit_std_input)
@@ -130,6 +133,8 @@ class Ui_base_args_ui(object):
 
         self.flow_uniform_static_ratio_shift_input = DoubleSpinBox(self.flow_model_settings_box)
         self.flow_uniform_static_ratio_shift_input.setObjectName(u"flow_uniform_static_ratio_shift_input")
+        self.flow_uniform_static_ratio_shift_input.setDecimals(3)
+        self.flow_uniform_static_ratio_shift_input.setMinimum(-100.000000000000000)
         self.flow_uniform_static_ratio_shift_input.setMaximum(100.000000000000000)
         self.flow_uniform_static_ratio_shift_input.setSingleStep(0.100000000000000)
         self.flow_uniform_static_ratio_shift_input.setValue(2.000000000000000)
@@ -192,6 +197,11 @@ class Ui_base_args_ui(object):
         self.vae_custom_scale_input = DoubleSpinBox(self.advanced_vae_settings_box)
         self.vae_custom_scale_input.setObjectName(u"vae_custom_scale_input")
         self.vae_custom_scale_input.setEnabled(False)
+        self.vae_custom_scale_input.setDecimals(7)
+        self.vae_custom_scale_input.setMinimum(-100.000000000000000)
+        self.vae_custom_scale_input.setMaximum(100.000000000000000)
+        self.vae_custom_scale_input.setSingleStep(0.000100000000000)
+        self.vae_custom_scale_input.setValue(0.182150000000000)
 
         self.formLayout_6.setWidget(0, QFormLayout.ItemRole.FieldRole, self.vae_custom_scale_input)
 
@@ -203,6 +213,10 @@ class Ui_base_args_ui(object):
         self.vae_custom_shift_input = DoubleSpinBox(self.advanced_vae_settings_box)
         self.vae_custom_shift_input.setObjectName(u"vae_custom_shift_input")
         self.vae_custom_shift_input.setEnabled(False)
+        self.vae_custom_shift_input.setDecimals(7)
+        self.vae_custom_shift_input.setMinimum(-100.000000000000000)
+        self.vae_custom_shift_input.setMaximum(100.000000000000000)
+        self.vae_custom_shift_input.setSingleStep(0.000100000000000)
 
         self.formLayout_6.setWidget(1, QFormLayout.ItemRole.FieldRole, self.vae_custom_shift_input)
 
@@ -248,6 +262,8 @@ class Ui_base_args_ui(object):
         self.cfm_lambda_input = DoubleSpinBox(base_args_ui)
         self.cfm_lambda_input.setObjectName(u"cfm_lambda_input")
         self.cfm_lambda_input.setEnabled(False)
+        self.cfm_lambda_input.setDecimals(3)
+        self.cfm_lambda_input.setMinimum(-100.000000000000000)
         self.cfm_lambda_input.setMaximum(100.000000000000000)
         self.cfm_lambda_input.setSingleStep(0.001000000000000)
         self.cfm_lambda_input.setValue(0.050000000000000)

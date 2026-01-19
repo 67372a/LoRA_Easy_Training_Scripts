@@ -93,6 +93,9 @@
           </item>
           <item row="0" column="1">
            <widget class="DoubleSpinBox" name="flow_logit_mean_input">
+            <property name="decimals">
+             <number>3</number>
+            </property>
             <property name="minimum">
              <double>-100.000000000000000</double>
             </property>
@@ -100,7 +103,7 @@
              <double>100.000000000000000</double>
             </property>
             <property name="singleStep">
-             <double>0.100000000000000</double>
+             <double>0.010000000000000</double>
             </property>
             <property name="value">
              <double>0.000000000000000</double>
@@ -116,11 +119,17 @@
           </item>
           <item row="1" column="1">
            <widget class="DoubleSpinBox" name="flow_logit_std_input">
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="minimum">
+             <double>-100.000000000000000</double>
+            </property>
             <property name="maximum">
              <double>100.000000000000000</double>
             </property>
             <property name="singleStep">
-             <double>0.100000000000000</double>
+             <double>0.010000000000000</double>
             </property>
             <property name="value">
              <double>1.000000000000000</double>
@@ -164,6 +173,12 @@
           </item>
           <item row="1" column="1">
            <widget class="DoubleSpinBox" name="flow_uniform_static_ratio_shift_input">
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="minimum">
+             <double>-100.000000000000000</double>
+            </property>
             <property name="maximum">
              <double>100.000000000000000</double>
             </property>
@@ -257,6 +272,21 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="decimals">
+             <number>7</number>
+            </property>
+            <property name="minimum">
+             <double>-100.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>100.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+            <property name="value">
+             <double>0.182150000000000</double>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
@@ -270,6 +300,18 @@
            <widget class="DoubleSpinBox" name="vae_custom_shift_input">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="decimals">
+             <number>7</number>
+            </property>
+            <property name="minimum">
+             <double>-100.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>100.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
             </property>
            </widget>
           </item>
@@ -322,6 +364,12 @@
         <widget class="DoubleSpinBox" name="cfm_lambda_input">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
          </property>
          <property name="maximum">
           <double>100.000000000000000</double>
