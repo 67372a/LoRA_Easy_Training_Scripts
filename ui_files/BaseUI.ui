@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>675</width>
-    <height>573</height>
+    <height>563</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -662,13 +662,16 @@
         <property name="verticalSpacing">
          <number>1</number>
         </property>
-        <item row="0" column="3">
-         <widget class="QCheckBox" name="low_ram_enable">
+        <item row="1" column="0" rowspan="2">
+         <widget class="QCheckBox" name="v_param_enable">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Low RAM</string>
+           <string>V Param</string>
           </property>
          </widget>
         </item>
@@ -685,13 +688,13 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="3" rowspan="2">
-         <widget class="QCheckBox" name="BF16_enable">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="v2_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatable with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select this if you are using an SD2.X based model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Full BF16</string>
+           <string>SD2.X Based</string>
           </property>
          </widget>
         </item>
@@ -705,22 +708,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0" colspan="2">
-         <widget class="QCheckBox" name="debiased_estimation_loss_enable">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>Debiased Estimation Loss</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="2" rowspan="2">
          <widget class="QCheckBox" name="FP16_enable">
           <property name="toolTip">
@@ -728,26 +715,6 @@
           </property>
           <property name="text">
            <string>Full FP16</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="v2_enable">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select this if you are using an SD2.X based model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>SD2.X Based</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4" rowspan="2">
-         <widget class="QCheckBox" name="FP8_enable">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>FP8 Base</string>
           </property>
          </widget>
         </item>
@@ -761,16 +728,33 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" rowspan="2">
-         <widget class="QCheckBox" name="v_param_enable">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+        <item row="0" column="3">
+         <widget class="QCheckBox" name="low_ram_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>V Param</string>
+           <string>Low RAM</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4" rowspan="2">
+         <widget class="QCheckBox" name="FP8_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>FP8 Base</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3" rowspan="2">
+         <widget class="QCheckBox" name="BF16_enable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatable with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>Full BF16</string>
           </property>
          </widget>
         </item>

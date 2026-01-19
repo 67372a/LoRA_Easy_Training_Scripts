@@ -27,7 +27,7 @@ class Ui_base_args_ui(object):
     def setupUi(self, base_args_ui):
         if not base_args_ui.objectName():
             base_args_ui.setObjectName(u"base_args_ui")
-        base_args_ui.resize(675, 573)
+        base_args_ui.resize(675, 563)
         self.gridLayout_3 = QGridLayout(base_args_ui)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.formLayout_5 = QFormLayout()
@@ -376,10 +376,11 @@ class Ui_base_args_ui(object):
         self.model_checkbox_gridLayout = QGridLayout()
         self.model_checkbox_gridLayout.setObjectName(u"model_checkbox_gridLayout")
         self.model_checkbox_gridLayout.setVerticalSpacing(1)
-        self.low_ram_enable = QCheckBox(self.base_model_box)
-        self.low_ram_enable.setObjectName(u"low_ram_enable")
+        self.v_param_enable = QCheckBox(self.base_model_box)
+        self.v_param_enable.setObjectName(u"v_param_enable")
+        self.v_param_enable.setEnabled(True)
 
-        self.model_checkbox_gridLayout.addWidget(self.low_ram_enable, 0, 3, 1, 1)
+        self.model_checkbox_gridLayout.addWidget(self.v_param_enable, 1, 0, 2, 1)
 
         self.v_pred_enable = QCheckBox(self.base_model_box)
         self.v_pred_enable.setObjectName(u"v_pred_enable")
@@ -387,48 +388,40 @@ class Ui_base_args_ui(object):
 
         self.model_checkbox_gridLayout.addWidget(self.v_pred_enable, 1, 1, 2, 1)
 
-        self.BF16_enable = QCheckBox(self.base_model_box)
-        self.BF16_enable.setObjectName(u"BF16_enable")
+        self.v2_enable = QCheckBox(self.base_model_box)
+        self.v2_enable.setObjectName(u"v2_enable")
 
-        self.model_checkbox_gridLayout.addWidget(self.BF16_enable, 1, 3, 2, 1)
+        self.model_checkbox_gridLayout.addWidget(self.v2_enable, 0, 0, 1, 1)
 
         self.no_half_vae_enable = QCheckBox(self.base_model_box)
         self.no_half_vae_enable.setObjectName(u"no_half_vae_enable")
 
         self.model_checkbox_gridLayout.addWidget(self.no_half_vae_enable, 0, 2, 1, 1)
 
-        self.debiased_estimation_loss_enable = QCheckBox(self.base_model_box)
-        self.debiased_estimation_loss_enable.setObjectName(u"debiased_estimation_loss_enable")
-        sizePolicy1.setHeightForWidth(self.debiased_estimation_loss_enable.sizePolicy().hasHeightForWidth())
-        self.debiased_estimation_loss_enable.setSizePolicy(sizePolicy1)
-
-        self.model_checkbox_gridLayout.addWidget(self.debiased_estimation_loss_enable, 3, 0, 1, 2)
-
         self.FP16_enable = QCheckBox(self.base_model_box)
         self.FP16_enable.setObjectName(u"FP16_enable")
 
         self.model_checkbox_gridLayout.addWidget(self.FP16_enable, 1, 2, 2, 1)
-
-        self.v2_enable = QCheckBox(self.base_model_box)
-        self.v2_enable.setObjectName(u"v2_enable")
-
-        self.model_checkbox_gridLayout.addWidget(self.v2_enable, 0, 0, 1, 1)
-
-        self.FP8_enable = QCheckBox(self.base_model_box)
-        self.FP8_enable.setObjectName(u"FP8_enable")
-
-        self.model_checkbox_gridLayout.addWidget(self.FP8_enable, 1, 4, 2, 1)
 
         self.sdxl_enable = QCheckBox(self.base_model_box)
         self.sdxl_enable.setObjectName(u"sdxl_enable")
 
         self.model_checkbox_gridLayout.addWidget(self.sdxl_enable, 0, 1, 1, 1)
 
-        self.v_param_enable = QCheckBox(self.base_model_box)
-        self.v_param_enable.setObjectName(u"v_param_enable")
-        self.v_param_enable.setEnabled(True)
+        self.low_ram_enable = QCheckBox(self.base_model_box)
+        self.low_ram_enable.setObjectName(u"low_ram_enable")
 
-        self.model_checkbox_gridLayout.addWidget(self.v_param_enable, 1, 0, 2, 1)
+        self.model_checkbox_gridLayout.addWidget(self.low_ram_enable, 0, 3, 1, 1)
+
+        self.FP8_enable = QCheckBox(self.base_model_box)
+        self.FP8_enable.setObjectName(u"FP8_enable")
+
+        self.model_checkbox_gridLayout.addWidget(self.FP8_enable, 1, 4, 2, 1)
+
+        self.BF16_enable = QCheckBox(self.base_model_box)
+        self.BF16_enable.setObjectName(u"BF16_enable")
+
+        self.model_checkbox_gridLayout.addWidget(self.BF16_enable, 1, 3, 2, 1)
 
         self.high_vram_enable = QCheckBox(self.base_model_box)
         self.high_vram_enable.setObjectName(u"high_vram_enable")
@@ -611,45 +604,41 @@ class Ui_base_args_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.vae_selector.setText("")
 #if QT_CONFIG(tooltip)
-        self.low_ram_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab</p></body></html>", None))
+        self.v_param_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
+        self.v_param_enable.setText(QCoreApplication.translate("base_args_ui", u"V Param", None))
 #if QT_CONFIG(tooltip)
         self.v_pred_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Scales the loss to be in line with EDM</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.v_pred_enable.setText(QCoreApplication.translate("base_args_ui", u"Scale V pred loss", None))
 #if QT_CONFIG(tooltip)
-        self.BF16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Train in full BF16. Not compatable with full FP16 or training precision</p></body></html>", None))
+        self.v2_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SD2.X based model</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.BF16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full BF16", None))
+        self.v2_enable.setText(QCoreApplication.translate("base_args_ui", u"SD2.X Based", None))
 #if QT_CONFIG(tooltip)
         self.no_half_vae_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>This loads the VAE in FP32 or full precision. Roughly doubles VRAM usage for VAE workloads like latent caching, but is sometimes required on older graphics cards</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.no_half_vae_enable.setText(QCoreApplication.translate("base_args_ui", u"No Half Vae", None))
 #if QT_CONFIG(tooltip)
-        self.debiased_estimation_loss_enable.setToolTip("")
-#endif // QT_CONFIG(tooltip)
-        self.debiased_estimation_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"Debiased Estimation Loss", None))
-#if QT_CONFIG(tooltip)
         self.FP16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Allows training on full FP16. Not compatable with full BF16 or training precision</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.FP16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full FP16", None))
-#if QT_CONFIG(tooltip)
-        self.v2_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SD2.X based model</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.v2_enable.setText(QCoreApplication.translate("base_args_ui", u"SD2.X Based", None))
-#if QT_CONFIG(tooltip)
-        self.FP8_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16</p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.FP8_enable.setText(QCoreApplication.translate("base_args_ui", u"FP8 Base", None))
 #if QT_CONFIG(tooltip)
         self.sdxl_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Select this if you are using an SDXL based model</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.sdxl_enable.setText(QCoreApplication.translate("base_args_ui", u"SDXL Based", None))
 #if QT_CONFIG(tooltip)
-        self.v_param_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>V param, short for V-Paramatarization or commonly knows as 'v-pred', is a noise schedule that some models use. You can set this to train with this noise schedule versus the EDM version of typical SD1.X and SDXL models</p></body></html>", None))
+        self.low_ram_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Enable this if the trainer is crashing due to running out of system RAM. Typically, this would only be used when interfacing with Google Colab</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.v_param_enable.setText(QCoreApplication.translate("base_args_ui", u"V Param", None))
+        self.low_ram_enable.setText(QCoreApplication.translate("base_args_ui", u"Low RAM", None))
+#if QT_CONFIG(tooltip)
+        self.FP8_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Loads the base model in FP8, which should reduce VRAM usage by roughly half of FP16. Training Precision must be one of FP16 or BF16</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.FP8_enable.setText(QCoreApplication.translate("base_args_ui", u"FP8 Base", None))
+#if QT_CONFIG(tooltip)
+        self.BF16_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Train in full BF16. Not compatable with full FP16 or training precision</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.BF16_enable.setText(QCoreApplication.translate("base_args_ui", u"Full BF16", None))
         self.high_vram_enable.setText(QCoreApplication.translate("base_args_ui", u"High VRAM", None))
     # retranslateUi
 

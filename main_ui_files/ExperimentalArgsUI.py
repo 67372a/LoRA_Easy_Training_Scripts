@@ -46,6 +46,9 @@ class ExperimentalArgsUI(QWidget):
         self.widget.cfm_enable.clicked.connect(
             lambda x: self.edit_args("contrastive_flow_matching", x, True)
         )
+        self.widget.debiased_estimation_loss_enable.clicked.connect(
+            lambda x: self.edit_args("debiased_estimation_loss", x, True)
+        )
 
     def edit_args(self, name: str, value: object, optional: bool = False) -> None:
         """Update args dict, handling optional values."""
@@ -80,6 +83,7 @@ class ExperimentalArgsUI(QWidget):
 
         # misc args
         self.widget.cfm_enable.setChecked(args.get("contrastive_flow_matching", False))
+        self.widget.debiased_estimation_loss_enable.setChecked(args.get("debiased_estimation_loss", False))
 
 
         # sync args from UI
@@ -104,6 +108,7 @@ class ExperimentalArgsUI(QWidget):
 
         # misc args
         self.edit_args("contrastive_flow_matching", self.widget.cfm_enable.isChecked(), True)
+        self.edit_args("debiased_estimation_loss", self.widget.debiased_estimation_loss_enable.isChecked(), True)
 
         return True
 

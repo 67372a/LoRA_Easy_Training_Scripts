@@ -25,7 +25,7 @@ class Ui_base_args_ui(object):
     def setupUi(self, base_args_ui):
         if not base_args_ui.objectName():
             base_args_ui.setObjectName(u"base_args_ui")
-        base_args_ui.resize(788, 561)
+        base_args_ui.resize(675, 500)
         self.verticalLayout_2 = QVBoxLayout(base_args_ui)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.misc_experimental_args_tab_notice = QHBoxLayout()
@@ -222,17 +222,17 @@ class Ui_base_args_ui(object):
         self.zero_cond_dropout_enable = QCheckBox(base_args_ui)
         self.zero_cond_dropout_enable.setObjectName(u"zero_cond_dropout_enable")
 
-        self.formLayout_8.setWidget(1, QFormLayout.ItemRole.SpanningRole, self.zero_cond_dropout_enable)
+        self.formLayout_8.setWidget(0, QFormLayout.ItemRole.SpanningRole, self.zero_cond_dropout_enable)
 
-        self.cfm_enable = QCheckBox(base_args_ui)
-        self.cfm_enable.setObjectName(u"cfm_enable")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.debiased_estimation_loss_enable = QCheckBox(base_args_ui)
+        self.debiased_estimation_loss_enable.setObjectName(u"debiased_estimation_loss_enable")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cfm_enable.sizePolicy().hasHeightForWidth())
-        self.cfm_enable.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.debiased_estimation_loss_enable.sizePolicy().hasHeightForWidth())
+        self.debiased_estimation_loss_enable.setSizePolicy(sizePolicy)
 
-        self.formLayout_8.setWidget(0, QFormLayout.ItemRole.SpanningRole, self.cfm_enable)
+        self.formLayout_8.setWidget(1, QFormLayout.ItemRole.SpanningRole, self.debiased_estimation_loss_enable)
 
 
         self.formLayout_4.setLayout(0, QFormLayout.ItemRole.LabelRole, self.formLayout_8)
@@ -243,7 +243,7 @@ class Ui_base_args_ui(object):
         self.cfm_lambda_enable.setObjectName(u"cfm_lambda_enable")
         self.cfm_lambda_enable.setEnabled(False)
 
-        self.formLayout.setWidget(0, QFormLayout.ItemRole.LabelRole, self.cfm_lambda_enable)
+        self.formLayout.setWidget(1, QFormLayout.ItemRole.LabelRole, self.cfm_lambda_enable)
 
         self.cfm_lambda_input = DoubleSpinBox(base_args_ui)
         self.cfm_lambda_input.setObjectName(u"cfm_lambda_input")
@@ -252,7 +252,17 @@ class Ui_base_args_ui(object):
         self.cfm_lambda_input.setSingleStep(0.001000000000000)
         self.cfm_lambda_input.setValue(0.050000000000000)
 
-        self.formLayout.setWidget(0, QFormLayout.ItemRole.FieldRole, self.cfm_lambda_input)
+        self.formLayout.setWidget(1, QFormLayout.ItemRole.FieldRole, self.cfm_lambda_input)
+
+        self.cfm_enable = QCheckBox(base_args_ui)
+        self.cfm_enable.setObjectName(u"cfm_enable")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.cfm_enable.sizePolicy().hasHeightForWidth())
+        self.cfm_enable.setSizePolicy(sizePolicy1)
+
+        self.formLayout.setWidget(0, QFormLayout.ItemRole.SpanningRole, self.cfm_enable)
 
 
         self.formLayout_4.setLayout(0, QFormLayout.ItemRole.FieldRole, self.formLayout)
@@ -291,7 +301,8 @@ class Ui_base_args_ui(object):
         self.vae_custom_scale_enable.setText(QCoreApplication.translate("base_args_ui", u"VAE Custom Scale", None))
         self.vae_custom_shift_enable.setText(QCoreApplication.translate("base_args_ui", u"VAE Custom Shift", None))
         self.zero_cond_dropout_enable.setText(QCoreApplication.translate("base_args_ui", u"Zero Conditioning Dropout", None))
-        self.cfm_enable.setText(QCoreApplication.translate("base_args_ui", u"Contrastive Flow Matching", None))
+        self.debiased_estimation_loss_enable.setText(QCoreApplication.translate("base_args_ui", u"Debiased Estimation Loss", None))
         self.cfm_lambda_enable.setText(QCoreApplication.translate("base_args_ui", u"Contrastive Flow Matching Lamdba", None))
+        self.cfm_enable.setText(QCoreApplication.translate("base_args_ui", u"Contrastive Flow Matching", None))
     # retranslateUi
 
