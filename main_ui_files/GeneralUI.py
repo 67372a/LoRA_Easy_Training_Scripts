@@ -347,7 +347,7 @@ class GeneralWidget(BaseWidget):
         self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", False))
         self.widget.grad_accumulation_enable.setChecked(bool(args.get("gradient_accumulation_steps", False)))
         self.widget.grad_accumulation_input.setValue(args.get("gradient_accumulation_steps", 1))
-        self.widget.seed_input.setValue(args.get("seed", 23))
+        self.widget.seed_input.setValue(args.get("seed", 42))
         self.widget.max_data_loader_n_workers_input.setValue(args.get("max_data_loader_n_workers", 1))
         self.widget.clip_skip_input.setValue(args.get("clip_skip", 2))
         self.widget.max_token_selector.setCurrentText(str(args.get("max_token_length", 225)))
@@ -414,7 +414,7 @@ class GeneralWidget(BaseWidget):
         dataset_args = dataset_args.get(self.name, {})
 
         # update element inputs
-        resolution = dataset_args.get("resolution", 512)
+        resolution = dataset_args.get("resolution", 1024)
         self.widget.width_input.setValue(resolution[0] if isinstance(resolution, list) else resolution)
         self.widget.height_enable.setChecked(isinstance(resolution, list))
         self.widget.height_input.setValue(resolution[1] if isinstance(resolution, list) else resolution)
