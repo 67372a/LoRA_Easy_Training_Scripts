@@ -121,6 +121,10 @@ class GeneralWidget(BaseWidget):
         self.widget.v_param_enable.clicked.connect(
             lambda x: self.experimental_args_widget.set_flow_model_enabled(not x)
         )
+        # disable v_param when flow model is enabled
+        self.experimental_args_widget.flowModelToggled.connect(
+            lambda x: self.widget.v_param_enable.setEnabled(not x) if x else self.widget.v_param_enable.setEnabled(True)
+        )
         self.widget.v_pred_enable.clicked.connect(
             lambda x: self.edit_args("scale_v_pred_loss_like_noise_pred", x, True)
         )
