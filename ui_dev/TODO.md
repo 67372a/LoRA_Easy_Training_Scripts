@@ -6,8 +6,9 @@
 
 - [ ] Find out how to reduce the margin of the big expander elements
 
-- [ ] ~~Add vertical separator (Line) to visually separate Layouts better~~ | BaseUI
+- [x] ~~Add vertical separator (Line) to visually separate Layouts better~~ | BaseUI
   - is currently removed because idk yet how to make the QGroupBoxes "take it as middle", also the line seems off in qt-material themes
+  - instead used layout left/right margin of 3 on each side for same effect
 
 - [x] Use QGridLayout instead of 3 QHBoxLayouts for model checkboxes, makes them look more orderly
 
@@ -18,13 +19,18 @@
   - [x] Fix MainUI.ui
   - [ ] ... check other files ...
 
-- [ ] Find out how to make designer not save file with *_ui.py suffix and instead reuse .ui file's file name
+- [ ] ~~Find out how to make designer not save file with *_ui.py suffix and instead reuse .ui file's file name~~
+  - couldn't find a way, not that important either way, substituted with my own ui_dev/run_ui_dev.sh script
 
 ### Think about/needs testing/confirmation
 
 - [ ] Max Token Length: Allow any number or multiple of 75, apparently code has no limit for it but UI and CLI arg do, higher might work, at users discretion | BaseUI
-- [ ] VAE Reflection checkbox would reduce minimum width for the UI which could lead to better experience since it allows smaller window, especially without compact mode using material theme, see FM/RF in new implementations | BaseUI
+- [x] VAE Reflection checkbox would reduce minimum width for the UI which could lead to better experience since it allows smaller window, especially without compact mode using material theme, see FM/RF in new implementations | BaseUI
+  - moved to experimental args ui dropdown in advanced vae settings groupbox
+- [x] Move Debiased Estimation Loss to experimental args ui misc section
 - [ ] Compact Mode (Material): Make it default?
+- [ ] Disable Flip Augmentation when Cache Latents is checked
+  - sd scripts readme says flip aug is not available when cache latents is true but the UI only disables color aug and random crop
 
 ## Change name to more correct and/or commonly used alternatives
 
@@ -34,7 +40,7 @@
   - [ ] Keep Tokens -> Keep Tags | SubsetUI
     - [ ] Update tooltip
 
-- [ ] V Param to V Pred | BaseUI
+- [ ] V Param -> V Pred | BaseUI
   - [x] Update tooltip
 - [ ] rate via epoch to (?) | Saving Args?
 
@@ -68,15 +74,20 @@
 
 ## Implement new elements
 
-- [ ] Global Protected Tags file | BaseUI
+- [x] Global Protected Tags file | BaseUI
   - [x] Hook up global protected tags file to logic
     - [x] Make textbox disabled when checkbox is unchecked
   - [x] give selector button same 3 dot icon as base model/external vae ones
-  - [ ] Add tooltip
+  - [ ] Tooltip
 
-- [ ] FlowMatch/Rectified Flow settings
-  - [ ] Find out where to put it
-  - Likely in BaseUI, in Model QGroupBox, as expandable element, move VAE Reflection and Debiased EL in too?
+- [ ] FlowMatch/Rectified Flow/Adv. VAE/Misc settings
+  - [x] Find out where to put it
+  - ~~Likely in BaseUI, in Model QGroupBox, as expandable element, move VAE Reflection and Debiased EL in too?~~
+    - Done, ExperimentalArgsUI
+  - [x] Flow Model settings: Logit Mean/std, optimal transport, shift, ts dist
+  - [x] VAE: batch size, reflection, scale, shift
+  - [x] Misc: Zero Cond Dropout, CFM, CFM Lambda, Debiased Estimation Loss
+  - [ ] Tooltips
 
 ## Requires backend change (probably)
 
@@ -84,21 +95,28 @@
 
 ## Other
 
-check generalui.py for code-set ui defaults/fallbacks
-
 ### Fixes
 
 - [ ] UI Elements passing on values to training/save toml even when unchecked, if value inputs are populated
-  - [ ] Flow Model GroupBox
-  - [ ] VAE Custom Shift/Scale
-  - [ ] CFM Lambda
+  - [x] Flow Model GroupBox
+  - [x] VAE Custom Shift/Scale
+  - [x] CFM Lambda
   - [x] Keep Tokens/Tags Separator now correctly won't pass on it's value, if populated, downstream/when saving toml
   - [ ] Fix all 4 Subset Args' Optional Args checkbox groups
 
 - [ ] Disable UI elements when incompatible elements get checked (eg V Param check <-> Flow Model GroupBox)
-  - [ ] Train Flux / Flow Model / V Param; Incompatible (Flow impl here is SDXL specific iirc)
+  - [x] Train Flux / Flow Model / V Param; Incompatible (Flow impl here is SDXL specific iirc)
   - [ ] No V Param or Flow Model = No CFM (CLI desc says works on either V or Flow, didn't test)
 
 - [ ] Fix getting values from hardcoded dict and use actual UI default values correctly
   - [x] General Args/GeneralUI (Resolution, seed, etc)
   - [ ] ... find it in the other files ...
+
+## Testing
+
+- [ ] Is Global Protected file working?
+  - [x] Saving to/Loading from TOML
+  - [ ] Shows up when no subset specific file is set
+  - [ ] Doesn't overwrite subset specific file
+
+- [ ] Does experimental args ui stuff work
