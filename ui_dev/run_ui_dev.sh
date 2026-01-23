@@ -29,7 +29,7 @@ trap cleanup SIGINT SIGTERM
 # 1) Process watcher (restart main.py on exit)
 run_label PROC '
 while true; do
-    python ../main.py
+    (cd .. && python main.py)
     echo "App closed. Restarting in 1s - press Ctrl+C to stop."
     sleep 1
 done
