@@ -106,6 +106,7 @@ class ExperimentalArgsUI(QWidget):
         """Handle flow model group checkbox toggle."""
         # Emit signal for cross-file logic
         self.flowModelToggled.emit(checked)
+        self.widget.debiased_estimation_loss_enable.setEnabled(not checked)
         if checked:
             self._sync_flow_args()
         else:
@@ -116,52 +117,29 @@ class ExperimentalArgsUI(QWidget):
         flow_enabled = self.widget.flow_model_settings_box.isChecked()
         cfm_should_be_enabled = flow_enabled or v_param_enabled
         self.widget.cfm_enable.setEnabled(cfm_should_be_enabled)
-        if not cfm_should_be_enabled and self.widget.cfm_enable.isChecked():
-            # If CFM becomes disabled while checked, uncheck it and clear args
-            self.widget.cfm_enable.setChecked(False)
-            self.on_cfm_toggled(False)
+        if not cfm_should_be_enabled:
+            self.widget.cfm_lambda_enable.setEnabled(False)
+            self.widget.cfm_lambda_input.setEnabled(False)
+        elif self.widget.cfm_enable.isChecked():
+            self.widget.cfm_lambda_enable.setEnabled(True)
+            self.widget.cfm_lambda_input.setEnabled(self.widget.cfm_lambda_enable.isChecked())
 
     def on_vae_custom_scale_toggled(self, checked: bool) -> None:
         """Handle VAE custom scale checkbox toggle."""
         self.widget.vae_custom_scale_input.setEnabled(checked)
-        if checked:
-            self.edit_args("vae_custom_scale", self.widget.vae_custom_scale_input.value(), True)
-        else:
-            if "vae_custom_scale" in self.args:
-                del self.args["vae_custom_scale"]
 
     def on_vae_custom_shift_toggled(self, checked: bool) -> None:
         """Handle VAE custom shift checkbox toggle."""
         self.widget.vae_custom_shift_input.setEnabled(checked)
-        if checked:
-            self.edit_args("vae_custom_shift", self.widget.vae_custom_shift_input.value(), True)
-        else:
-            if "vae_custom_shift" in self.args:
-                del self.args["vae_custom_shift"]
 
     def on_cfm_toggled(self, checked: bool) -> None:
         """Handle CFM enable checkbox toggle."""
         self.widget.cfm_lambda_enable.setEnabled(checked)
-        if checked:
-            self.edit_args("contrastive_flow_matching", True)
-        else:
-            # Remove CFM args when unchecked
-            if "contrastive_flow_matching" in self.args:
-                del self.args["contrastive_flow_matching"]
-            if "cfm_lambda" in self.args:
-                del self.args["cfm_lambda"]
-            # Reset lambda enable checkbox
-            self.widget.cfm_lambda_enable.setChecked(False)
-            self.widget.cfm_lambda_input.setEnabled(False)
+        self.widget.cfm_lambda_input.setEnabled(checked)
 
     def on_cfm_lambda_toggled(self, checked: bool) -> None:
         """Handle CFM lambda enable checkbox toggle."""
         self.widget.cfm_lambda_input.setEnabled(checked)
-        if checked:
-            self.edit_args("cfm_lambda", self.widget.cfm_lambda_input.value(), True)
-        else:
-            if "cfm_lambda" in self.args:
-                del self.args["cfm_lambda"]
 
     def set_flow_model_enabled(self, enabled: bool) -> None:
         """Enable/disable the flow model settings group."""
@@ -183,8 +161,7 @@ class ExperimentalArgsUI(QWidget):
         self.widget.vae_custom_shift_input.setEnabled(self.widget.vae_custom_shift_enable.isChecked())
         self.widget.cfm_lambda_input.setEnabled(self.widget.cfm_lambda_enable.isChecked())
         self.widget.cfm_lambda_enable.setEnabled(self.widget.cfm_enable.isChecked())
-        if not self.widget.cfm_enable.isChecked():
-            self.widget.cfm_lambda_enable.setChecked(False)
+        self.widget.debiased_estimation_loss_enable.setEnabled(not self.widget.flow_model_settings_box.isChecked())
         self.on_flow_model_toggled(self.widget.flow_model_settings_box.isChecked())
 
     def load_args(self, args: dict) -> bool:
@@ -241,8 +218,8 @@ class ExperimentalArgsUI(QWidget):
         """Rebuild and return current args dict from UI state."""
         self.args.clear()
 
-        # (sdxl) flow args - only include if flow model is checked
-        if self.widget.flow_model_settings_box.isChecked():
+        # (sdxl) flow args - only include if flow model is checked and enabled
+        if self.widget.flow_model_settings_box.isChecked() and self.widget.flow_model_settings_box.isEnabled():
             self.edit_args("flow_model", True)
             self.edit_args("flow_use_ot", self.widget.flow_optimal_transport_enable.isChecked(), True)
             self.edit_args(
@@ -256,17 +233,18 @@ class ExperimentalArgsUI(QWidget):
         self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
         if self.widget.vae_batch_size_input.value() != self.widget.vae_batch_size_input.property("value"):  # no need to add if it's default value
             self.edit_args("vae_batch_size", self.widget.vae_batch_size_input.value(), True)
-        if self.widget.vae_custom_scale_enable.isChecked():
+        if self.widget.vae_custom_scale_enable.isChecked() and self.widget.vae_custom_scale_enable.isEnabled():
             self.edit_args("vae_custom_scale", self.widget.vae_custom_scale_input.value(), True)
-        if self.widget.vae_custom_shift_enable.isChecked():
+        if self.widget.vae_custom_shift_enable.isChecked() and self.widget.vae_custom_shift_enable.isEnabled():
             self.edit_args("vae_custom_shift", self.widget.vae_custom_shift_input.value(), True)
 
         # misc args
         self.edit_args("zero_cond_dropout", self.widget.zero_cond_dropout_enable.isChecked(), True)
-        if self.widget.cfm_enable.isChecked():
+        if self.widget.cfm_enable.isChecked() and self.widget.cfm_enable.isEnabled():
             self.edit_args("contrastive_flow_matching", True)
-            if self.widget.cfm_lambda_enable.isChecked():
+            if self.widget.cfm_lambda_enable.isChecked() and self.widget.cfm_lambda_enable.isEnabled():
                 self.edit_args("cfm_lambda", self.widget.cfm_lambda_input.value(), True)
-        self.edit_args("debiased_estimation_loss", self.widget.debiased_estimation_loss_enable.isChecked(), True)
+        if self.widget.debiased_estimation_loss_enable.isChecked() and self.widget.debiased_estimation_loss_enable.isEnabled():
+            self.edit_args("debiased_estimation_loss", True, True)
 
         return self.args
