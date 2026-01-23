@@ -1,483 +1,483 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>base_args_ui</class>
- <widget class="QWidget" name="base_args_ui">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>675</width>
-    <height>431</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
-    <layout class="QHBoxLayout" name="misc_experimental_args_tab_notice">
-     <item>
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="experimental_args_notice_label">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This section contains some less commonly used and/or advanced/experimental settings.&lt;br/&gt;Usually there is no need to enable these unless you know what you are doing.&lt;br/&gt;Do not rely on the defaults.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="flow_model_settings_box">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="title">
-      <string>Flow Model</string>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="Line" name="line_2">
-          <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="flow_notice_label">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Experimental Rectified Flow settings, incompatible with V Param; Enables &lt;code&gt;--flow_model&lt;/code&gt;&lt;br/&gt;Made with SDXL-based NoobAI-RF models by &lt;a href=&quot;https://huggingface.co/CabalResearch&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#00d9cb;&quot;&gt;CabalResearch&lt;/span&gt;&lt;/a&gt; in mind.&lt;br/&gt;(For Flux.1 training please visit the corresponding section)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-          <property name="openExternalLinks">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QFormLayout" name="formLayout_7">
-        <item row="0" column="1">
-         <layout class="QFormLayout" name="formLayout_2">
-          <property name="leftMargin">
-           <number>3</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shifts which timesteps are focused on when using &amp;quot;logit_normal&amp;quot; (higher = later steps, lower = earlier steps)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_mean&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>Logit Mean</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="DoubleSpinBox" name="flow_logit_mean_input">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shifts which timesteps are focused on when using &amp;quot;logit_normal&amp;quot; (higher = later steps, lower = earlier steps)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_mean&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="decimals">
-             <number>3</number>
-            </property>
-            <property name="minimum">
-             <double>-100.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.010000000000000</double>
-            </property>
-            <property name="value">
-             <double>0.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how spread out the focus is for &amp;quot;logit_normal&amp;quot; (higher = more spread, lower = more focused)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_std&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>Logit std</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="DoubleSpinBox" name="flow_logit_std_input">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how spread out the focus is for &amp;quot;logit_normal&amp;quot; (higher = more spread, lower = more focused)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_std&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="decimals">
-             <number>3</number>
-            </property>
-            <property name="minimum">
-             <double>-100.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.010000000000000</double>
-            </property>
-            <property name="value">
-             <double>1.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="0">
-         <layout class="QFormLayout" name="formLayout_3">
-          <property name="rightMargin">
-           <number>3</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How timesteps are sampled for Rectified Flow&lt;br/&gt;&amp;quot;uniform&amp;quot; = all timesteps equally likely&lt;br/&gt;&amp;quot;logit_normal&amp;quot; = biased sampling via a logit-normal&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_timestep_distribution&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>Timestep Distribution</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="ComboBox" name="flow_timestep_distribution_selector">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How timesteps are sampled for Rectified Flow&lt;br/&gt;&amp;quot;uniform&amp;quot; = all timesteps equally likely&lt;br/&gt;&amp;quot;logit_normal&amp;quot; = biased sampling via a logit-normal, tunable via logit mean/std&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_timestep_distribution&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
+    <class>base_args_ui</class>
+    <widget class="QWidget" name="base_args_ui">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>675</width>
+                <height>431</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>Form</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <property name="text">
-              <string>logit_normal</string>
-             </property>
+                <layout class="QHBoxLayout" name="misc_experimental_args_tab_notice">
+                    <item>
+                        <widget class="Line" name="line">
+                            <property name="orientation">
+                                <enum>Qt::Orientation::Vertical</enum>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QLabel" name="experimental_args_notice_label">
+                            <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This section contains some less commonly used and/or advanced/experimental settings.&lt;br/&gt;Usually there is no need to enable these unless you know what you are doing.&lt;br/&gt;Do not rely on the defaults.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="wordWrap">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
             </item>
             <item>
-             <property name="text">
-              <string>uniform</string>
-             </property>
+                <widget class="QGroupBox" name="flow_model_settings_box">
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="title">
+                        <string>Flow Model</string>
+                    </property>
+                    <property name="flat">
+                        <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="checked">
+                        <bool>false</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout">
+                        <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout">
+                                <item>
+                                    <widget class="Line" name="line_2">
+                                        <property name="orientation">
+                                            <enum>Qt::Orientation::Vertical</enum>
+                                        </property>
+                                    </widget>
+                                </item>
+                                <item>
+                                    <widget class="QLabel" name="flow_notice_label">
+                                        <property name="text">
+                                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Experimental Rectified Flow settings, incompatible with V Param; Enables &lt;code&gt;--flow_model&lt;/code&gt;&lt;br/&gt;Made with SDXL-based NoobAI-RF models by &lt;a href=&quot;https://huggingface.co/CabalResearch&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#00d9cb;&quot;&gt;CabalResearch&lt;/code&gt;&lt;/a&gt; in mind.&lt;br/&gt;(For Flux.1 training please visit the corresponding section)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                        </property>
+                                        <property name="wordWrap">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="openExternalLinks">
+                                            <bool>false</bool>
+                                        </property>
+                                    </widget>
+                                </item>
+                            </layout>
+                        </item>
+                        <item>
+                            <layout class="QFormLayout" name="formLayout_7">
+                                <item row="0" column="1">
+                                    <layout class="QFormLayout" name="formLayout_2">
+                                        <property name="leftMargin">
+                                            <number>3</number>
+                                        </property>
+                                        <item row="0" column="0">
+                                            <widget class="QLabel" name="label">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shifts which timesteps are focused on when using &amp;quot;logit_normal&amp;quot; (higher = later steps, lower = earlier steps)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_mean&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Logit Mean</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="0" column="1">
+                                            <widget class="DoubleSpinBox" name="flow_logit_mean_input">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shifts which timesteps are focused on when using &amp;quot;logit_normal&amp;quot; (higher = later steps, lower = earlier steps)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_mean&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="decimals">
+                                                    <number>3</number>
+                                                </property>
+                                                <property name="minimum">
+                                                    <double>-100.000000000000000</double>
+                                                </property>
+                                                <property name="maximum">
+                                                    <double>100.000000000000000</double>
+                                                </property>
+                                                <property name="singleStep">
+                                                    <double>0.010000000000000</double>
+                                                </property>
+                                                <property name="value">
+                                                    <double>0.000000000000000</double>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="0">
+                                            <widget class="QLabel" name="label_2">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how spread out the focus is for &amp;quot;logit_normal&amp;quot; (higher = more spread, lower = more focused)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_std&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Logit std</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="1">
+                                            <widget class="DoubleSpinBox" name="flow_logit_std_input">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how spread out the focus is for &amp;quot;logit_normal&amp;quot; (higher = more spread, lower = more focused)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_std&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="decimals">
+                                                    <number>3</number>
+                                                </property>
+                                                <property name="minimum">
+                                                    <double>-100.000000000000000</double>
+                                                </property>
+                                                <property name="maximum">
+                                                    <double>100.000000000000000</double>
+                                                </property>
+                                                <property name="singleStep">
+                                                    <double>0.010000000000000</double>
+                                                </property>
+                                                <property name="value">
+                                                    <double>1.000000000000000</double>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                    </layout>
+                                </item>
+                                <item row="0" column="0">
+                                    <layout class="QFormLayout" name="formLayout_3">
+                                        <property name="rightMargin">
+                                            <number>3</number>
+                                        </property>
+                                        <item row="0" column="0">
+                                            <widget class="QLabel" name="label_4">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How timesteps are sampled for Rectified Flow&lt;br/&gt;&amp;quot;uniform&amp;quot; = all timesteps equally likely&lt;br/&gt;&amp;quot;logit_normal&amp;quot; = biased sampling via a logit-normal&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_timestep_distribution&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Timestep Distribution</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="0" column="1">
+                                            <widget class="ComboBox" name="flow_timestep_distribution_selector">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How timesteps are sampled for Rectified Flow&lt;br/&gt;&amp;quot;uniform&amp;quot; = all timesteps equally likely&lt;br/&gt;&amp;quot;logit_normal&amp;quot; = biased sampling via a logit-normal, tunable via logit mean/std&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_timestep_distribution&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>logit_normal</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>uniform</string>
+                                                    </property>
+                                                </item>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="0">
+                                            <widget class="QLabel" name="label_8">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces a fixed shift/ratio for timestep adjustment, instead of using image size like &lt;code&gt;--flow_uniform_shift&lt;/code&gt;&lt;/p&gt;&lt;p&gt;Higher: focus on less noisy, low-frequency, later timesteps&lt;br/&gt;Lower: focus on noisier, high-frequency, earlier timesteps&lt;br/&gt;For 1024px training, a value of around 2-3 may be fine&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_uniform_static_ratio&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Uniform Static Shift</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="1">
+                                            <widget class="DoubleSpinBox" name="flow_uniform_static_ratio_shift_input">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces a fixed shift/ratio for timestep adjustment, instead of using image size like &lt;code&gt;--flow_uniform_shift&lt;/code&gt;&lt;/p&gt;&lt;p&gt;Higher: focus on less noisy, low-frequency, later timesteps&lt;br/&gt;Lower: focus on noisier, high-frequency, earlier timesteps&lt;br/&gt;For 1024px training, a value of around 2-3 may be fine&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_uniform_static_ratio&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="decimals">
+                                                    <number>3</number>
+                                                </property>
+                                                <property name="minimum">
+                                                    <double>-100.000000000000000</double>
+                                                </property>
+                                                <property name="maximum">
+                                                    <double>100.000000000000000</double>
+                                                </property>
+                                                <property name="singleStep">
+                                                    <double>0.100000000000000</double>
+                                                </property>
+                                                <property name="value">
+                                                    <double>2.000000000000000</double>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="2" column="0" colspan="2">
+                                            <widget class="QCheckBox" name="flow_optimal_transport_enable">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When Flow Model/Rectified Flow is enabled, pair latents and noises within a batch using cosine optimal transport (OT) instead of fixed pairing. Improves matching between samples for flow objectives/ΔFM (Contrastive Flow Matching)&lt;/p&gt;&lt;p&gt;Recommended to be enabled&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_use_ot&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Optimal Transport</string>
+                                                </property>
+                                                <property name="checked">
+                                                    <bool>true</bool>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                    </layout>
+                                </item>
+                            </layout>
+                        </item>
+                    </layout>
+                </widget>
             </item>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces a fixed shift/ratio for timestep adjustment, instead of using image size like &lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_shift&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Higher: focus on less noisy, low-frequency, later timesteps&lt;br/&gt;Lower: focus on noisier, high-frequency, earlier timesteps&lt;br/&gt;For 1024px training, a value of around 2-3 may be fine&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_static_ratio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>Uniform Static Shift</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="DoubleSpinBox" name="flow_uniform_static_ratio_shift_input">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces a fixed shift/ratio for timestep adjustment, instead of using image size like &lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_shift&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Higher: focus on less noisy, low-frequency, later timesteps&lt;br/&gt;Lower: focus on noisier, high-frequency, earlier timesteps&lt;br/&gt;For 1024px training, a value of around 2-3 may be fine&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_static_ratio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="decimals">
-             <number>3</number>
-            </property>
-            <property name="minimum">
-             <double>-100.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-            <property name="value">
-             <double>2.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <widget class="QCheckBox" name="flow_optimal_transport_enable">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When Flow Model/Rectified Flow is enabled, pair latents and noises within a batch using cosine optimal transport (OT) instead of fixed pairing. Improves matching between samples for flow objectives/ΔFM (Contrastive Flow Matching)&lt;/p&gt;&lt;p&gt;Recommended to be enabled&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_use_ot&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>Optimal Transport</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-     </layout>
+            <item>
+                <widget class="QGroupBox" name="advanced_vae_settings_box">
+                    <property name="title">
+                        <string>Advanced VAE settings</string>
+                    </property>
+                    <property name="checkable">
+                        <bool>false</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_3">
+                        <item>
+                            <layout class="QFormLayout" name="advanced_vae_settings_formLayout">
+                                <item row="0" column="0">
+                                    <layout class="QFormLayout" name="formLayout_5">
+                                        <property name="rightMargin">
+                                            <number>3</number>
+                                        </property>
+                                        <item row="0" column="0">
+                                            <widget class="QLabel" name="vae_batch_size_label">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of images processed at once when encoding latents. Increase for faster encoding if you have enough VRAM&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_batch_size&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>VAE Batch Size</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="0" column="1">
+                                            <widget class="SpinBox" name="vae_batch_size_input">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of images processed at once when encoding latents. Increase for faster encoding if you have enough VRAM&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_batch_size&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="minimum">
+                                                    <number>1</number>
+                                                </property>
+                                                <property name="maximum">
+                                                    <number>100</number>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="0" colspan="2">
+                                            <widget class="QCheckBox" name="vae_reflection_enable">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only applicable to models and VAEs that were trained together with reflect padding.&lt;/p&gt;&lt;p&gt;Uses reflect padding to mirror image edges in the conv layers of the VAE which helps avoiding edge artifacts.&lt;br/&gt;If you don't know what this is, you can likely ignore it&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_reflection_padding&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>VAE Reflection</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                    </layout>
+                                </item>
+                                <item row="0" column="1">
+                                    <layout class="QFormLayout" name="formLayout_6">
+                                        <property name="leftMargin">
+                                            <number>3</number>
+                                        </property>
+                                        <item row="0" column="0">
+                                            <widget class="QCheckBox" name="vae_custom_scale_enable">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the scaling factor applied to latents after VAE encoding. Leave empty to use the default (E.g.: 0.18215 for SDXL VAE)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_scale&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>VAE Custom Scale</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="0" column="1">
+                                            <widget class="DoubleSpinBox" name="vae_custom_scale_input">
+                                                <property name="enabled">
+                                                    <bool>false</bool>
+                                                </property>
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the scaling factor applied to latents after VAE encoding. Leave empty to use the default (E.g.: 0.18215 for SDXL VAE)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_scale&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="decimals">
+                                                    <number>7</number>
+                                                </property>
+                                                <property name="minimum">
+                                                    <double>-100.000000000000000</double>
+                                                </property>
+                                                <property name="maximum">
+                                                    <double>100.000000000000000</double>
+                                                </property>
+                                                <property name="singleStep">
+                                                    <double>0.000100000000000</double>
+                                                </property>
+                                                <property name="value">
+                                                    <double>0.182150000000000</double>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="0">
+                                            <widget class="QCheckBox" name="vae_custom_shift_enable">
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a constant offset to latents before scaling&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_shift&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>VAE Custom Shift</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item row="1" column="1">
+                                            <widget class="DoubleSpinBox" name="vae_custom_shift_input">
+                                                <property name="enabled">
+                                                    <bool>false</bool>
+                                                </property>
+                                                <property name="toolTip">
+                                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a constant offset to latents before scaling&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_shift&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                                </property>
+                                                <property name="decimals">
+                                                    <number>7</number>
+                                                </property>
+                                                <property name="minimum">
+                                                    <double>-100.000000000000000</double>
+                                                </property>
+                                                <property name="maximum">
+                                                    <double>100.000000000000000</double>
+                                                </property>
+                                                <property name="singleStep">
+                                                    <double>0.000100000000000</double>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                    </layout>
+                                </item>
+                            </layout>
+                        </item>
+                    </layout>
+                </widget>
+            </item>
+            <item>
+                <layout class="QFormLayout" name="formLayout_4">
+                    <item row="0" column="0">
+                        <layout class="QFormLayout" name="formLayout_8">
+                            <item row="0" column="0" colspan="2">
+                                <widget class="QCheckBox" name="zero_cond_dropout_enable">
+                                    <property name="toolTip">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For full caption dropout, use zeroed conditioning instead of an empty caption/empty string.&lt;br/&gt;Useful for training the model to handle unconditional generation.&lt;br/&gt;Not recommended to be enabled on models that were not already trained with this (can be tested by using zeroed negative conditioning and checking if the output looks how it's supposed to compared to empty string or similar; Models trained without this may look off and doesn't adhere to style)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--use_zero_cond_dropout&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>Zero Conditioning Dropout</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="1" column="0" colspan="2">
+                                <widget class="QCheckBox" name="debiased_estimation_loss_enable">
+                                    <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="toolTip">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculates loss using Debiased Estimation. Similar purpose to Min-SNR but a different approach. &lt;br/&gt;Incompatible with Flow Model/Rectified Flow&lt;/p&gt;&lt;p&gt;&lt;code&gt;--debiased_estimation_loss&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>Debiased Estimation Loss</string>
+                                    </property>
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                    <item row="0" column="1">
+                        <layout class="QFormLayout" name="formLayout">
+                            <item row="0" column="0" colspan="2">
+                                <widget class="QCheckBox" name="cfm_enable">
+                                    <property name="enabled">
+                                        <bool>false</bool>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="toolTip">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable Contrastive Flow Matching (ΔFM) objective. Works with v-parameterization/v-pred (untested) or Rectified Flow.&lt;br/&gt;Adds a loss that helps the model tell apart correct and incorrect noise pairs&lt;/p&gt;&lt;p&gt;&lt;code&gt;--contrastive_flow_matching&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>Contrastive Flow Matching</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="1" column="0">
+                                <widget class="QCheckBox" name="cfm_lambda_enable">
+                                    <property name="enabled">
+                                        <bool>false</bool>
+                                    </property>
+                                    <property name="toolTip">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scalar weight applied to the contrastive term in ΔFM loss. Higher = stronger effect&lt;/p&gt;&lt;p&gt;&lt;code&gt;--cfm_lambda&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>Contrastive Flow Matching Lamdba</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="1" column="1">
+                                <widget class="DoubleSpinBox" name="cfm_lambda_input">
+                                    <property name="enabled">
+                                        <bool>false</bool>
+                                    </property>
+                                    <property name="toolTip">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scalar weight applied to the contrastive term in ΔFM loss. Higher = stronger effect&lt;/p&gt;&lt;p&gt;&lt;code&gt;--cfm_lambda&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                    </property>
+                                    <property name="decimals">
+                                        <number>3</number>
+                                    </property>
+                                    <property name="minimum">
+                                        <double>-100.000000000000000</double>
+                                    </property>
+                                    <property name="maximum">
+                                        <double>100.000000000000000</double>
+                                    </property>
+                                    <property name="singleStep">
+                                        <double>0.001000000000000</double>
+                                    </property>
+                                    <property name="value">
+                                        <double>0.050000000000000</double>
+                                    </property>
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                </layout>
+            </item>
+        </layout>
     </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="advanced_vae_settings_box">
-     <property name="title">
-      <string>Advanced VAE settings</string>
-     </property>
-     <property name="checkable">
-      <bool>false</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <layout class="QFormLayout" name="advanced_vae_settings_formLayout">
-        <item row="0" column="0">
-         <layout class="QFormLayout" name="formLayout_5">
-          <property name="rightMargin">
-           <number>3</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="vae_batch_size_label">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of images processed at once when encoding latents. Increase for faster encoding if you have enough VRAM&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_batch_size&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>VAE Batch Size</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="SpinBox" name="vae_batch_size_input">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of images processed at once when encoding latents. Increase for faster encoding if you have enough VRAM&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_batch_size&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>100</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" colspan="2">
-           <widget class="QCheckBox" name="vae_reflection_enable">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only applicable to models and VAEs that were trained together with reflect padding.&lt;/p&gt;&lt;p&gt;Uses reflect padding to mirror image edges in the conv layers of the VAE which helps avoiding edge artifacts.&lt;br/&gt;If you don't know what this is, you can likely ignore it&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_reflection_padding&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>VAE Reflection</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="1">
-         <layout class="QFormLayout" name="formLayout_6">
-          <property name="leftMargin">
-           <number>3</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="vae_custom_scale_enable">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the scaling factor applied to latents after VAE encoding. Leave empty to use the default (E.g.: 0.18215 for SDXL VAE)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_scale&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>VAE Custom Scale</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="DoubleSpinBox" name="vae_custom_scale_input">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the scaling factor applied to latents after VAE encoding. Leave empty to use the default (E.g.: 0.18215 for SDXL VAE)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_scale&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="decimals">
-             <number>7</number>
-            </property>
-            <property name="minimum">
-             <double>-100.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.000100000000000</double>
-            </property>
-            <property name="value">
-             <double>0.182150000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="vae_custom_shift_enable">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a constant offset to latents before scaling&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_shift&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>VAE Custom Shift</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="DoubleSpinBox" name="vae_custom_shift_input">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a constant offset to latents before scaling&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_shift&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="decimals">
-             <number>7</number>
-            </property>
-            <property name="minimum">
-             <double>-100.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.000100000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <layout class="QFormLayout" name="formLayout_4">
-     <item row="0" column="0">
-      <layout class="QFormLayout" name="formLayout_8">
-       <item row="0" column="0" colspan="2">
-        <widget class="QCheckBox" name="zero_cond_dropout_enable">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For full caption dropout, use zeroed conditioning instead of an empty caption/empty string.&lt;br/&gt;Useful for training the model to handle unconditional generation.&lt;br/&gt;Not recommended to be enabled on models that were not already trained with this (can be tested by using zeroed negative conditioning and checking if the output looks how it's supposed to compared to empty string or similar; Models trained without this may look off and doesn't adhere to style)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--use_zero_cond_dropout&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Zero Conditioning Dropout</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QCheckBox" name="debiased_estimation_loss_enable">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculates loss using Debiased Estimation. Similar purpose to Min-SNR but a different approach. &lt;br/&gt;Incompatible with Flow Model/Rectified Flow&lt;/p&gt;&lt;p&gt;&lt;code&gt;--debiased_estimation_loss&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Debiased Estimation Loss</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="1">
-      <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0" colspan="2">
-        <widget class="QCheckBox" name="cfm_enable">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable Contrastive Flow Matching (ΔFM) objective. Works with v-parameterization/v-pred (untested) or Rectified Flow.&lt;br/&gt;Adds a loss that helps the model tell apart correct and incorrect noise pairs&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--contrastive_flow_matching&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Contrastive Flow Matching</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="cfm_lambda_enable">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scalar weight applied to the contrastive term in ΔFM loss. Higher = stronger effect&lt;/p&gt;&lt;p&gt;&lt;code&gt;--cfm_lambda&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Contrastive Flow Matching Lamdba</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="DoubleSpinBox" name="cfm_lambda_input">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scalar weight applied to the contrastive term in ΔFM loss. Higher = stronger effect&lt;/p&gt;&lt;p&gt;&lt;code&gt;--cfm_lambda&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="decimals">
-          <number>3</number>
-         </property>
-         <property name="minimum">
-          <double>-100.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>100.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.001000000000000</double>
-         </property>
-         <property name="value">
-          <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
-  </layout>
- </widget>
- <customwidgets>
-  <customwidget>
-   <class>SpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>modules.ScrollOnSelect.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ComboBox</class>
-   <extends>QComboBox</extends>
-   <header>modules.ScrollOnSelect.h</header>
-  </customwidget>
-  <customwidget>
-   <class>DoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>modules.ScrollOnSelect.h</header>
-  </customwidget>
- </customwidgets>
- <resources/>
- <connections/>
+    <customwidgets>
+        <customwidget>
+            <class>SpinBox</class>
+            <extends>QSpinBox</extends>
+            <header>modules.ScrollOnSelect.h</header>
+        </customwidget>
+        <customwidget>
+            <class>ComboBox</class>
+            <extends>QComboBox</extends>
+            <header>modules.ScrollOnSelect.h</header>
+        </customwidget>
+        <customwidget>
+            <class>DoubleSpinBox</class>
+            <extends>QDoubleSpinBox</extends>
+            <header>modules.ScrollOnSelect.h</header>
+        </customwidget>
+    </customwidgets>
+    <resources/>
+    <connections/>
 </ui>

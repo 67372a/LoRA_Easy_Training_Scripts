@@ -40,8 +40,9 @@
   - [ ] Keep Tokens -> Keep Tags | SubsetUI
     - [ ] Update tooltip
 
-- [ ] V Param -> V Pred | BaseUI
+- [ ] ~~V Param -> V Pred | BaseUI~~
   - [x] Update tooltip
+  - decided against the label rename, not confusing or anything I feel so it's fine
 - [ ] rate via epoch to (?) | Saving Args?
 
 ## Tooltips
@@ -74,7 +75,7 @@
 
 ## Implement new elements
 
-- [x] Global Protected Tags file | BaseUI
+- [ ] Global Protected Tags file | BaseUI
   - [x] Hook up global protected tags file to logic
     - [x] Make textbox disabled when checkbox is unchecked
   - [x] give selector button same 3 dot icon as base model/external vae ones
