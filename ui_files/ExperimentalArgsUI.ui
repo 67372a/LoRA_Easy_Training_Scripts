@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>675</width>
-    <height>500</height>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,6 +86,9 @@
           </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shifts which timesteps are focused on when using &amp;quot;logit_normal&amp;quot; (higher = later steps, lower = earlier steps)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_mean&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>Logit Mean</string>
             </property>
@@ -93,6 +96,9 @@
           </item>
           <item row="0" column="1">
            <widget class="DoubleSpinBox" name="flow_logit_mean_input">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shifts which timesteps are focused on when using &amp;quot;logit_normal&amp;quot; (higher = later steps, lower = earlier steps)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_mean&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="decimals">
              <number>3</number>
             </property>
@@ -112,6 +118,9 @@
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how spread out the focus is for &amp;quot;logit_normal&amp;quot; (higher = more spread, lower = more focused)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_std&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>Logit std</string>
             </property>
@@ -119,6 +128,9 @@
           </item>
           <item row="1" column="1">
            <widget class="DoubleSpinBox" name="flow_logit_std_input">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how spread out the focus is for &amp;quot;logit_normal&amp;quot; (higher = more spread, lower = more focused)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_logit_std&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="decimals">
              <number>3</number>
             </property>
@@ -145,6 +157,9 @@
           </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_4">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How timesteps are sampled for Rectified Flow&lt;br/&gt;&amp;quot;uniform&amp;quot; = all timesteps equally likely&lt;br/&gt;&amp;quot;logit_normal&amp;quot; = biased sampling via a logit-normal&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_timestep_distribution&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>Timestep Distribution</string>
             </property>
@@ -152,6 +167,9 @@
           </item>
           <item row="0" column="1">
            <widget class="ComboBox" name="flow_timestep_distribution_selector">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How timesteps are sampled for Rectified Flow&lt;br/&gt;&amp;quot;uniform&amp;quot; = all timesteps equally likely&lt;br/&gt;&amp;quot;logit_normal&amp;quot; = biased sampling via a logit-normal, tunable via logit mean/std&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_timestep_distribution&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <item>
              <property name="text">
               <string>logit_normal</string>
@@ -166,6 +184,9 @@
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_8">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces a fixed shift/ratio for timestep adjustment, instead of using image size like &lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_shift&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Higher: focus on less noisy, low-frequency, later timesteps&lt;br/&gt;Lower: focus on noisier, high-frequency, earlier timesteps&lt;br/&gt;For 1024px training, a value of around 2-3 may be fine&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_static_ratio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>Uniform Static Shift</string>
             </property>
@@ -173,6 +194,9 @@
           </item>
           <item row="1" column="1">
            <widget class="DoubleSpinBox" name="flow_uniform_static_ratio_shift_input">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces a fixed shift/ratio for timestep adjustment, instead of using image size like &lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_shift&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Higher: focus on less noisy, low-frequency, later timesteps&lt;br/&gt;Lower: focus on noisier, high-frequency, earlier timesteps&lt;br/&gt;For 1024px training, a value of around 2-3 may be fine&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--flow_uniform_static_ratio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="decimals">
              <number>3</number>
             </property>
@@ -193,7 +217,7 @@
           <item row="2" column="0" colspan="2">
            <widget class="QCheckBox" name="flow_optimal_transport_enable">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pair latents and noise with cosine optimal transport when using Rectified Flow&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_use_ot&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When Flow Model/Rectified Flow is enabled, pair latents and noises within a batch using cosine optimal transport (OT) instead of fixed pairing. Improves matching between samples for flow objectives/ΔFM (Contrastive Flow Matching)&lt;/p&gt;&lt;p&gt;Recommended to be enabled&lt;/p&gt;&lt;p&gt;&lt;code&gt;--flow_use_ot&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
              <string>Optimal Transport</string>
@@ -328,6 +352,9 @@
       <layout class="QFormLayout" name="formLayout_8">
        <item row="0" column="0" colspan="2">
         <widget class="QCheckBox" name="zero_cond_dropout_enable">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For full caption dropout, use zeroed conditioning instead of an empty caption/empty string.&lt;br/&gt;Useful for training the model to handle unconditional generation.&lt;br/&gt;Not recommended to be enabled on models that were not already trained with this (can be tested by using zeroed negative conditioning and checking if the output looks how it's supposed to compared to empty string or similar; Models trained without this may look off and doesn't adhere to style)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--use_zero_cond_dropout&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Zero Conditioning Dropout</string>
          </property>
@@ -340,6 +367,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculates loss using Debiased Estimation. Similar purpose to Min-SNR but a different approach. &lt;br/&gt;Incompatible with Flow Model/Rectified Flow&lt;/p&gt;&lt;p&gt;&lt;code&gt;--debiased_estimation_loss&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Debiased Estimation Loss</string>
@@ -355,6 +385,9 @@
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scalar weight applied to the contrastive term in ΔFM loss. Higher = stronger effect&lt;/p&gt;&lt;p&gt;&lt;code&gt;--cfm_lambda&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Contrastive Flow Matching Lamdba</string>
          </property>
@@ -364,6 +397,9 @@
         <widget class="DoubleSpinBox" name="cfm_lambda_input">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scalar weight applied to the contrastive term in ΔFM loss. Higher = stronger effect&lt;/p&gt;&lt;p&gt;&lt;code&gt;--cfm_lambda&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="decimals">
           <number>3</number>
@@ -392,6 +428,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable Contrastive Flow Matching (ΔFM) objective. Works with v-parameterization/v-pred (untested) or Rectified Flow.&lt;br/&gt;Adds a loss that helps the model tell apart correct and incorrect noise pairs&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--contrastive_flow_matching&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Contrastive Flow Matching</string>
