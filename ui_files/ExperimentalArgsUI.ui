@@ -252,6 +252,9 @@
           </property>
           <item row="0" column="0">
            <widget class="QLabel" name="vae_batch_size_label">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of images processed at once when encoding latents. Increase for faster encoding if you have enough VRAM&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_batch_size&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>VAE Batch Size</string>
             </property>
@@ -259,6 +262,9 @@
           </item>
           <item row="0" column="1">
            <widget class="SpinBox" name="vae_batch_size_input">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of images processed at once when encoding latents. Increase for faster encoding if you have enough VRAM&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_batch_size&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="minimum">
              <number>1</number>
             </property>
@@ -270,7 +276,7 @@
           <item row="1" column="0" colspan="2">
            <widget class="QCheckBox" name="vae_reflection_enable">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only applicable to models and VAEs that were trained together with reflect padding.&lt;/p&gt;&lt;p&gt;Uses reflect padding to mirror image edges in the conv layers of the VAE which helps avoiding edge artifacts.&lt;br/&gt;If you don't know what this is, you can likely ignore it&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only applicable to models and VAEs that were trained together with reflect padding.&lt;/p&gt;&lt;p&gt;Uses reflect padding to mirror image edges in the conv layers of the VAE which helps avoiding edge artifacts.&lt;br/&gt;If you don't know what this is, you can likely ignore it&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_reflection_padding&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
              <string>VAE Reflection</string>
@@ -286,6 +292,9 @@
           </property>
           <item row="0" column="0">
            <widget class="QCheckBox" name="vae_custom_scale_enable">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the scaling factor applied to latents after VAE encoding. Leave empty to use the default (E.g.: 0.18215 for SDXL VAE)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_scale&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>VAE Custom Scale</string>
             </property>
@@ -295,6 +304,9 @@
            <widget class="DoubleSpinBox" name="vae_custom_scale_input">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the scaling factor applied to latents after VAE encoding. Leave empty to use the default (E.g.: 0.18215 for SDXL VAE)&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_scale&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="decimals">
              <number>7</number>
@@ -315,6 +327,9 @@
           </item>
           <item row="1" column="0">
            <widget class="QCheckBox" name="vae_custom_shift_enable">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a constant offset to latents before scaling&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_shift&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>VAE Custom Shift</string>
             </property>
@@ -324,6 +339,9 @@
            <widget class="DoubleSpinBox" name="vae_custom_shift_input">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a constant offset to latents before scaling&lt;/p&gt;&lt;p&gt;&lt;code&gt;--vae_custom_shift&lt;/code&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="decimals">
              <number>7</number>
@@ -380,6 +398,25 @@
      </item>
      <item row="0" column="1">
       <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="cfm_enable">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable Contrastive Flow Matching (ΔFM) objective. Works with v-parameterization/v-pred (untested) or Rectified Flow.&lt;br/&gt;Adds a loss that helps the model tell apart correct and incorrect noise pairs&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--contrastive_flow_matching&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Contrastive Flow Matching</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QCheckBox" name="cfm_lambda_enable">
          <property name="enabled">
@@ -415,25 +452,6 @@
          </property>
          <property name="value">
           <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QCheckBox" name="cfm_enable">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable Contrastive Flow Matching (ΔFM) objective. Works with v-parameterization/v-pred (untested) or Rectified Flow.&lt;br/&gt;Adds a loss that helps the model tell apart correct and incorrect noise pairs&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'JetBrainsMono Nerd Font';&quot;&gt;--contrastive_flow_matching&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Contrastive Flow Matching</string>
          </property>
         </widget>
        </item>
