@@ -711,7 +711,7 @@
         <item row="1" column="2" rowspan="2">
          <widget class="QCheckBox" name="FP16_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows training on full FP16. Not compatable with full BF16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows training on full FP16. Not compatible with full BF16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Full FP16</string>
@@ -751,7 +751,7 @@
         <item row="1" column="3" rowspan="2">
          <widget class="QCheckBox" name="BF16_enable">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatable with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Train in full BF16. Not compatible with full FP16 or training precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Full BF16</string>
