@@ -197,7 +197,9 @@ class ExperimentalArgsUI(QWidget):
 
         # adv. vae args
         self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
-        if self.widget.vae_batch_size_input.value() != self.widget.vae_batch_size_input.property("value"):  # no need to add if it's default value
+        if self.widget.vae_batch_size_input.value() != self.widget.vae_batch_size_input.property(
+            "value"
+        ):  # no need to add if it's default value
             self.edit_args("vae_batch_size", self.widget.vae_batch_size_input.value(), True)
         if self.widget.vae_custom_scale_enable.isChecked():
             self.edit_args("vae_custom_scale", self.widget.vae_custom_scale_input.value(), True)
@@ -231,7 +233,9 @@ class ExperimentalArgsUI(QWidget):
 
         # adv. vae args
         self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
-        if self.widget.vae_batch_size_input.value() != self.widget.vae_batch_size_input.property("value"):  # no need to add if it's default value
+        if self.widget.vae_batch_size_input.value() != self.widget.vae_batch_size_input.property(
+            "value"
+        ):  # no need to add if it's default value
             self.edit_args("vae_batch_size", self.widget.vae_batch_size_input.value(), True)
         if self.widget.vae_custom_scale_enable.isChecked() and self.widget.vae_custom_scale_enable.isEnabled():
             self.edit_args("vae_custom_scale", self.widget.vae_custom_scale_input.value(), True)
@@ -244,7 +248,10 @@ class ExperimentalArgsUI(QWidget):
             self.edit_args("contrastive_flow_matching", True)
             if self.widget.cfm_lambda_enable.isChecked() and self.widget.cfm_lambda_enable.isEnabled():
                 self.edit_args("cfm_lambda", self.widget.cfm_lambda_input.value(), True)
-        if self.widget.debiased_estimation_loss_enable.isChecked() and self.widget.debiased_estimation_loss_enable.isEnabled():
+        if (
+            self.widget.debiased_estimation_loss_enable.isChecked()
+            and self.widget.debiased_estimation_loss_enable.isEnabled()
+        ):
             self.edit_args("debiased_estimation_loss", True, True)
 
         return self.args
