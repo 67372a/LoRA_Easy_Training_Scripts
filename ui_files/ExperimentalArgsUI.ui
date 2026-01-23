@@ -65,7 +65,7 @@
                                 <item>
                                     <widget class="QLabel" name="flow_notice_label">
                                         <property name="text">
-                                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Experimental Rectified Flow settings, incompatible with V Param; Enables &lt;code&gt;--flow_model&lt;/code&gt;&lt;br/&gt;Made with SDXL-based NoobAI-RF models by &lt;a href=&quot;https://huggingface.co/CabalResearch&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#00d9cb;&quot;&gt;CabalResearch&lt;/code&gt;&lt;/a&gt; in mind.&lt;br/&gt;(For Flux.1 training please visit the corresponding section)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Experimental Rectified Flow settings, incompatible with V Param; Enables &lt;code&gt;--flow_model&lt;/code&gt;&lt;br/&gt;Made with SDXL-based NoobAI-RF models by &lt;a href=&quot;https://huggingface.co/CabalResearch&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#00d9cb;&quot;&gt;CabalResearch&lt;/span&gt;&lt;/a&gt; in mind.&lt;br/&gt;(For Flux.1 training please visit the corresponding section)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                         </property>
                                         <property name="wordWrap">
                                             <bool>true</bool>
