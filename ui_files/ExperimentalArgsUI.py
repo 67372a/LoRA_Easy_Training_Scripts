@@ -174,7 +174,7 @@ class Ui_base_args_ui(object):
         self.vae_batch_size_input = SpinBox(self.advanced_vae_settings_box)
         self.vae_batch_size_input.setObjectName(u"vae_batch_size_input")
         self.vae_batch_size_input.setMinimum(1)
-        self.vae_batch_size_input.setMaximum(100)
+        self.vae_batch_size_input.setMaximum(1000)
 
         self.formLayout_5.setWidget(0, QFormLayout.ItemRole.FieldRole, self.vae_batch_size_input)
 
