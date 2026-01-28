@@ -121,9 +121,33 @@ class ArgsWidget(QtWidgets.QWidget):
             if widget.dataset_args:
                 dataset_args[widget.name] = widget.dataset_args
         
-        # Merge experimental args into general_args
+        # Force complete rebuild of general_args to prevent stale keys from lingering
         if "general_args" in args and hasattr(self.args_widget_array[0], "experimental_args_widget"):
-            args["general_args"].update(self.args_widget_array[0].experimental_args_widget.save_args())
+            general_widget = self.args_widget_array[0]
+            experimental_widget = general_widget.experimental_args_widget
+            
+            # Start completely fresh
+            clean_general_args = {}
+            
+            # Define which keys belong to experimental args
+            experimental_keys = {
+                "flow_model", "flow_use_ot", "flow_timestep_distribution", 
+                "flow_uniform_static_ratio", "flow_logit_mean", "flow_logit_std",
+                "contrastive_flow_matching", "cfm_lambda", "vae_custom_scale", 
+                "vae_custom_shift", "vae_reflection",
+                "debiased_estimation_loss", "zero_cond_dropout",
+            }
+            
+            # Only keep non-experimental args from general_widget
+            for k, v in general_widget.args.items():
+                if k not in experimental_keys:
+                    clean_general_args[k] = v
+            
+            # Add fresh experimental args (this ensures only enabled/checked items are included)
+            clean_general_args.update(experimental_widget.save_args())
+            
+            # Replace with completely rebuilt version
+            args["general_args"] = clean_general_args
         
         return {"args": args, "dataset": dataset_args}
 

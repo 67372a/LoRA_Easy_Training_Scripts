@@ -263,6 +263,8 @@ class GeneralWidget(BaseWidget):
             if arg in self.args:
                 del self.args[arg]
         self.widget.v_pred_enable.setEnabled(checked)
+        # Disable flow model when v_param is enabled (incompatible)
+        self.experimental_args_widget.set_flow_model_enabled(not checked)
         if not checked:
             return
         self.edit_args("v_parameterization", checked, True)
