@@ -10,12 +10,7 @@ class BucketWidget(BaseWidget):
         self.widget = Ui_bucket_ui()
 
         self.name = "bucket_args"
-        self.dataset_args = {
-            "enable_bucket": True,
-            "min_bucket_reso": 256,
-            "max_bucket_reso": 1024,
-            "bucket_reso_steps": 64,
-        }
+        self.dataset_args = {}
 
         self.setup_widget()
         self.setup_connections()
@@ -23,6 +18,8 @@ class BucketWidget(BaseWidget):
     def setup_widget(self) -> None:
         super().setup_widget()
         self.widget.setupUi(self.content)
+        # Populate dataset_args with initial widget values
+        self.enable_disable(self.widget.bucket_group.isChecked())
 
     def setup_connections(self) -> None:
         self.widget.bucket_no_upscale.clicked.connect(
@@ -55,14 +52,14 @@ class BucketWidget(BaseWidget):
     def load_dataset_args(self, dataset_args: dict) -> bool:
         dataset_args: dict = dataset_args.get(self.name, {})
 
-        # update element inputs
-        self.widget.bucket_group.setChecked(dataset_args.get("enable_bucket", False))
+        # update element inputs - use widget's current value as default if not in saved config
+        self.widget.bucket_group.setChecked(dataset_args.get("enable_bucket", self.widget.bucket_group.isChecked()))
         self.widget.bucket_no_upscale.setChecked(
-            dataset_args.get("bucket_no_upscale", False)
+            dataset_args.get("bucket_no_upscale", self.widget.bucket_no_upscale.isChecked())
         )
-        self.widget.min_input.setValue(dataset_args.get("min_bucket_reso", 256))
-        self.widget.max_input.setValue(dataset_args.get("max_bucket_reso", 1024))
-        self.widget.steps_input.setValue(dataset_args.get("bucket_reso_steps", 64))
+        self.widget.min_input.setValue(dataset_args.get("min_bucket_reso", self.widget.min_input.value()))
+        self.widget.max_input.setValue(dataset_args.get("max_bucket_reso", self.widget.max_input.value()))
+        self.widget.steps_input.setValue(dataset_args.get("bucket_reso_steps", self.widget.steps_input.value()))
 
         # edit dataset_args to match
         self.enable_disable(self.widget.bucket_group.isChecked())

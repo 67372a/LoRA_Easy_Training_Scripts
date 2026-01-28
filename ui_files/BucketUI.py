@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'BucketUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -30,60 +30,60 @@ class Ui_bucket_ui(object):
         self.verticalLayout.setContentsMargins(9, 9, 9, 9)
         self.bucket_group = QGroupBox(bucket_ui)
         self.bucket_group.setObjectName(u"bucket_group")
-        self.bucket_group.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.bucket_group.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.bucket_group.setCheckable(True)
         self.verticalLayout_2 = QVBoxLayout(self.bucket_group)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.bucket_no_upscale = QCheckBox(self.bucket_group)
         self.bucket_no_upscale.setObjectName(u"bucket_no_upscale")
 
-        self.verticalLayout_2.addWidget(self.bucket_no_upscale, 0, Qt.AlignHCenter)
+        self.verticalLayout_2.addWidget(self.bucket_no_upscale, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.main_form_layout = QFormLayout()
         self.main_form_layout.setObjectName(u"main_form_layout")
         self.min_label = QLabel(self.bucket_group)
         self.min_label.setObjectName(u"min_label")
 
-        self.main_form_layout.setWidget(0, QFormLayout.LabelRole, self.min_label)
+        self.main_form_layout.setWidget(0, QFormLayout.ItemRole.LabelRole, self.min_label)
 
         self.min_input = SpinBox(self.bucket_group)
         self.min_input.setObjectName(u"min_input")
-        self.min_input.setFocusPolicy(Qt.StrongFocus)
+        self.min_input.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.min_input.setMinimum(0)
         self.min_input.setMaximum(16777215)
         self.min_input.setSingleStep(8)
         self.min_input.setValue(256)
 
-        self.main_form_layout.setWidget(0, QFormLayout.FieldRole, self.min_input)
+        self.main_form_layout.setWidget(0, QFormLayout.ItemRole.FieldRole, self.min_input)
 
         self.max_label = QLabel(self.bucket_group)
         self.max_label.setObjectName(u"max_label")
 
-        self.main_form_layout.setWidget(1, QFormLayout.LabelRole, self.max_label)
+        self.main_form_layout.setWidget(1, QFormLayout.ItemRole.LabelRole, self.max_label)
 
         self.max_input = SpinBox(self.bucket_group)
         self.max_input.setObjectName(u"max_input")
-        self.max_input.setFocusPolicy(Qt.StrongFocus)
+        self.max_input.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.max_input.setMinimum(0)
         self.max_input.setMaximum(16777215)
         self.max_input.setSingleStep(8)
-        self.max_input.setValue(1024)
+        self.max_input.setValue(3072)
 
-        self.main_form_layout.setWidget(1, QFormLayout.FieldRole, self.max_input)
+        self.main_form_layout.setWidget(1, QFormLayout.ItemRole.FieldRole, self.max_input)
 
         self.steps_label = QLabel(self.bucket_group)
         self.steps_label.setObjectName(u"steps_label")
 
-        self.main_form_layout.setWidget(2, QFormLayout.LabelRole, self.steps_label)
+        self.main_form_layout.setWidget(2, QFormLayout.ItemRole.LabelRole, self.steps_label)
 
         self.steps_input = SpinBox(self.bucket_group)
         self.steps_input.setObjectName(u"steps_input")
-        self.steps_input.setFocusPolicy(Qt.StrongFocus)
+        self.steps_input.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.steps_input.setMaximum(16777215)
         self.steps_input.setSingleStep(8)
         self.steps_input.setValue(64)
 
-        self.main_form_layout.setWidget(2, QFormLayout.FieldRole, self.steps_input)
+        self.main_form_layout.setWidget(2, QFormLayout.ItemRole.FieldRole, self.steps_input)
 
 
         self.verticalLayout_2.addLayout(self.main_form_layout)
