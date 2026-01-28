@@ -19,8 +19,8 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QGridLayout
     QLabel, QLayout, QPushButton, QSizePolicy,
     QWidget)
 
-from dragdroplineedit import DragDropLineEdit
 from modules.CollapsibleWidget import CollapsibleWidget
+from modules.DragDropLineEdit import DragDropLineEdit
 from modules.ScrollOnSelect import (ComboBox, DoubleSpinBox, SpinBox)
 
 class Ui_sub_dataset_input(object):

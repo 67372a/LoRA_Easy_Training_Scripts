@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QFormLayout, QGri
     QGroupBox, QLabel, QPushButton, QSizePolicy,
     QVBoxLayout, QWidget)
 
-from dragdroplineedit import DragDropLineEdit
+from modules.DragDropLineEdit import DragDropLineEdit
 from modules.ScrollOnSelect import (DoubleSpinBox, SpinBox)
 
 class Ui_sub_dataset_extra_input(object):

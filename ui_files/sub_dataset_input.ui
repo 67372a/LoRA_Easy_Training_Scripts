@@ -349,7 +349,7 @@
   <customwidget>
    <class>DragDropLineEdit</class>
    <extends>QWidget</extends>
-   <header>dragdroplineedit.h</header>
+   <header>modules.DragDropLineEdit.h</header>
   </customwidget>
   <customwidget>
    <class>CollapsibleWidget</class>
