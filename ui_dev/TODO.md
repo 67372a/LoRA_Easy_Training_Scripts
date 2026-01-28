@@ -2,56 +2,25 @@
 
 ## General
 
-### User Experience
-
-- [ ] Find out how to reduce the margin of the big expander elements
-
-- [x] ~~Add vertical separator (Line) to visually separate Layouts better~~ | BaseUI
-  - is currently removed because idk yet how to make the QGroupBoxes "take it as middle", also the line seems off in qt-material themes
-  - instead used layout left/right margin of 3 on each side for same effect
-
-- [x] Use QGridLayout instead of 3 QHBoxLayouts for model checkboxes, makes them look more orderly
-
 ### Dev
 
 - [ ] Fix .ui Pyside6/Qt Designer files being out of sync with generated .py files
-  - [x] Fix BaseUI.ui
-  - [x] Fix MainUI.ui
+  - [x] BaseUI.ui
+  - [x] MainUI.ui
+  - [x] sub_dataset_input.ui
+  - [x] sub_dataset_extra_input.ui
   - [ ] ... check other files ...
-
-- [ ] ~~Find out how to make designer not save file with *_ui.py suffix and instead reuse .ui file's file name~~
-  - couldn't find a way, not that important either way, substituted with my own ui_dev/run_ui_dev.sh script
 
 ### Think about/needs testing/confirmation
 
 - [ ] Max Token Length: Allow any number or multiple of 75, apparently code has no limit for it but UI and CLI arg do, higher might work, at users discretion | BaseUI
-- [x] VAE Reflection checkbox would reduce minimum width for the UI which could lead to better experience since it allows smaller window, especially without compact mode using material theme, see FM/RF in new implementations | BaseUI
-  - moved to experimental args ui dropdown in advanced vae settings groupbox
-- [x] Move Debiased Estimation Loss to experimental args ui misc section
 - [ ] Compact Mode (Material): Make it default?
 - [ ] Disable Flip Augmentation when Cache Latents is checked
   - sd scripts readme says flip aug is not available when cache latents is true but the UI only disables color aug and random crop
 
-## Change name to more correct and/or commonly used alternatives
-
-- [ ] Keep Tokens -> Keep Tags
-  - [x] Keep Tokens Separator -> Keep Tags Separator | BaseUI
-    - [x] Update tooltip to note the change
-  - [ ] Keep Tokens -> Keep Tags | SubsetUI
-    - [ ] Update tooltip
-
-- [ ] ~~V Param -> V Pred | BaseUI~~
-  - [x] Update tooltip
-  - decided against the label rename, not confusing or anything I feel so it's fine
-- [ ] rate via epoch to (?) | Saving Args?
-
 ## Tooltips
 
 - [ ] Add if a setting is suggested/recommended to tooltips, eg latent caching and sdpa is likely suggested, or protected tags over keep tokens/tags
-
-- [ ] Think about adding the CLI arg each option uses to tooltip
-  - [ ] Yes
-  - [ ] No
 
 - [ ] Check on following Tooltips
   - [ ] Scale V pred loss | BaseUI
@@ -62,41 +31,39 @@
   - [ ] Debiased Estimation Loss | BaseUI
   - [ ] ... find more ...
 
-- [ ] Add and rework tooltips whereever it'll help ()
+- [ ] Add and rework tooltips whereever it'll help
 
 ## Set new default values to accomodate newer, more commonly used standards
-
-- [x] Width/Height default to 1024 from 512 | BaseUI
-  - [ ] Change bucket resolutions to accomodate res increase
-  - [ ] Contemplate: Since this was made for sd1.5 in mind, setting SDXL to default true probably bad but unlikely people will train sub 1mp model
 
 - [ ] Cache Latents default true? | BaseUI
 - [ ] SDPA default true? | BaseUI
 
 ## Implement new elements
 
-- [ ] Global Protected Tags file | BaseUI
+- [x] Global Protected Tags file | BaseUI
   - [x] Hook up global protected tags file to logic
     - [x] Make textbox disabled when checkbox is unchecked
   - [x] give selector button same 3 dot icon as base model/external vae ones
-  - [ ] Tooltip
+  - [x] Tooltip
 
-- [ ] FlowMatch/Rectified Flow/Adv. VAE/Misc settings
+- [x] FlowMatch/Rectified Flow/Adv. VAE/Misc settings
   - [x] Find out where to put it
   - ~~Likely in BaseUI, in Model QGroupBox, as expandable element, move VAE Reflection and Debiased EL in too?~~
     - Done, ExperimentalArgsUI
   - [x] Flow Model settings: Logit Mean/std, optimal transport, shift, ts dist
   - [x] VAE: batch size, reflection, scale, shift
   - [x] Misc: Zero Cond Dropout, CFM, CFM Lambda, Debiased Estimation Loss
-  - [ ] Tooltips
+  - [x] Tooltips
 
-## Requires backend change (probably)
+## Requires backend change
 
 - [ ] Option to ignore or delete/overwrite existing cached latents
 
 ## Other
 
 ### Fixes
+
+There may be lingering issues with the stuff below because i cant make sense out of the ui logic code, usually when checked -> saved -> unchecked -> saved - issue appears, lingering args
 
 - [ ] UI Elements passing on values to training/save toml even when unchecked, if value inputs are populated
   - [x] Flow Model GroupBox
@@ -105,19 +72,6 @@
   - [x] Keep Tokens/Tags Separator now correctly won't pass on it's value, if populated, downstream/when saving toml
   - [ ] Fix all 4 Subset Args' Optional Args checkbox groups
 
-- [ ] Disable UI elements when incompatible elements get checked (eg V Param check <-> Flow Model GroupBox)
-  - [x] Train Flux / Flow Model / V Param; Incompatible (Flow impl here is SDXL specific iirc)
-  - [ ] No V Param or Flow Model = No CFM (CLI desc says works on either V or Flow, didn't test)
-
 - [ ] Fix getting values from hardcoded dict and use actual UI default values correctly
   - [x] General Args/GeneralUI (Resolution, seed, etc)
   - [ ] ... find it in the other files ...
-
-## Testing
-
-- [ ] Is Global Protected file working?
-  - [x] Saving to/Loading from TOML
-  - [ ] Shows up when no subset specific file is set
-  - [ ] Doesn't overwrite subset specific file
-
-- [ ] Does experimental args ui stuff work
