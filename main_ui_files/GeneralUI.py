@@ -338,6 +338,27 @@ class GeneralWidget(BaseWidget):
     def load_args(self, args: dict) -> bool:
         args = args.get(self.name, {})
 
+        # Check if any experimental args are present and expand the collapsible if so
+        experimental_keys = {
+            "flow_model",
+            "flow_use_ot",
+            "flow_timestep_distribution",
+            "flow_uniform_static_ratio",
+            "flow_logit_mean",
+            "flow_logit_std",
+            "contrastive_flow_matching",
+            "cfm_lambda",
+            "vae_batch_size",
+            "vae_custom_scale",
+            "vae_custom_shift",
+            "vae_reflection",
+            "debiased_estimation_loss",
+            "zero_cond_dropout",
+        }
+        if any(key in args for key in experimental_keys):
+            if self.experimental_args_collapsible.is_collapsed:
+                self.experimental_args_collapsible.toggle_collapsed()
+
         # delegate experimental args to the widget
         self.experimental_args_widget.load_args(args)
 
