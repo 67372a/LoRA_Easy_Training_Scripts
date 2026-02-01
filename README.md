@@ -1,6 +1,10 @@
 # Updates
 
 ## 02/01/2026
+- UI enhancements and adjustments (https://github.com/67372a/LoRA_Easy_Training_Scripts/pull/68) contributed by https://github.com/DraconicDragon
+  - toggle-able Global Protected Tags File
+  - Rectified Flow settings mainly oriented towards recent SDXL/NoobAI RF experiments (likely marked as experimental in some way, tucked into an expandable element
+  - Reorganization and tweaks to layout
 - make EDM2 compatible with DDP and deepspeed in FFT, and DDP + LoRA (https://github.com/67372a/sd-scripts/pull/226)
 
 ## 12/07/2025
