@@ -19,7 +19,7 @@ class BaseWidget(QtWidgets.QWidget):
     def setup_widget(self) -> None:
         self.setLayout(QtWidgets.QVBoxLayout())
         self.layout().addWidget(self.colap)
-        self.layout().setContentsMargins(9, 0, 9, 0)
+        self.layout().setContentsMargins(0, 0, 0, 0)
         self.colap.add_widget(self.content, "main_widget")
 
     def setup_connections(self) -> None:

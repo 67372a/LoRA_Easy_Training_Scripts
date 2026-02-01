@@ -53,15 +53,28 @@ class ArgsWidget(QtWidgets.QWidget):
         general_args.sdxlChecked.connect(lambda x: self.sdxlChecked.emit(x))
         general_args.cacheLatentsChecked.connect(lambda x: self.cacheLatentsChecked.emit(x))
         general_args.keepTokensSepChecked.connect(lambda x: self.keepTokensSepChecked.emit(x))
-        general_args.v2Checked.connect(
-            lambda x: self.flux_widget.external_enable_disable(
-                x or general_args.widget.sdxl_enable.isChecked()
+        def refresh_flux_disabled_state() -> None:
+            should_disable = (
+                general_args.experimental_args_widget.widget.flow_model_settings_box.isChecked()
+                or general_args.widget.v_param_enable.isChecked()
+                or general_args.widget.v2_enable.isChecked()
+                or general_args.widget.sdxl_enable.isChecked()
             )
-        )
-        general_args.sdxlChecked.connect(
-            lambda x: self.flux_widget.external_enable_disable(x or general_args.widget.v2_enable.isChecked())
-        )
+            self.flux_widget.external_enable_disable(should_disable)
+
+        general_args.v2Checked.connect(lambda _: refresh_flux_disabled_state())
+        general_args.sdxlChecked.connect(lambda _: refresh_flux_disabled_state())
+        general_args.widget.v_param_enable.clicked.connect(lambda _: refresh_flux_disabled_state())
         self.flux_widget.Toggled.connect(general_args.enable_disable_model_type)
+        # Pass experimental_args_widget to flux_widget for cross-file logic
+        self.flux_widget.experimental_args_widget = general_args.experimental_args_widget
+        # Connect flux widget toggle to disable flow model and v_param in experimental args
+        self.flux_widget.Toggled.connect(general_args.experimental_args_widget.set_flux_enabled)
+        # Connect flow model toggle to disable flux widget
+        general_args.experimental_args_widget.flowModelToggled.connect(
+            lambda _: refresh_flux_disabled_state()
+        )
+        refresh_flux_disabled_state()
         self.flux_widget.SplitMode.connect(
             lambda x: self.network_widget.edit_network_args("train_blocks", "single" if x else False, True)
         )
@@ -107,6 +120,35 @@ class ArgsWidget(QtWidgets.QWidget):
                 args[widget.name] = widget.args
             if widget.dataset_args:
                 dataset_args[widget.name] = widget.dataset_args
+        
+        # Force complete rebuild of general_args to prevent stale keys from lingering
+        if "general_args" in args and hasattr(self.args_widget_array[0], "experimental_args_widget"):
+            general_widget = self.args_widget_array[0]
+            experimental_widget = general_widget.experimental_args_widget
+            
+            # Start completely fresh
+            clean_general_args = {}
+            
+            # Define which keys belong to experimental args
+            experimental_keys = {
+                "flow_model", "flow_use_ot", "flow_timestep_distribution", 
+                "flow_uniform_static_ratio", "flow_logit_mean", "flow_logit_std",
+                "contrastive_flow_matching", "cfm_lambda", "vae_custom_scale", 
+                "vae_custom_shift", "vae_reflection",
+                "debiased_estimation_loss", "zero_cond_dropout",
+            }
+            
+            # Only keep non-experimental args from general_widget
+            for k, v in general_widget.args.items():
+                if k not in experimental_keys:
+                    clean_general_args[k] = v
+            
+            # Add fresh experimental args (this ensures only enabled/checked items are included)
+            clean_general_args.update(experimental_widget.save_args())
+            
+            # Replace with completely rebuilt version
+            args["general_args"] = clean_general_args
+        
         return {"args": args, "dataset": dataset_args}
 
     def get_validation_errors(self) -> list[str]:

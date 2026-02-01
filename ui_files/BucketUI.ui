@@ -32,13 +32,13 @@
       <string>Enable</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item alignment="Qt::AlignHCenter">
+      <item alignment="Qt::AlignmentFlag::AlignHCenter">
        <widget class="QCheckBox" name="bucket_no_upscale">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't Upscale Images doesn't upscale the images provided in the dataset, Additionally, it generates unique buckets to fit the images. This may result in a lot of buckets with only 1 image in them&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -63,7 +63,7 @@
         <item row="0" column="1">
          <widget class="SpinBox" name="min_input">
           <property name="focusPolicy">
-           <enum>Qt::StrongFocus</enum>
+           <enum>Qt::FocusPolicy::StrongFocus</enum>
           </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum Bucket Resolution is the smallest edge of a bucket, this is paired with the Maximum Bucket Resolution to produce the bucket list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -95,7 +95,7 @@
         <item row="1" column="1">
          <widget class="SpinBox" name="max_input">
           <property name="focusPolicy">
-           <enum>Qt::StrongFocus</enum>
+           <enum>Qt::FocusPolicy::StrongFocus</enum>
           </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum Bucket Resolution is the largest edge of a bucket, this is paired with the Minimum Bucket Resolution to produce the bucket list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -110,7 +110,7 @@
            <number>8</number>
           </property>
           <property name="value">
-           <number>1024</number>
+           <number>3072</number>
           </property>
          </widget>
         </item>
@@ -127,7 +127,7 @@
         <item row="2" column="1">
          <widget class="SpinBox" name="steps_input">
           <property name="focusPolicy">
-           <enum>Qt::StrongFocus</enum>
+           <enum>Qt::FocusPolicy::StrongFocus</enum>
           </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bucket Resolution Steps is the amount of pixels between each bucket there is. You don't want this value too large, or too small, as too large would result in images having valuable data being cut off, and too small would cause overlapping and would cause the trainer to crash.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

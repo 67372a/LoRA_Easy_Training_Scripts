@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
-    <height>221</height>
+    <width>558</width>
+    <height>306</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -58,75 +58,113 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="DragDropLineEdit" name="image_folder_input">
+      <widget class="DragDropLineEdit" name="image_folder_input" native="true">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The folder that contains images and caption file pairs. The images and captions must be in that folder and not in folders in that folder.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
-       <property name="placeholderText">
+       <property name="placeholderText" stdset="0">
         <string>Image Folder</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-    <item row="4" column="1">
-    <layout class="QGridLayout" name="gridLayout_2">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
+   <item row="1" column="0" colspan="2">
+    <layout class="QGridLayout" name="target_image_dir_grid">
+     <property name="horizontalSpacing">
+      <number>8</number>
      </property>
-     <item row="0" column="1" alignment="Qt::AlignLeft">
-      <widget class="QCheckBox" name="flip_augment_enable">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flip Augment Flips the latents of the images during training.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="target_image_folder_selector">
        <property name="text">
-        <string>flip augment</string>
+        <string/>
        </property>
       </widget>
      </item>
-     <item row="0" column="0" alignment="Qt::AlignLeft">
-      <widget class="QCheckBox" name="shuffle_captions_enable">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shuffle Captions will shuffle the captions for each image as it appears. It shuffles according to commas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="target_image_dir_label">
        <property name="text">
-        <string>shuffle captions</string>
+        <string>Target Image Dir</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" alignment="Qt::AlignLeft">
-      <widget class="QCheckBox" name="random_crop_enable">
+     <item row="1" column="0">
+      <widget class="DragDropLineEdit" name="target_image_folder_input" native="true">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random Crop replaces the cropping behavior with a crop that originates from a random location of the image, instead of from the center&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>random crop</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" alignment="Qt::AlignLeft">
-      <widget class="QCheckBox" name="color_augment_enable">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color Augment shifts the color of images randomly during training&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>color augment</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0" colspan="2" alignment="Qt::AlignLeft">
-      <widget class="QCheckBox" name="regularization_images_enable">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Regularization Images denotes that this folder is meant to be regularization, not for direct training&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>regularization images</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The folder that contains the target/edited images for ADDifT training. Filenames must match the input image directory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-    <item row="4" column="0">
+   <item row="4" column="1">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <property name="sizeConstraint">
+      <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+     </property>
+     <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignLeft">
+      <widget class="QCheckBox" name="flip_augment_enable">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flip Augment Flips the latents of the images during training, effectively doubling the amount of images. Not recommended for training asymmetrical features, likely not compatible with Cache Latents&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Flip Augment</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignLeft">
+      <widget class="QCheckBox" name="shuffle_captions_enable">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shuffle Captions will shuffle the captions for each image as it appears. It shuffles according to commas. Not compatible with Cache Text Encoder&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Shuffle Captions</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignLeft">
+      <widget class="QCheckBox" name="random_crop_enable">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random Crop replaces the cropping behavior with a crop that originates from a random location of the image, instead of from the center. Not compatible with Cache Latents&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Random Crop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignLeft">
+      <widget class="QCheckBox" name="color_augment_enable">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color Augment shifts the color of images randomly during training. Suggested to be left off since it changes what the model is supposed to be learning and can impact color accuracy&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Color Augment</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2" alignment="Qt::AlignmentFlag::AlignLeft">
+      <widget class="QCheckBox" name="regularization_images_enable">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Regularization Images denotes that this folder's images are meant to be regularization, not for direct training&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Reg Images</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" alignment="Qt::AlignmentFlag::AlignLeft">
+      <widget class="QCheckBox" name="validation_images_enable">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Validation Images denotes that this folder's images are meant to be validation, not for direct training&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Val Images</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
     <layout class="QFormLayout" name="other_form_layout">
      <property name="horizontalSpacing">
       <number>12</number>
@@ -150,7 +188,7 @@
         </size>
        </property>
        <property name="focusPolicy">
-        <enum>Qt::StrongFocus</enum>
+        <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of Repeats is the number of times any given image in the folder will be repeated per epoch&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -166,20 +204,20 @@
      <item row="1" column="0">
       <widget class="QLabel" name="keep_tokens_label">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keep Tokens is what allows you to prevent tokens from randomizing when shuffle captions is selected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formerly named: Keep Tokens&lt;/p&gt;&lt;p&gt;Keep Tags is what allows you to prevent tags from randomizing when shuffle captions is selected as well as preventing tags from being dropped out during tag dropout. It is recommended to use Protected Tags File as a better alternative since it won't prevent shuffling of tags like Keep Tags does&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Keep Tokens</string>
+        <string>Keep Tags</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="SpinBox" name="keep_tokens_input">
        <property name="focusPolicy">
-        <enum>Qt::StrongFocus</enum>
+        <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keep Tokens is what allows you to prevent tokens from randomizing when shuffle captions is selected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formerly named: Keep Tokens&lt;/p&gt;&lt;p&gt;Keep Tags is what allows you to prevent tags from randomizing when shuffle captions is selected as well as preventing tags from being dropped out during tag dropout. It is recommended to use Protected Tags File as a better alternative since it won't prevent shuffling of tags like Keep Tags does&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -196,7 +234,7 @@
      <item row="2" column="1">
       <widget class="ComboBox" name="caption_extension_selector">
        <property name="focusPolicy">
-        <enum>Qt::StrongFocus</enum>
+        <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Caption Extension is how you tell sd-scripts if your caption files are .txt or .caption&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -213,15 +251,50 @@
        </item>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="random_crop_padding_percent_label">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The amount to pad the resolution for random cropping, allowing it to jitter / shift more. Not compatible with Cache Latents&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Random Crop Padding Percent</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="DoubleSpinBox" name="random_crop_padding_percent_input">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::StrongFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The amount to pad the resolution for random cropping, allowing it to jitter / shift more. Not compatible with Cache Latents&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
-    <item row="5" column="0" colspan="2">
+   <item row="5" column="0" colspan="2">
     <widget class="CollapsibleWidget" name="extra_args" native="true"/>
    </item>
-    <item row="2" column="0" colspan="2">
+   <item row="2" column="0" colspan="2">
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="1" column="0">
-      <widget class="DragDropLineEdit" name="masked_image_input">
+      <widget class="DragDropLineEdit" name="masked_image_input" native="true">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -254,7 +327,8 @@
       </widget>
      </item>
     </layout>
-    </item>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
@@ -268,15 +342,20 @@
    <header>modules.ScrollOnSelect.h</header>
   </customwidget>
   <customwidget>
+   <class>DoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>modules.ScrollOnSelect.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DragDropLineEdit</class>
+   <extends>QWidget</extends>
+   <header>modules.DragDropLineEdit.h</header>
+  </customwidget>
+  <customwidget>
    <class>CollapsibleWidget</class>
    <extends>QWidget</extends>
    <header>modules.CollapsibleWidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>DragDropLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>modules.DragDropLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

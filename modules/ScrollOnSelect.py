@@ -18,6 +18,9 @@ class DoubleSpinBox(QtWidgets.QDoubleSpinBox):
         super(DoubleSpinBox, self).__init__(parent)
         self.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
         self.setDecimals(4)
+        
+    def value(self) -> float:
+        return round(super().value(), 14)
 
     def wheelEvent(self, event: QtGui.QWheelEvent) -> None:
         if not self.hasFocus():

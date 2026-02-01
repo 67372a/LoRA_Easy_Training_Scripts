@@ -1,10 +1,14 @@
 from pathlib import Path
+
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QWidget, QPushButton
-from ui_files.BaseUI import Ui_base_args_ui
+from PySide6.QtWidgets import QFormLayout, QPushButton, QWidget
+
+from main_ui_files.ExperimentalArgsUI import ExperimentalArgsUI
 from modules.BaseWidget import BaseWidget
+from modules.CollapsibleWidget import CollapsibleWidget
 from modules.DragDropLineEdit import DragDropLineEdit
+from ui_files.BaseUI import Ui_base_args_ui
 
 
 class GeneralWidget(BaseWidget):
@@ -19,20 +23,8 @@ class GeneralWidget(BaseWidget):
         self.widget = Ui_base_args_ui()
 
         self.name = "general_args"
-        self.args = {
-            "mixed_precision": "fp16",
-            "seed": 23,
-            "clip_skip": 2,
-            "max_train_epochs": 1,
-            "max_data_loader_n_workers": 1,
-            "persistent_data_loader_workers": True,
-            "max_token_length": 225,
-            "prior_loss_weight": 1.0,
-        }
-        self.dataset_args = {
-            "resolution": 512,
-            "batch_size": 1,
-        }
+        self.args = {}
+        self.dataset_args = {}
 
         self.setup_widget()
         self.setup_connections()
@@ -51,6 +43,51 @@ class GeneralWidget(BaseWidget):
         setup_file(self.widget.vae_input, self.widget.vae_selector)
         self.widget.vae_input.allow_empty = True
 
+        self._add_misc_experimental_args_collapsible()
+
+        # global protected tags file input/selector setup
+        self.widget.global_protected_tags_file_input.setMode("file", [".txt"])
+        self.widget.global_protected_tags_file_input.highlight = True
+        self.widget.global_protected_tags_file_input.allow_empty = True
+        self.widget.global_protected_tags_file_selector.setIcon(QIcon(str(Path("icons/more-horizontal.svg"))))
+
+        # initialize args from UI values
+        self.args["seed"] = int(
+            self.widget.seed_input.value()
+        )  # explicit cast since we use custom DoubleSpinBox for seed, even at decimals = 0 it adds .0
+        # todo: apply to other places here
+        self.args["clip_skip"] = self.widget.clip_skip_input.value()
+        self.args["max_train_epochs"] = self.widget.max_train_input.value()
+        self.args["max_data_loader_n_workers"] = self.widget.max_data_loader_n_workers_input.value()
+        self.args["persistent_data_loader_workers"] = True
+        self.args["max_token_length"] = int(self.widget.max_token_selector.currentText())
+        self.widget.max_token_selector.currentTextChanged.connect(lambda t: self.edit_args("max_token_length", int(t)))
+        self.args["prior_loss_weight"] = self.widget.loss_weight_input.value()
+
+        mixed_prec_text = self.widget.mixed_precision_selector.currentText()
+        self.args["mixed_precision"] = mixed_prec_text if mixed_prec_text != "float" else "no"
+
+        self.dataset_args["resolution"] = self.widget.width_input.value()
+        self.dataset_args["batch_size"] = self.widget.batch_size_input.value()
+
+    def _add_misc_experimental_args_collapsible(self) -> None:
+        collapsible = CollapsibleWidget(self.widget.base_model_box, title="Misc/Experimental Args")
+        collapsible.setContentsMargins(0, 0, 0, 0)
+        collapsible.layout().setContentsMargins(0, 0, 0, 0)
+        collapsible.content.setContentsMargins(0, 0, 0, 0)
+        collapsible.content_layout.setContentsMargins(0, 0, 0, 0)
+        collapsible.content_layout.setSpacing(0)
+        # keep the title slimmer but preserve the default theme/highlight
+        collapsible.title_frame.setMinimumHeight(28)
+
+        # create the experimental args widget
+        self.experimental_args_widget = ExperimentalArgsUI()
+
+        collapsible.add_widget(self.experimental_args_widget, "experimental_args_ui")
+        self.experimental_args_collapsible = collapsible
+
+        self.widget.formLayout_3.setWidget(3, QFormLayout.ItemRole.SpanningRole, collapsible)
+
     def setup_connections(self) -> None:
         self.widget.base_model_input.textChanged.connect(
             lambda x: self.edit_args(
@@ -59,26 +96,40 @@ class GeneralWidget(BaseWidget):
             )
         )
         self.widget.base_model_selector.clicked.connect(
-            lambda: self.set_file_from_dialog(
-                self.widget.base_model_input, "Base Model For Training", "SD Model"
-            )
+            lambda: self.set_file_from_dialog(self.widget.base_model_input, "Base Model For Training", "SD Model")
         )
         self.widget.vae_input.textChanged.connect(lambda x: self.edit_args("vae", x, optional=True))
         self.widget.vae_selector.clicked.connect(
             lambda: self.set_file_from_dialog(self.widget.vae_input, "External VAE", "VAE file")
         )
+        self.widget.global_protected_tags_file_input.textChanged.connect(
+            lambda x: self.edit_args("protected_tags_file", x, optional=True)
+        )
+        self.widget.global_protected_tags_file_selector.clicked.connect(
+            lambda: self.set_file_from_dialog(
+                self.widget.global_protected_tags_file_input, "Protected Tags File (Global)", "Text file"
+            )
+        )
+        self.widget.global_protected_tags_file_enable.clicked.connect(self.enable_disable_global_protected_tags)
         self.widget.v2_enable.clicked.connect(lambda x: self.change_model_type(x, False))
         self.widget.sdxl_enable.clicked.connect(lambda x: self.change_model_type(False, x))
         self.widget.no_half_vae_enable.clicked.connect(lambda x: self.edit_args("no_half_vae", x, True))
         self.widget.low_ram_enable.clicked.connect(lambda x: self.edit_args("lowram", x, True))
-        self.widget.vae_reflection_enable.clicked.connect(lambda x: self.edit_args("vae_reflection", x, True))
         self.widget.high_vram_enable.clicked.connect(lambda x: self.edit_args("highvram", x, True))
         self.widget.v_param_enable.clicked.connect(self.enable_disable_v_param)
+        # disable flow model when v_param is enabled (incompatible)
+        self.widget.v_param_enable.clicked.connect(
+            lambda x: self.experimental_args_widget.set_flow_model_enabled(not x)
+        )
+        # disable v_param when flow model is enabled
+        self.experimental_args_widget.flowModelToggled.connect(
+            lambda x: self.widget.v_param_enable.setEnabled(not x) if x else self.widget.v_param_enable.setEnabled(True)
+        )
+        # update CFM availability when flow model or v_param changes
+        self.widget.v_param_enable.clicked.connect(self._update_cfm_availability)
+        self.experimental_args_widget.flowModelToggled.connect(lambda: self._update_cfm_availability())
         self.widget.v_pred_enable.clicked.connect(
             lambda x: self.edit_args("scale_v_pred_loss_like_noise_pred", x, True)
-        )
-        self.widget.debiased_estimation_loss_enable.clicked.connect(
-            lambda x: self.edit_args("debiased_estimation_loss", x, True)
         )
         self.widget.FP16_enable.clicked.connect(lambda x: self.change_full_type(x, False))
         self.widget.BF16_enable.clicked.connect(lambda x: self.change_full_type(False, x))
@@ -93,16 +144,16 @@ class GeneralWidget(BaseWidget):
         self.widget.grad_accumulation_input.valueChanged.connect(
             lambda x: self.edit_args("gradient_accumulation_steps", x, True)
         )
-        self.widget.max_data_loader_n_workers_input.valueChanged.connect(lambda x: self.edit_args("max_data_loader_n_workers", x))
-        self.widget.seed_input.valueChanged.connect(lambda x: self.edit_args("seed", x))
+        self.widget.max_data_loader_n_workers_input.valueChanged.connect(
+            lambda x: self.edit_args("max_data_loader_n_workers", x)
+        )
+        self.widget.seed_input.valueChanged.connect(lambda x: self.edit_args("seed", int(x)))
         self.widget.batch_size_input.valueChanged.connect(lambda x: self.edit_dataset_args("batch_size", x))
         self.widget.clip_skip_input.valueChanged.connect(lambda x: self.edit_args("clip_skip", x))
         self.widget.max_token_selector.currentIndexChanged.connect(
             lambda x: self.edit_args("max_token_length", [225, 150, None][x], True)
         )
-        self.widget.loss_weight_input.valueChanged.connect(
-            lambda x: self.edit_args("prior_loss_weight", x, True)
-        )
+        self.widget.loss_weight_input.valueChanged.connect(lambda x: self.edit_args("prior_loss_weight", x, True))
         self.widget.mixed_precision_selector.currentTextChanged.connect(
             lambda x: self.edit_args("mixed_precision", x if x != "float" else "no")
         )
@@ -212,6 +263,8 @@ class GeneralWidget(BaseWidget):
             if arg in self.args:
                 del self.args[arg]
         self.widget.v_pred_enable.setEnabled(checked)
+        # Disable flow model when v_param is enabled (incompatible)
+        self.experimental_args_widget.set_flow_model_enabled(not checked)
         if not checked:
             return
         self.edit_args("v_parameterization", checked, True)
@@ -220,6 +273,11 @@ class GeneralWidget(BaseWidget):
             self.widget.v_pred_enable.isChecked(),
             True,
         )
+
+    def _update_cfm_availability(self) -> None:
+        """Update CFM availability based on flow model and v_param states."""
+        v_param_enabled = self.widget.v_param_enable.isChecked()
+        self.experimental_args_widget.update_cfm_availability(v_param_enabled)
 
     def enable_disable_grad_acc(self, checked: bool) -> None:
         if "gradient_accumulation_steps" in self.args:
@@ -252,6 +310,8 @@ class GeneralWidget(BaseWidget):
             del self.args["keep_tokens_separator"]
         self.widget.keep_tokens_seperator_input.setEnabled(checked)
         self.keepTokensSepChecked.emit(checked)
+        if not checked:
+            return
         self.edit_args(
             "keep_tokens_separator",
             self.widget.keep_tokens_seperator_input.text(),
@@ -266,8 +326,41 @@ class GeneralWidget(BaseWidget):
             return
         self.edit_args("training_comment", self.widget.comment_input.toPlainText(), True)
 
+    def enable_disable_global_protected_tags(self, checked: bool) -> None:
+        if "protected_tags_file" in self.args:
+            del self.args["protected_tags_file"]
+        self.widget.global_protected_tags_file_input.setEnabled(checked)
+        self.widget.global_protected_tags_file_selector.setEnabled(checked)
+        if not checked:
+            return
+        self.edit_args("protected_tags_file", self.widget.global_protected_tags_file_input.text(), optional=True)
+
     def load_args(self, args: dict) -> bool:
         args = args.get(self.name, {})
+
+        # Check if any experimental args are present and expand the collapsible if so
+        experimental_keys = {
+            "flow_model",
+            "flow_use_ot",
+            "flow_timestep_distribution",
+            "flow_uniform_static_ratio",
+            "flow_logit_mean",
+            "flow_logit_std",
+            "contrastive_flow_matching",
+            "cfm_lambda",
+            "vae_batch_size",
+            "vae_custom_scale",
+            "vae_custom_shift",
+            "vae_reflection",
+            "debiased_estimation_loss",
+            "zero_cond_dropout",
+        }
+        if any(key in args for key in experimental_keys):
+            if self.experimental_args_collapsible.is_collapsed:
+                self.experimental_args_collapsible.toggle_collapsed()
+
+        # delegate experimental args to the widget
+        self.experimental_args_widget.load_args(args)
 
         # update element inputs
         self.widget.base_model_input.setText(args.get("pretrained_model_name_or_path", ""))
@@ -276,18 +369,16 @@ class GeneralWidget(BaseWidget):
         self.widget.sdxl_enable.setChecked(args.get("sdxl", False))
         self.widget.no_half_vae_enable.setChecked(args.get("no_half_vae", False))
         self.widget.low_ram_enable.setChecked(args.get("lowram", False))
-        self.widget.vae_reflection_enable.setChecked(args.get("vae_reflection", False))
         self.widget.high_vram_enable.setChecked(args.get("highvram", False))
         self.widget.v_param_enable.setChecked(args.get("v_parameterization", False))
         self.widget.v_pred_enable.setChecked(args.get("scale_v_pred_loss_like_noise_pred", False))
-        self.widget.debiased_estimation_loss_enable.setChecked(args.get("debiased_estimation_loss", False))
         self.widget.FP16_enable.setChecked(args.get("full_fp16", False))
         self.widget.BF16_enable.setChecked(args.get("full_bf16", False))
         self.widget.FP8_enable.setChecked(args.get("fp8_base", False))
         self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", False))
         self.widget.grad_accumulation_enable.setChecked(bool(args.get("gradient_accumulation_steps", False)))
         self.widget.grad_accumulation_input.setValue(args.get("gradient_accumulation_steps", 1))
-        self.widget.seed_input.setValue(args.get("seed", 23))
+        self.widget.seed_input.setValue(int(args.get("seed", 42)))
         self.widget.max_data_loader_n_workers_input.setValue(args.get("max_data_loader_n_workers", 1))
         self.widget.clip_skip_input.setValue(args.get("clip_skip", 2))
         self.widget.max_token_selector.setCurrentText(str(args.get("max_token_length", 225)))
@@ -304,6 +395,8 @@ class GeneralWidget(BaseWidget):
         self.widget.keep_tokens_seperator_input.setText(args.get("keep_tokens_separator", ""))
         self.widget.comment_enable.setChecked(bool(args.get("training_comment", False)))
         self.widget.comment_input.setText(args.get("training_comment", ""))
+        self.widget.global_protected_tags_file_enable.setChecked(bool(args.get("protected_tags_file", False)))
+        self.widget.global_protected_tags_file_input.setText(args.get("protected_tags_file", ""))
 
         # update args to match
         self.edit_args(
@@ -318,11 +411,8 @@ class GeneralWidget(BaseWidget):
         self.change_model_type(self.widget.v2_enable.isChecked(), self.widget.sdxl_enable.isChecked())
         self.edit_args("no_half_vae", self.widget.no_half_vae_enable.isChecked(), True)
         self.edit_args("lowram", self.widget.low_ram_enable.isChecked(), True)
-        self.edit_args("vae_reflection", self.widget.vae_reflection_enable.isChecked(), True)
         self.edit_args("highvram", self.widget.high_vram_enable.isChecked(), True)
         self.enable_disable_v_param(self.widget.v_param_enable.isChecked())
-        # Update args for the new debiased estimation loss checkbox
-        self.edit_args("debiased_estimation_loss", self.widget.debiased_estimation_loss_enable.isChecked(), True)
         self.change_full_type(self.widget.FP16_enable.isChecked(), self.widget.BF16_enable.isChecked())
         self.edit_args("fp8_base", self.widget.FP8_enable.isChecked(), True)
         self.edit_args(
@@ -331,7 +421,7 @@ class GeneralWidget(BaseWidget):
             True,
         )
         self.enable_disable_grad_acc(self.widget.grad_accumulation_enable.isChecked())
-        self.edit_args("seed", self.widget.seed_input.value())
+        self.edit_args("seed", int(self.widget.seed_input.value()))
         self.edit_args("max_data_loader_n_workers", self.widget.max_data_loader_n_workers_input.value())
         self.edit_args(
             "max_token_length",
@@ -344,13 +434,18 @@ class GeneralWidget(BaseWidget):
         self.enable_disable_cache_latents(self.widget.cache_latents_enable.isChecked())
         self.enable_disable_keep_tokens_sep(self.widget.keep_tokens_seperator_enable.isChecked())
         self.enable_disable_comment(self.widget.comment_enable.isChecked())
+        self.enable_disable_global_protected_tags(self.widget.global_protected_tags_file_enable.isChecked())
+
+        # merge experimental args into general args
+        self.args.update(self.experimental_args_widget.save_args())
+
         return True
 
     def load_dataset_args(self, dataset_args: dict) -> bool:
         dataset_args = dataset_args.get(self.name, {})
 
         # update element inputs
-        resolution = dataset_args.get("resolution", 512)
+        resolution = dataset_args.get("resolution", 1024)
         self.widget.width_input.setValue(resolution[0] if isinstance(resolution, list) else resolution)
         self.widget.height_enable.setChecked(isinstance(resolution, list))
         self.widget.height_input.setValue(resolution[1] if isinstance(resolution, list) else resolution)

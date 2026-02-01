@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>488</width>
-    <height>358</height>
+    <width>448</width>
+    <height>464</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -60,7 +60,7 @@
          </size>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="toolTip">
          <string/>
@@ -95,7 +95,7 @@
          <bool>true</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="decimals">
          <number>2</number>
@@ -117,13 +117,13 @@
       <bool>true</bool>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Caption Dropout is a way to cut out captions during training. This allows for the uncond portion of the model to be trained, however you don't want to set any of the values too high&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Caption Dropout is a way to cut out captions during training. This allows for the uncond portion of the model to be trained, however you don't want to set any of the values too high&lt;/p&gt;&lt;p&gt;Full dropout: drops out the whole caption - forces image-only learning by sometimes removing all text&lt;/p&gt;&lt;p&gt;Rate via epoch: Drops *all* captions every N epochs. 0 = disabled; 1 = dropped every epoch; &amp;gt;1 = once every N epochs&lt;/p&gt;&lt;p&gt;Tag dropout: randomly drops out/removes some tags to reduce overfitting on exact tags/wording (you can prevent certain tags from being dropped out using Keep Tags/Tokens or Protected Tags File. The latter is recommended)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string>Caption Dropout</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -156,7 +156,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>rate</string>
+         <string>full dropout rate</string>
         </property>
        </widget>
       </item>
@@ -166,7 +166,7 @@
          <bool>true</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default rate that any one caption file gets dropped.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -187,7 +187,7 @@
          <double>0.010000000000000</double>
         </property>
         <property name="stepType">
-         <enum>QAbstractSpinBox::DefaultStepType</enum>
+         <enum>QAbstractSpinBox::StepType::DefaultStepType</enum>
         </property>
        </widget>
       </item>
@@ -195,6 +195,9 @@
        <widget class="QLabel" name="caption_epoch_dropout_label">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This sets how often &lt;span style=&quot; font-weight:700;&quot;&gt;ALL&lt;/span&gt; captions gets dropped (full dropout). So if you have this set to 1, then &lt;span style=&quot; font-weight:700;&quot;&gt;ALL&lt;/span&gt; captions will be dropped &lt;span style=&quot; font-weight:700;&quot;&gt;every&lt;/span&gt; epoch. If you use this, you should set this higher than 1. Set to 0 to disable&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>rate via epoch</string>
@@ -207,10 +210,10 @@
          <bool>true</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This sets how often &lt;span style=&quot; font-weight:700;&quot;&gt;ALL&lt;/span&gt; captions gets dropped. So if you have this set to 1, then &lt;span style=&quot; font-weight:700;&quot;&gt;ALL&lt;/span&gt; captions will be dropped &lt;span style=&quot; font-weight:700;&quot;&gt;every&lt;/span&gt; epoch. If you use this, you should set this higher than 1. Set to 0 to disable.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This sets how often &lt;span style=&quot; font-weight:700;&quot;&gt;ALL&lt;/span&gt; captions gets dropped (full dropout). So if you have this set to 1, then &lt;span style=&quot; font-weight:700;&quot;&gt;ALL&lt;/span&gt; captions will be dropped &lt;span style=&quot; font-weight:700;&quot;&gt;every&lt;/span&gt; epoch. If you use this, you should set this higher than 1. Set to 0 to disable&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="minimum">
          <number>0</number>
@@ -242,7 +245,7 @@
          </sizepolicy>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default rate that any one caption tag gets dropped.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -260,56 +263,56 @@
          <double>0.010000000000000</double>
         </property>
         <property name="stepType">
-         <enum>QAbstractSpinBox::DefaultStepType</enum>
+         <enum>QAbstractSpinBox::StepType::DefaultStepType</enum>
         </property>
        </widget>
       </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="protected_tags_label">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Protected Tags File</string>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <layout class="QGridLayout" name="protected_tags_grid">
-      <property name="horizontalSpacing">
-       <number>8</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="DragDropLineEdit" name="protected_tags_input">
+      <item row="3" column="0">
+       <widget class="QLabel" name="protected_tags_label">
         <property name="enabled">
          <bool>true</bool>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A '.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tags/Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;p&gt;This setting overwrites the Protected Tags File (Global) setting in General Args section&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
-        <property name="placeholderText">
+        <property name="text">
          <string>Protected Tags File</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="protected_tags_selector">
-        <property name="enabled">
-         <bool>true</bool>
+      <item row="3" column="1">
+       <layout class="QGridLayout" name="protected_tags_grid">
+        <property name="horizontalSpacing">
+         <number>8</number>
         </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;'.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+        <item row="0" column="0">
+         <widget class="DragDropLineEdit" name="protected_tags_input" native="true">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A '.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tags/Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;p&gt;This setting overwrites the Protected Tags File (Global) setting in General Args section&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText" stdset="0">
+           <string>Protected Tags File</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="protected_tags_selector">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A '.txt' file containing tags to protect from caption tag dropout (one tag per line). Similar to 'Keep Tags/Tokens' except that protected tags work with shuffle captions to allow less stiff prompting.&lt;/p&gt;&lt;p&gt;This setting overwrites the Protected Tags File (Global) setting in General Args section&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-     </layout>
-    </item>
      </layout>
     </widget>
    </item>
@@ -325,7 +328,7 @@
       <string>Token Warmup</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -350,7 +353,7 @@
          <bool>true</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the minimum number of tags to be learned at the beginning of the warmup period.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -379,12 +382,62 @@
          <bool>true</bool>
         </property>
         <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
         </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest step before the warmup is complete. Every step past that uses the full captions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="shuffle_caption_group">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>Caption Shuffle Modifers</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <layout class="QFormLayout" name="captionShuffleFormLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="shuffle_caption_sigma_label">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Sigma</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="SpinBox" name="shuffle_caption_sigma_input">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::FocusPolicy::StrongFocus</enum>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>512</number>
+        </property>
+        <property name="singleStep">
          <number>1</number>
         </property>
        </widget>
@@ -404,6 +457,11 @@
    <class>DoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>modules.ScrollOnSelect.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DragDropLineEdit</class>
+   <extends>QWidget</extends>
+   <header>modules.DragDropLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
