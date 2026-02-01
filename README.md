@@ -1,5 +1,8 @@
 # Updates
 
+## 02/01/2026
+- make EDM2 compatible with DDP and deepspeed in FFT, and DDP + LoRA (https://github.com/67372a/sd-scripts/pull/226)
+
 ## 12/07/2025
 - Fixes to ramtorch fork handling of weight's to devices where stochastic_to is applied (fp32->bf16)
 - Made all gradient accumlation in ramtorch fork always fp32, casting to weight dtype as needed
