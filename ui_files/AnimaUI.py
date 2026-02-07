@@ -169,6 +169,10 @@ class Ui_anima_ui(object):
         self.train_llm_adapter_checkbox = QCheckBox(self.anima_training_box)
         self.train_llm_adapter_checkbox.setObjectName(u"train_llm_adapter_checkbox")
         self.horizontalLayout_misc.addWidget(self.train_llm_adapter_checkbox)
+
+        self.unsloth_offload_checkpointing = QCheckBox(self.anima_training_box)
+        self.unsloth_offload_checkpointing.setObjectName(u"unsloth_offload_checkpointing")
+        self.horizontalLayout_misc.addWidget(self.unsloth_offload_checkpointing)
         
         self.label_dtype = QLabel(self.anima_training_box)
         self.label_dtype.setObjectName(u"label_dtype")
@@ -203,6 +207,7 @@ class Ui_anima_ui(object):
         self.label_sigmoid.setText(QCoreApplication.translate("anima_ui", u"Sigmoid Scale", None))
         self.flash_attn_enable.setText(QCoreApplication.translate("anima_ui", u"Flash Attention", None))
         self.train_llm_adapter_checkbox.setText(QCoreApplication.translate("anima_ui", u"Train LLM Adapter", None))
+        self.unsloth_offload_checkpointing.setText(QCoreApplication.translate("anima_ui", u"Unsloth Offload", None))
         self.label_dtype.setText(QCoreApplication.translate("anima_ui", u"Transformer Dtype", None))
 
         # Tooltips and Placeholders
@@ -230,4 +235,5 @@ class Ui_anima_ui(object):
 
         self.flash_attn_enable.setToolTip(QCoreApplication.translate("anima_ui", u"Enable Flash Attention for faster training and lower VRAM usage. Requires flash-attn package. [Optional]", None))
         self.train_llm_adapter_checkbox.setToolTip(QCoreApplication.translate("anima_ui", u"Enable training of the LLM adapter (e.g. Qwen3). Required if you are training the text encoder/adapter. [Optional]", None))
+        self.unsloth_offload_checkpointing.setToolTip(QCoreApplication.translate("anima_ui", u"Enable Unsloth offload checkpointing to save memory during training. [Optional]", None))
         self.transformer_dtype_selector.setToolTip(QCoreApplication.translate("anima_ui", u"Override the data type for the transformer blocks. If unset, uses the mixed precision setting. [Optional]", None))

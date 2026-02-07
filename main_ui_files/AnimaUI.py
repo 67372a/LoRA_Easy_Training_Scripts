@@ -95,6 +95,9 @@ class AnimaWidget(BaseWidget):
         self.widget.train_llm_adapter_checkbox.clicked.connect(
             lambda x: self.edit_args("train_llm_adapter", x, True)
         )
+        self.widget.unsloth_offload_checkpointing.clicked.connect(
+            lambda x: self.edit_args("unsloth_offload_checkpointing", x, True)
+        )
 
     def enable_disable(self, checked: bool) -> None:
         self.args = {}
@@ -116,6 +119,7 @@ class AnimaWidget(BaseWidget):
         
         self.edit_args("flash_attn", self.widget.flash_attn_enable.isChecked(), True)
         self.edit_args("train_llm_adapter", self.widget.train_llm_adapter_checkbox.isChecked(), True)
+        self.edit_args("unsloth_offload_checkpointing", self.widget.unsloth_offload_checkpointing.isChecked(), True)
         
         dtype = self.widget.transformer_dtype_selector.currentText()
         if dtype:
@@ -157,6 +161,7 @@ class AnimaWidget(BaseWidget):
         
         self.widget.flash_attn_enable.setChecked(args.get("flash_attn", False))
         self.widget.train_llm_adapter_checkbox.setChecked(args.get("train_llm_adapter", False))
+        self.widget.unsloth_offload_checkpointing.setChecked(args.get("unsloth_offload_checkpointing", False))
         
         self.widget.transformer_dtype_selector.setCurrentText(args.get("transformer_dtype", ""))
 
