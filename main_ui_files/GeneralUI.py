@@ -188,13 +188,14 @@ class GeneralWidget(BaseWidget):
             elem.setStyleSheet("")
 
     def enable_disable_model_type(self, checked: bool) -> None:
-        for arg in ["v2", "sdxl"]:
+        for arg in ["v2", "sdxl", "clip_skip"]:
             if arg in self.args:
                 del self.args[arg]
         self.widget.v2_enable.setEnabled(not checked)
         self.widget.sdxl_enable.setEnabled(not checked)
         self.widget.v_param_enable.setEnabled(not checked)
         self.widget.v_pred_enable.setEnabled(not checked)
+        self.widget.clip_skip_input.setEnabled(not checked)
         if not checked:
             self.change_model_type(self.widget.v2_enable.isChecked(), self.widget.sdxl_enable.isChecked())
             self.enable_disable_v_param(self.widget.v_param_enable.isChecked())

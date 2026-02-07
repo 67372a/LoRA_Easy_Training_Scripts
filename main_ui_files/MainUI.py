@@ -207,8 +207,15 @@ class MainWidget(QWidget):
         os.remove(train_toml)
         is_sdxl = str(args.get("general_args").get("sdxl", False))
         is_flux = str(bool(args.get("flux_args")))
+        is_anima = str(bool(args.get("anima_args")))
         response = requests.get(
-            f"{url}/train", params={"train_mode": train_mode.value, "sdxl": is_sdxl, "flux": is_flux}
+            f"{url}/train",
+            params={
+                "train_mode": train_mode.value,
+                "sdxl": is_sdxl,
+                "flux": is_flux,
+                "anima": is_anima,
+            },
         )
         training = True
         while training:

@@ -1,6 +1,8 @@
 from PySide6.QtCore import Signal
 from PySide6 import QtWidgets, QtCore
 from main_ui_files.FluxUI import FluxWidget
+from main_ui_files.AnimaUI import AnimaWidget
+
 from main_ui_files.BucketUI import BucketWidget
 from main_ui_files.GeneralUI import GeneralWidget
 from main_ui_files.LoggingUI import LoggingWidget
@@ -31,6 +33,8 @@ class ArgsWidget(QtWidgets.QWidget):
         self.ti_widget = TextualInversionWidget()
         self.ti_widget.setVisible(False)
         self.flux_widget = FluxWidget()
+        self.anima_widget = AnimaWidget()
+
 
         self.setup_widget()
         self.setup_args_widgets()
@@ -59,6 +63,7 @@ class ArgsWidget(QtWidgets.QWidget):
                 or general_args.widget.v_param_enable.isChecked()
                 or general_args.widget.v2_enable.isChecked()
                 or general_args.widget.sdxl_enable.isChecked()
+                or self.anima_widget.widget.anima_training_box.isChecked()
             )
             self.flux_widget.external_enable_disable(should_disable)
 
@@ -81,6 +86,7 @@ class ArgsWidget(QtWidgets.QWidget):
         self.flux_widget.SplitQKV.connect(
             lambda x: self.network_widget.edit_network_args("split_qkv", x, True)
         )
+        self.anima_widget.Toggled.connect(lambda _: refresh_flux_disabled_state())
         self.flux_widget.Toggled.connect(self.network_widget.toggle_sdxl)
         self.optimizer_widget.maskedLossChecked.connect(lambda x: self.maskedLossChecked.emit(x))
         self.args_widget_array.append(general_args)
@@ -94,6 +100,32 @@ class ArgsWidget(QtWidgets.QWidget):
         self.args_widget_array.append(SampleWidget())
         self.args_widget_array.append(LoggingWidget())
         self.args_widget_array.append(self.flux_widget)
+        self.args_widget_array.append(self.anima_widget)
+        
+        # Connect Anima widget signals
+        self.anima_widget.Toggled.connect(general_args.enable_disable_model_type)
+        self.anima_widget.Toggled.connect(self.network_widget.toggle_sdxl) # Disable network args incompatible with Anima if necessary? Usually handled by enable_disable_model_type toggling flags
+        
+        # Logic to disable Anima when other things are enabled
+        def refresh_anima_disabled_state() -> None:
+            should_disable = (
+                general_args.widget.v_param_enable.isChecked()
+                or general_args.widget.v2_enable.isChecked()
+                or general_args.widget.sdxl_enable.isChecked()
+                or self.flux_widget.widget.flux_training_box.isChecked()
+            )
+            self.anima_widget.external_enable_disable(should_disable)
+
+        # Connect signals to refresh Anima state
+        general_args.v2Checked.connect(lambda _: refresh_anima_disabled_state())
+        general_args.sdxlChecked.connect(lambda _: refresh_anima_disabled_state())
+        general_args.widget.v_param_enable.clicked.connect(lambda _: refresh_anima_disabled_state())
+        self.flux_widget.Toggled.connect(lambda _: refresh_anima_disabled_state())
+        
+        # Logic to disable Flux when Anima is enabled (add to existing refresh_flux_disabled_state)
+        # Note: We need to modify refresh_flux_disabled_state, but it's defined inside setup_args_widgets scope. 
+        # Easier to just modify the existing definition above.
+
         self.args_widget_array.append(EDMLossWidget())
         self.args_widget_array.append(ExtraArgsWidget())
 
@@ -148,6 +180,14 @@ class ArgsWidget(QtWidgets.QWidget):
             
             # Replace with completely rebuilt version
             args["general_args"] = clean_general_args
+
+        # Inject train_llm_adapter into network_args if Anima is active
+        if "anima_args" in args and args["anima_args"].get("train_llm_adapter", False):
+            if "network_args" not in args:
+                args["network_args"] = {}
+            if "network_args" not in args["network_args"]:
+                args["network_args"]["network_args"] = {}
+            args["network_args"]["network_args"]["train_llm_adapter"] = True
         
         return {"args": args, "dataset": dataset_args}
 
