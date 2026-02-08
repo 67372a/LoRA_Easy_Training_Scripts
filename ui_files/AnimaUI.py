@@ -197,7 +197,7 @@ class Ui_anima_ui(object):
         self.anima_training_box.setTitle(QCoreApplication.translate("anima_ui", u"Train Anima", None))
         self.label.setText(QCoreApplication.translate("anima_ui", u"DiT Model", None))
         self.label_2.setText(QCoreApplication.translate("anima_ui", u"Qwen3 Model", None))
-        self.label_3.setText(QCoreApplication.translate("anima_ui", u"WanVAE Model", None))
+        self.label_3.setText(QCoreApplication.translate("anima_ui", u"VAE Model", None))
         self.label_llm.setText(QCoreApplication.translate("anima_ui", u"LLM Adapter", None))
         self.label_t5.setText(QCoreApplication.translate("anima_ui", u"T5 Tokenizer", None))
         self.qwen3_len_label.setText(QCoreApplication.translate("anima_ui", u"Qwen3 Max Tokens", None))
@@ -217,8 +217,8 @@ class Ui_anima_ui(object):
         self.qwen3_model_input.setPlaceholderText(QCoreApplication.translate("anima_ui", u"Path to Qwen3 model [Required]", None))
         self.qwen3_model_input.setToolTip(QCoreApplication.translate("anima_ui", u"Path to the Qwen3-0.6B text encoder model file or directory. [Required]", None))
 
-        self.vae_model_input.setPlaceholderText(QCoreApplication.translate("anima_ui", u"Path to WanVAE model [Required]", None))
-        self.vae_model_input.setToolTip(QCoreApplication.translate("anima_ui", u"Path to the WanVAE model file. [Required]", None))
+        self.vae_model_input.setPlaceholderText(QCoreApplication.translate("anima_ui", u"Path to VAE model [Required]", None))
+        self.vae_model_input.setToolTip(QCoreApplication.translate("anima_ui", u"Path to the VAE model file. [Required]", None))
 
         self.llm_adapter_input.setPlaceholderText(QCoreApplication.translate("anima_ui", u"LLM Adapter path (Optional)", None))
         self.llm_adapter_input.setToolTip(QCoreApplication.translate("anima_ui", u"Path to the LLM Adapter weights. If not provided, it will attempt to load from the DiT model file. [Optional]", None))

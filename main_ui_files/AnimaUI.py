@@ -55,7 +55,7 @@ class AnimaWidget(BaseWidget):
         
         self.widget.vae_model_input.textChanged.connect(lambda x: self.edit_args("vae_path", x))
         self.widget.vae_model_selector.clicked.connect(
-            lambda: self.set_file_from_dialog(self.widget.vae_model_input, "WanVAE Model", "Model File")
+            lambda: self.set_file_from_dialog(self.widget.vae_model_input, "VAE Model", "Model File")
         )
         
         self.widget.llm_adapter_input.textChanged.connect(lambda x: self.edit_args("llm_adapter_path", x, optional=True))
