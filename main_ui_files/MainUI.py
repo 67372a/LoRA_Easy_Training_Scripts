@@ -11,6 +11,7 @@ from main_ui_files.QueueUI import QueueWidget
 from modules.Enums import TrainingModes
 from pathlib import Path
 from threading import Thread
+from PySide6.QtCore import Signal
 import requests
 from requests.exceptions import ConnectionError
 from time import sleep
@@ -18,6 +19,9 @@ import shutil
 
 
 class MainWidget(QWidget):
+    training_error = Signal(str, str)
+    training_warning = Signal(str, str)
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.training_thread = None
@@ -66,6 +70,14 @@ class MainWidget(QWidget):
         self.queue_widget.loadQueue.connect(lambda x: self.load_toml(Path(x)))
         self.begin_training_button.clicked.connect(self.start_training)
         self.backend_url_input.editingFinished.connect(self.update_url)
+        self.training_error.connect(self.show_error)
+        self.training_warning.connect(self.show_warning)
+
+    def show_error(self, title: str, message: str) -> None:
+        QtWidgets.QMessageBox.critical(self, title, message)
+
+    def show_warning(self, title: str, message: str) -> None:
+        QtWidgets.QMessageBox.warning(self, title, message)
 
     def update_url(self) -> None:
         url = self.backend_url_input.text()
@@ -86,7 +98,7 @@ class MainWidget(QWidget):
         validation_errors = self.args_widget.get_validation_errors()
         if validation_errors:
             message = "\n".join(validation_errors)
-            QtWidgets.QMessageBox.warning(self, "Invalid Extra Args", message)
+            self.training_warning.emit("Invalid Extra Args", message)
             print("Cannot save TOML while extra args lack values:")
             print(message)
             return
@@ -185,9 +197,8 @@ class MainWidget(QWidget):
             response = requests.post(f"{url}/validate", json=True, data=json.dumps(final_args))
         except ConnectionError as e:
             print(e)
-            QtWidgets.QMessageBox.critical(
-                self, 
-                "Connection Error", 
+            self.training_error.emit(
+                "Connection Error",
                 f"Failed to connect to the backend at {url}.\n\n"
                 "Please ensure the backend is running and the URL is correct."
             )
