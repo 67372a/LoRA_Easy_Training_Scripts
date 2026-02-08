@@ -185,6 +185,12 @@ class MainWidget(QWidget):
             response = requests.post(f"{url}/validate", json=True, data=json.dumps(final_args))
         except ConnectionError as e:
             print(e)
+            QtWidgets.QMessageBox.critical(
+                self, 
+                "Connection Error", 
+                f"Failed to connect to the backend at {url}.\n\n"
+                "Please ensure the backend is running and the URL is correct."
+            )
             return False
         if response.status_code != 200:
             print(f"Item Failed: {response.text}")
