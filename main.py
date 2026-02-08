@@ -17,20 +17,10 @@ def run_backend():
         python = Path("backend/sd_scripts/venv/bin/python")
     else:
         python = Path("backend/sd_scripts/venv/Scripts/python.exe")
-    
-    backend_script = Path("backend/main.py")
-    if not backend_script.exists():
-        print(f"Error: Backend script not found at {backend_script}")
-        return
-
-    print(f"Starting backend with {python}...")
-    try:
+    with contextlib.suppress(Exception):
         subprocess.check_call(
-            [str(python), str(backend_script), "backend"], 
-            shell=sys.platform == "linux"
+            f"{python} backend/main.py backend", shell=sys.platform == "linux"
         )
-    except Exception as e:
-        print(f"Backend failed to start or crashed: {e}")
 
 
 def CreateConfig():
@@ -53,7 +43,7 @@ def main() -> None:
         config_dict.update(CreateConfig())
     config.write_text(json.dumps(config_dict, indent=2))
     backend_thread = None
-    if config_dict.get("run_local", False):
+    if "run_local" in config_dict and config_dict["run_local"]:
         backend_thread = Thread(target=run_backend, daemon=True)
         backend_thread.start()
     app = QtWidgets.QApplication(sys.argv)
