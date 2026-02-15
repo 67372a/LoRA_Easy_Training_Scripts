@@ -104,8 +104,29 @@ class ArgsWidget(QtWidgets.QWidget):
         
         # Connect Anima widget signals
         self.anima_widget.Toggled.connect(general_args.enable_disable_model_type)
-        self.anima_widget.Toggled.connect(self.network_widget.toggle_sdxl) # Disable network args incompatible with Anima if necessary? Usually handled by enable_disable_model_type toggling flags
-        
+        self.anima_widget.Toggled.connect(self.network_widget.toggle_sdxl)
+
+        # Disable FP8 when Anima is active (fp8_base is unsupported by Anima DiT)
+        def update_fp8_for_anima(anima_enabled: bool) -> None:
+            general_args.widget.FP8_enable.setEnabled(not anima_enabled)
+            if anima_enabled and general_args.widget.FP8_enable.isChecked():
+                general_args.widget.FP8_enable.setChecked(False)
+                general_args.edit_args("fp8_base", False, True)
+
+        self.anima_widget.Toggled.connect(update_fp8_for_anima)
+
+        # Connect attention mode changes to Anima's split_attn auto-enable
+        def sync_attn_to_anima() -> None:
+            if self.anima_widget.widget.anima_training_box.isChecked():
+                self.anima_widget.update_split_attn_from_general(
+                    general_args.widget.xformers_enable.isChecked(),
+                    general_args.widget.sdpa_enable.isChecked(),
+                )
+
+        general_args.widget.xformers_enable.clicked.connect(lambda _: sync_attn_to_anima())
+        general_args.widget.sdpa_enable.clicked.connect(lambda _: sync_attn_to_anima())
+        self.anima_widget.Toggled.connect(lambda _: sync_attn_to_anima())
+
         # Logic to disable Anima when other things are enabled
         def refresh_anima_disabled_state() -> None:
             should_disable = (
@@ -121,10 +142,6 @@ class ArgsWidget(QtWidgets.QWidget):
         general_args.sdxlChecked.connect(lambda _: refresh_anima_disabled_state())
         general_args.widget.v_param_enable.clicked.connect(lambda _: refresh_anima_disabled_state())
         self.flux_widget.Toggled.connect(lambda _: refresh_anima_disabled_state())
-        
-        # Logic to disable Flux when Anima is enabled (add to existing refresh_flux_disabled_state)
-        # Note: We need to modify refresh_flux_disabled_state, but it's defined inside setup_args_widgets scope. 
-        # Easier to just modify the existing definition above.
 
         self.args_widget_array.append(EDMLossWidget())
         self.args_widget_array.append(ExtraArgsWidget())
@@ -181,14 +198,6 @@ class ArgsWidget(QtWidgets.QWidget):
             # Replace with completely rebuilt version
             args["general_args"] = clean_general_args
 
-        # Inject train_llm_adapter into network_args if Anima is active
-        if "anima_args" in args and args["anima_args"].get("train_llm_adapter", False):
-            if "network_args" not in args:
-                args["network_args"] = {}
-            if "network_args" not in args["network_args"]:
-                args["network_args"]["network_args"] = {}
-            args["network_args"]["network_args"]["train_llm_adapter"] = True
-        
         return {"args": args, "dataset": dataset_args}
 
     def get_validation_errors(self) -> list[str]:
