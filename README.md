@@ -1,5 +1,9 @@
 # Updates
 
+## 02/19/2026
+- Anima support added, including UI elements for it.
+- Made refresh branch the default branch, if you need the old branch, use "flux" branch instead
+
 ## 02/01/2026
 - UI enhancements and adjustments (https://github.com/67372a/LoRA_Easy_Training_Scripts/pull/68) contributed by https://github.com/DraconicDragon
   - toggle-able Global Protected Tags File
