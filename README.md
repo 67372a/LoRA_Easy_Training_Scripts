@@ -1,5 +1,11 @@
 # Updates
 
+## 02/22/2026
+- Fix handling for forward pass and weight references for kohya's lora implementations to address excessive system memory using --use_ramtorch_network with them.
+
+## 02/21/2026
+- Fix for train_network to properly track steps for state saving and resumption
+
 ## 02/19/2026
 - Anima support added, including UI elements for it.
 - Made refresh branch the default branch, if you need the old branch, use "flux" branch instead
