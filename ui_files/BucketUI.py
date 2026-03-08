@@ -110,7 +110,7 @@ class Ui_bucket_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.bucket_no_upscale.setText(QCoreApplication.translate("bucket_ui", u"Don't Upscale Images", None))
 
-        self.multires_training.setToolTip(QCoreApplication.translate("bucket_ui", u"<html><head/><body><p>Generate smaller buckets down to minimum bucket resolution when upscale is disabled.</p></body></html>", None))
+        self.multires_training.setToolTip(QCoreApplication.translate("bucket_ui", u"<html><head/><body><p>Generate smaller buckets down to minimum bucket resolution when buckets are enabled.</p></body></html>", None))
         self.multires_training.setText(QCoreApplication.translate("bucket_ui", u"Multi-Res Training", None))
 #if QT_CONFIG(tooltip)
         self.min_label.setToolTip(QCoreApplication.translate("bucket_ui", u"<html><head/><body><p>Minimum Bucket Resolution is the smallest edge of a bucket, this is paired with the Maximum Bucket Resolution to produce the bucket list.</p></body></html>", None))
