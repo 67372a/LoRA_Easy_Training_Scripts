@@ -25,6 +25,9 @@ class BucketWidget(BaseWidget):
         self.widget.bucket_no_upscale.clicked.connect(
             lambda x: self.edit_dataset_args("bucket_no_upscale", x, True)
         )
+        self.widget.multires_training.clicked.connect(
+            lambda x: self.edit_dataset_args("multires_training", x, True)
+        )
         self.widget.min_input.valueChanged.connect(
             lambda x: self.edit_dataset_args("min_bucket_reso", x)
         )
@@ -45,6 +48,9 @@ class BucketWidget(BaseWidget):
         self.edit_dataset_args(
             "bucket_no_upscale", self.widget.bucket_no_upscale.isChecked(), True
         )
+        self.edit_dataset_args(
+            "multires_training", self.widget.multires_training.isChecked(), True
+        )
         self.edit_dataset_args("min_bucket_reso", self.widget.min_input.value())
         self.edit_dataset_args("max_bucket_reso", self.widget.max_input.value())
         self.edit_dataset_args("bucket_reso_steps", self.widget.steps_input.value())
@@ -56,6 +62,9 @@ class BucketWidget(BaseWidget):
         self.widget.bucket_group.setChecked(dataset_args.get("enable_bucket", self.widget.bucket_group.isChecked()))
         self.widget.bucket_no_upscale.setChecked(
             dataset_args.get("bucket_no_upscale", self.widget.bucket_no_upscale.isChecked())
+        )
+        self.widget.multires_training.setChecked(
+            dataset_args.get("multires_training", self.widget.multires_training.isChecked())
         )
         self.widget.min_input.setValue(dataset_args.get("min_bucket_reso", self.widget.min_input.value()))
         self.widget.max_input.setValue(dataset_args.get("max_bucket_reso", self.widget.max_input.value()))

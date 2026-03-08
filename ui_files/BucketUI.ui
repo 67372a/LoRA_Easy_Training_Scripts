@@ -48,6 +48,16 @@
         </property>
        </widget>
       </item>
+      <item alignment="Qt::AlignmentFlag::AlignHCenter">
+       <widget class="QCheckBox" name="multires_training">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate smaller buckets down to minimum bucket resolution when upscale is disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Multi-Res Training</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QFormLayout" name="main_form_layout">
         <item row="0" column="0">
