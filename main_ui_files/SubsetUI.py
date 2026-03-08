@@ -66,6 +66,7 @@ class SubsetWidget(BaseWidget):
 
         self.extra_widget.face_crop_group.setChecked(False)
         self.extra_widget.caption_dropout_group.setChecked(False)
+        self.extra_widget.gamma_aug_group.setChecked(False)
         self.extra_widget.token_warmup_group.setChecked(False)
         self.extra_widget.shuffle_caption_group.setChecked(False)
 
@@ -143,6 +144,18 @@ class SubsetWidget(BaseWidget):
         )
         self.extra_widget.caption_tag_dropout_input.valueChanged.connect(
             lambda x: self.edit_dataset_args("caption_tag_dropout_rate", x, True)
+        )
+        self.extra_widget.gamma_aug_group.clicked.connect(
+            self.enable_disable_gamma_aug
+        )
+        self.extra_widget.gamma_aug_min_input.valueChanged.connect(
+            lambda: self.enable_disable_gamma_aug(self.extra_widget.gamma_aug_group.isChecked())
+        )
+        self.extra_widget.gamma_aug_max_input.valueChanged.connect(
+            lambda: self.enable_disable_gamma_aug(self.extra_widget.gamma_aug_group.isChecked())
+        )
+        self.extra_widget.gamma_aug_rate_input.valueChanged.connect(
+            lambda x: self.edit_dataset_args("gamma_aug_rate", x, True)
         )
         self.extra_widget.shuffle_caption_group.clicked.connect(
             self.enable_disable_shuffle_caption_modifers
@@ -267,6 +280,25 @@ class SubsetWidget(BaseWidget):
             args[2], self.extra_widget.caption_tag_dropout_input.value(), True
         )
 
+    def enable_disable_gamma_aug(self, checked: bool) -> None:
+        args = ["gamma_aug", "gamma_aug_range", "gamma_aug_rate"]
+        for arg in args:
+            if arg in self.dataset_args:
+                del self.dataset_args[arg]
+        if not checked:
+            return
+        self.edit_dataset_args("gamma_aug", True, True)
+        self.edit_dataset_args(
+            "gamma_aug_range",
+            [
+                self.extra_widget.gamma_aug_min_input.value(),
+                self.extra_widget.gamma_aug_max_input.value(),
+            ],
+        )
+        self.edit_dataset_args(
+            "gamma_aug_rate", self.extra_widget.gamma_aug_rate_input.value(), True
+        )
+
     def enable_disable_token_warmup(self, checked: bool) -> None:
         args = ["token_warmup_min", "token_warmup_step"]
         for arg in args:
@@ -382,6 +414,19 @@ class SubsetWidget(BaseWidget):
             )
         )
 
+        self.extra_widget.gamma_aug_group.setChecked(
+            bool(dataset_args.get("gamma_aug", False))
+        )
+        self.extra_widget.gamma_aug_min_input.setValue(
+            dataset_args.get("gamma_aug_range", [0.95, 1.05])[0]
+        )
+        self.extra_widget.gamma_aug_max_input.setValue(
+            dataset_args.get("gamma_aug_range", [0.95, 1.05])[1]
+        )
+        self.extra_widget.gamma_aug_rate_input.setValue(
+            dataset_args.get("gamma_aug_rate", 0.5)
+        )
+
         self.extra_widget.shuffle_caption_group.setChecked(
             any(
                 arg in dataset_args
@@ -456,6 +501,9 @@ class SubsetWidget(BaseWidget):
         self.enable_disable_face_crop(self.extra_widget.face_crop_group.isChecked())
         self.enable_disable_caption_dropout(
             self.extra_widget.caption_dropout_group.isChecked()
+        )
+        self.enable_disable_gamma_aug(
+            self.extra_widget.gamma_aug_group.isChecked()
         )
         self.enable_disable_token_warmup(
             self.extra_widget.token_warmup_group.isChecked()
