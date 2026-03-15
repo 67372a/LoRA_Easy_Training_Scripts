@@ -284,7 +284,7 @@
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Gradient Accumuation</string>
+           <string>Gradient Accumulation</string>
           </property>
          </widget>
         </item>

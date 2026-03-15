@@ -517,7 +517,7 @@ class Ui_base_args_ui(object):
 #if QT_CONFIG(tooltip)
         self.grad_accumulation_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Gradient Accumulation is a tweak that does X gradient Accumulation steps for each batch, as such, you can treat it like an extension of your batch size with minimal increase in VRAM usage. For example, Gradient Accumulation steps of 2, with a batch size of 4 would give you 2 batches of 4 per step, effectively making it a batch size of 8. One benefit to Gradient Accumulation that you do not have with straight batch size is that the batches may be from different buckets</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.grad_accumulation_enable.setText(QCoreApplication.translate("base_args_ui", u"Gradient Accumuation", None))
+        self.grad_accumulation_enable.setText(QCoreApplication.translate("base_args_ui", u"Gradient Accumulation", None))
 #if QT_CONFIG(tooltip)
         self.grad_checkpointing_enable.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Gradient Checkpointing sacrifices some speed for a reduction of VRAM. Particularly useful if you are using a GPU with less VRAM</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
