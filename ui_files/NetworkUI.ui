@@ -734,6 +734,21 @@
            <string>Full</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>GLoRA</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ABBA</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TLora</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>

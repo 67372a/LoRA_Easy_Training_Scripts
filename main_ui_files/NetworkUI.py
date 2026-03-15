@@ -378,11 +378,9 @@ class NetworkWidget(BaseWidget):
         network_args: dict = args.get("network_args", {})
 
         # update algo
-        if not network_args or "conv_dim" not in network_args:
+        if not network_args:
             self.widget.algo_select.setCurrentIndex(0)
-        elif "algo" not in network_args:
-            self.widget.algo_select.setCurrentIndex(1)
-        else:
+        elif "algo" in network_args:
             algo_modes = {
                 "locon": "LoCon (LyCORIS)",
                 "loha": "LoHa",
@@ -394,8 +392,13 @@ class NetworkWidget(BaseWidget):
                 "full": "Full",
                 "glora": "GLoRA",
                 "abba": "ABBA",
+                "tlora": "TLora",
             }
             self.widget.algo_select.setCurrentText(algo_modes[network_args["algo"]])
+        elif "conv_dim" in network_args:
+            self.widget.algo_select.setCurrentIndex(1)
+        else:
+            self.widget.algo_select.setCurrentIndex(0)
 
         # update element inputs
         self.widget.lycoris_preset_input.setText(network_args.get("preset", ""))
