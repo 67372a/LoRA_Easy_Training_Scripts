@@ -11,15 +11,13 @@ from modules.ScrollOnSelect import ComboBox
 
 # Threshold semantics: HIGHER (less negative) = more pruning (aggressive).
 # score_i = log10(S_i / fro_norm_base); keep dim if score_i >= threshold.
-# -3.0 => keep S > 0.1% of base norm  (mild, little reduction)
-# -2.0 => keep S > 1% of base norm    (moderate reduction)
-# -1.6990 => keep S > 2% of base norm   (heavy reduction)
 RECIPE_PRESETS = [
-    ("Conservative", "fro_ckpt=1,thr=-3.0"),
-    ("Balanced", "fro_ckpt=1,thr=-2.0"),
-    ("Aggressive", "fro_ckpt=1,thr=-1.6990"),
-    ("Spectral Norm", "spn_ckpt=1,thr=-2.0"),
-    ("Subspace-Aware", "fro_ckpt=0.5,subspace=0.5,thr=-2.0"),
+    ("Conservative Frobenius Norm", "fro_ckpt=1,thr=-2.6"),
+    ("Balanced Frobenius Norm", "fro_ckpt=1,thr=-2.1"),
+    ("Aggressive Frobenius Norm", "fro_ckpt=1,thr=-1.9"),
+    ("Conservative Spectral Norm", "spn_ckpt=1,thr=-2.6"),
+    ("Balanced Spectral Norm", "spn_ckpt=1,thr=-2.1"),
+    ("Aggressive Spectral Norm", "spn_ckpt=1,thr=-1.9"),
     ("Custom", ""),
 ]
 
@@ -100,11 +98,9 @@ class LoraResizePopup(BaseDialog):
             "Scoring recipe preset for base-model-aware resize.\n"
             "Score = log10(singular_value / base_norm). Keep dim if score >= threshold.\n"
             "Higher (less negative) threshold = more aggressive pruning.\n\n"
-            "Conservative (thr=-3.0): mild, keeps dims > 0.1% of base norm.\n"
-            "Balanced (thr=-2.0): moderate, keeps dims > 1% of base norm.\n"
-            "Aggressive (thr=-1.6990): heavy, keeps dims > 2% of base norm.\n"
-            "Spectral Norm: like Balanced but uses spectral norm for scoring.\n"
-            "Subspace-Aware: mixes base-norm and subspace alignment scoring."
+            "Conservative (thr=-2.6): mild.\n"
+            "Balanced (thr=-2.1): moderate.\n"
+            "Aggressive (thr=-1.9): heavy."
         )
         self.recipe_preset_select = ComboBox(self)
         for name, _ in RECIPE_PRESETS:
