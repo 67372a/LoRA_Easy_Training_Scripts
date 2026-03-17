@@ -119,8 +119,8 @@ class LoraResizePopup(BaseDialog):
         self.edit_args("dynamic_method", method)
         if method == "sv_ratio":
             self.widget.dynamic_param_input.setMinimum(1.0)
-            self.widget.dynamic_param_input.setMaximum(100.0)
-            self.widget.dynamic_param_input.setSingleStep(1.0)
+            self.widget.dynamic_param_input.setMaximum(10.0)
+            self.widget.dynamic_param_input.setSingleStep(0.1)
             self.widget.dynamic_param_input.setDecimals(1)
             if self.widget.dynamic_param_input.value() < 1.0:
                 self.widget.dynamic_param_input.setValue(2.0)
