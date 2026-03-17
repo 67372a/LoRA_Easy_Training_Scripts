@@ -12,12 +12,16 @@ class LoraResizePopup(BaseDialog):
         super().__init__(parent)
         self.widget = Ui_lora_resize_ui()
         self.args = {
-            "save_precision": "fp16",
+            "save_precision": "bf16",
             "new_rank": 4,
             "device": "cuda",
+            "dynamic_method": "sv_fro",
         }
         self.setup_widget()
         self.setup_connections()
+        # Sync initial state for checkboxes that start checked
+        if self.widget.dynamic_param_enable.isChecked():
+            self.enable_disable_dynamic(True)
 
     def setup_widget(self) -> None:
         self.widget.setupUi(self)
@@ -67,7 +71,7 @@ class LoraResizePopup(BaseDialog):
         )
         self.widget.dynamic_param_enable.clicked.connect(self.enable_disable_dynamic)
         self.widget.dynamic_param_select.currentTextChanged.connect(
-            lambda x: self.edit_args("dynamic_method", x)
+            self.on_dynamic_method_changed
         )
         self.widget.dynamic_param_input.valueChanged.connect(
             lambda x: self.edit_args("dynamic_param", round(x, 4))
@@ -110,6 +114,23 @@ class LoraResizePopup(BaseDialog):
         if not toggle:
             return
         self.edit_args("output_name", self.widget.output_name_input.text(), True)
+
+    def on_dynamic_method_changed(self, method: str) -> None:
+        self.edit_args("dynamic_method", method)
+        if method == "sv_ratio":
+            self.widget.dynamic_param_input.setMinimum(1.0)
+            self.widget.dynamic_param_input.setMaximum(100.0)
+            self.widget.dynamic_param_input.setSingleStep(1.0)
+            self.widget.dynamic_param_input.setDecimals(1)
+            if self.widget.dynamic_param_input.value() < 1.0:
+                self.widget.dynamic_param_input.setValue(2.0)
+        else:
+            self.widget.dynamic_param_input.setMinimum(0.0001)
+            self.widget.dynamic_param_input.setMaximum(1.0)
+            self.widget.dynamic_param_input.setSingleStep(0.01)
+            self.widget.dynamic_param_input.setDecimals(4)
+            if self.widget.dynamic_param_input.value() > 1.0:
+                self.widget.dynamic_param_input.setValue(0.97)
 
     def enable_disable_dynamic(self, toggle: bool) -> None:
         for arg in ["dynamic_param", "dynamic_method"]:
