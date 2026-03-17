@@ -356,6 +356,49 @@ class NetworkWidget(BaseWidget):
             value = False
         return value
 
+    def _coerce_network_arg_value(self, value: object) -> object:
+        if not isinstance(value, str):
+            return value
+        v = value.strip()
+        if not v:
+            return ""
+        lower = v.lower()
+        if lower == "true":
+            return True
+        if lower == "false":
+            return False
+        try:
+            return int(v)
+        except ValueError:
+            pass
+        try:
+            return float(v)
+        except ValueError:
+            pass
+        return v
+
+    def _normalize_network_args(self, args: dict) -> dict:
+        network_args = args.get("network_args", {})
+        if network_args is None:
+            network_args = {}
+        if isinstance(network_args, list):
+            parsed: dict = {}
+            for item in network_args:
+                if not isinstance(item, str):
+                    continue
+                if "=" not in item:
+                    continue
+                key, val = item.split("=", 1)
+                key = key.strip()
+                if not key:
+                    continue
+                parsed[key] = self._coerce_network_arg_value(val)
+            network_args = parsed
+            args["network_args"] = network_args
+        if isinstance(network_args, dict) and "algo" not in network_args and "algo" in args:
+            network_args["algo"] = args["algo"]
+        return network_args
+
     def update_block_weight(self, weights: dict, active: bool = False) -> None:
         args = ["down_lr_weight", "mid_lr_weight", "up_lr_weight"]
         for arg in args:
@@ -375,7 +418,7 @@ class NetworkWidget(BaseWidget):
 
     def load_args(self, args: dict) -> bool:
         args: dict = args.get(self.name, {})
-        network_args: dict = args.get("network_args", {})
+        network_args: dict = self._normalize_network_args(args)
 
         # update algo
         if not network_args:
@@ -394,7 +437,11 @@ class NetworkWidget(BaseWidget):
                 "abba": "ABBA",
                 "tlora": "TLora",
             }
-            self.widget.algo_select.setCurrentText(algo_modes[network_args["algo"]])
+            algo_key = str(network_args.get("algo", "")).lower()
+            if algo_key in algo_modes:
+                self.widget.algo_select.setCurrentText(algo_modes[algo_key])
+            else:
+                self.widget.algo_select.setCurrentIndex(0)
         elif "conv_dim" in network_args:
             self.widget.algo_select.setCurrentIndex(1)
         else:
