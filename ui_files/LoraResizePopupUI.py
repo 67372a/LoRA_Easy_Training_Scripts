@@ -206,8 +206,8 @@ class Ui_lora_resize_ui(object):
         self.label.setToolTip(QCoreApplication.translate("lora_resize_ui", u"<html><head/><body><p>Save Precision is the precision the model is saved in. Typically the resized model is saved in the same precision as the original</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label.setText(QCoreApplication.translate("lora_resize_ui", u"Save Precision", None))
-        self.save_precision_select.setItemText(0, QCoreApplication.translate("lora_resize_ui", u"fp16", None))
-        self.save_precision_select.setItemText(1, QCoreApplication.translate("lora_resize_ui", u"bf16", None))
+        self.save_precision_select.setItemText(0, QCoreApplication.translate("lora_resize_ui", u"bf16", None))
+        self.save_precision_select.setItemText(1, QCoreApplication.translate("lora_resize_ui", u"fp16", None))
         self.save_precision_select.setItemText(2, QCoreApplication.translate("lora_resize_ui", u"float", None))
 
 #if QT_CONFIG(tooltip)
