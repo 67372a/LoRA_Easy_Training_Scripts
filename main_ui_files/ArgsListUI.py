@@ -1,5 +1,6 @@
 from PySide6.QtCore import Signal
 from PySide6 import QtWidgets, QtCore
+from main_ui_files.AccelerateUI import AccelerateWidget
 from main_ui_files.FluxUI import FluxWidget
 from main_ui_files.AnimaUI import AnimaWidget
 
@@ -144,6 +145,8 @@ class ArgsWidget(QtWidgets.QWidget):
         self.flux_widget.Toggled.connect(lambda _: refresh_anima_disabled_state())
 
         self.args_widget_array.append(EDMLossWidget())
+        self.accelerate_widget = AccelerateWidget()
+        self.args_widget_array.append(self.accelerate_widget)
         self.args_widget_array.append(ExtraArgsWidget())
 
         for widget in self.args_widget_array:

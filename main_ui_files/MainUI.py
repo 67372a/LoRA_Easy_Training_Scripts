@@ -191,8 +191,14 @@ class MainWidget(QWidget):
 
     def train_helper(self, url: str, train_toml: Path) -> bool:
         args, dataset_args, train_mode = self.process_toml(train_toml)
-        final_args = {"args": args, "dataset": dataset_args}
         config = json.loads(Path("config.json").read_text())
+
+        # Include accelerate settings in validation request for proper warmup step calculation
+        final_args = {
+            "args": args,
+            "dataset": dataset_args,
+            "accelerate": config.get("accelerate", {}),
+        }
         try:
             response = requests.post(f"{url}/validate", json=True, data=json.dumps(final_args))
         except ConnectionError as e:
@@ -225,15 +231,23 @@ class MainWidget(QWidget):
         is_sdxl = str(args.get("general_args").get("sdxl", False))
         is_flux = str(bool(args.get("flux_args")))
         is_anima = str(bool(args.get("anima_args")))
-        response = requests.get(
-            f"{url}/train",
-            params={
-                "train_mode": train_mode.value,
-                "sdxl": is_sdxl,
-                "flux": is_flux,
-                "anima": is_anima,
-            },
-        )
+
+        # Build train params including accelerate settings
+        train_params = {
+            "train_mode": train_mode.value,
+            "sdxl": is_sdxl,
+            "flux": is_flux,
+            "anima": is_anima,
+        }
+
+        # Add accelerate settings if enabled
+        accel = config.get("accelerate", {})
+        if accel.get("enabled", False):
+            train_params["accelerate_enabled"] = "True"
+            train_params["accelerate_num_processes"] = str(accel.get("num_processes", 2))
+            train_params["accelerate_main_process_port"] = str(accel.get("main_process_port", 29500))
+
+        response = requests.get(f"{url}/train", params=train_params)
         training = True
         while training:
             sleep(5.0)
