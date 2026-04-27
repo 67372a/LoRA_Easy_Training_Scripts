@@ -242,6 +242,7 @@ class Ui_optimizer_ui(object):
         self.lr_scheduler_selector.addItem("")
         self.lr_scheduler_selector.addItem("")
         self.lr_scheduler_selector.addItem("")
+        self.lr_scheduler_selector.addItem("")
         self.lr_scheduler_selector.setObjectName(u"lr_scheduler_selector")
         self.lr_scheduler_selector.setFocusPolicy(Qt.StrongFocus)
 
