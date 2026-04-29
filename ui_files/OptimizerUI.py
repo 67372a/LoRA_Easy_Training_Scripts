@@ -223,6 +223,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"WiwiOpt", None))
         self.optimizer_type_selector.setObjectName(u"optimizer_type_selector")
         self.optimizer_type_selector.setFocusPolicy(Qt.StrongFocus)
+        self.optimizer_type_selector.setCurrentText("AdamW")
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.optimizer_type_selector)
 
