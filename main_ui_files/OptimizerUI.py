@@ -211,7 +211,6 @@ class OptimizerWidget(BaseWidget):
                 True,
             )
             self.edit_lr_args("gamma", 1 - self.widget.gamma_input.value(), True)
-            return
         elif value in {"rex_annealing_warm_restarts_(RAWR)", "rex"}:
             self.widget.cosine_restart_input.setEnabled(True)
             self.widget.min_lr_input.setEnabled(True)
@@ -229,7 +228,6 @@ class OptimizerWidget(BaseWidget):
             )
             self.edit_lr_args("gamma", 1 - self.widget.gamma_input.value(), True)
             self.edit_lr_args("d", self.widget.d_param_input.value(), True)
-            return
         elif value == "polynomial":
             self.widget.poly_power_input.setEnabled(True)
             self.edit_args("lr_scheduler_power", self.widget.poly_power_input.value(), True)
