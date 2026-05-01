@@ -421,6 +421,11 @@
            </item>
            <item>
             <property name="text">
+             <string>CosineAnnealingLR</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>linear</string>
             </property>
            </item>
@@ -451,7 +456,7 @@
            </item>
            <item>
             <property name="text">
-             <string>warmup stable Decay</string>
+             <string>warmup stable decay</string>
             </property>
            </item>
           </widget>
