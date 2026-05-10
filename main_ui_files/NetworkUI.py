@@ -68,6 +68,18 @@ class NetworkWidget(BaseWidget):
         self.widget.block_weight_scroll_widget.layout().setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
         self.widget.block_weight_scroll_widget.layout().setSpacing(0)
 
+        # Configure conv_dim and conv_alpha inputs to support 0 (disables conv layers)
+        self.widget.conv_dim_input.setMinimum(0)
+        self.widget.conv_alpha_input.setMinimum(0.0)
+        self.widget.conv_dim_input.setEnabled(True)
+        self.widget.conv_alpha_input.setEnabled(True)
+        conv_dim_tooltip = "Conv Dimension represents the size of the Convolutional Dimensions of the model. Set to 0 to disable conv layers entirely."
+        conv_alpha_tooltip = "Conv Alpha represents the alpha of the Conv Dimensions."
+        self.widget.conv_dim_label.setToolTip(conv_dim_tooltip)
+        self.widget.conv_dim_input.setToolTip(conv_dim_tooltip)
+        self.widget.conv_alpha_label.setToolTip(conv_alpha_tooltip)
+        self.widget.conv_alpha_input.setToolTip(conv_alpha_tooltip)
+
     def setup_connections(self) -> None:
         self.widget.algo_select.currentTextChanged.connect(self.change_algo)
         self.widget.lycoris_preset_input.textChanged.connect(
@@ -130,7 +142,7 @@ class NetworkWidget(BaseWidget):
             self.edit_args("network_args", {})
         if name in self.args["network_args"]:
             del self.args["network_args"][name]
-        if optional and (not value or value is False):
+        if optional and (value is None or value is False or (isinstance(value, str) and not value)):
             return
 
         self.args["network_args"][name] = value
@@ -198,13 +210,19 @@ class NetworkWidget(BaseWidget):
             return
         self.edit_args(args[index - 1], True)
 
-    # handles enabling and disabling of conv_dim, and conv_alpha
+    # conv_dim and conv_alpha: when enabled (non-LoRA algos), setting to 0 disables conv layers
     def toggle_conv(self, toggle: bool) -> None:
         self.widget.conv_dim_input.setEnabled(toggle)
         self.widget.conv_alpha_input.setEnabled(toggle)
 
-        self.edit_network_args("conv_dim", self.widget.conv_dim_input.value() if toggle else None, True)
-        self.edit_network_args("conv_alpha", self.widget.conv_alpha_input.value() if toggle else None, True)
+        if toggle:
+            # Pass actual value (including 0 to disable conv layers)
+            self.edit_network_args("conv_dim", self.widget.conv_dim_input.value(), True)
+            self.edit_network_args("conv_alpha", self.widget.conv_alpha_input.value(), True)
+        else:
+            # Remove from args entirely for baseline LoRA
+            self.edit_network_args("conv_dim", None, True)
+            self.edit_network_args("conv_alpha", None, True)
 
     def toggle_lycoris(self, toggle: bool, toggle_dora: bool) -> None:
         self.widget.cp_enable.setEnabled(toggle)
