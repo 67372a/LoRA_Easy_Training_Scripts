@@ -233,19 +233,19 @@ class Ui_network_ui(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.cp_enable = QCheckBox(self.main_tab)
         self.cp_enable.setObjectName(u"cp_enable")
-        self.cp_enable.setEnabled(False)
+        self.cp_enable.setEnabled(True)
 
         self.horizontalLayout_3.addWidget(self.cp_enable)
 
         self.train_norm_enable = QCheckBox(self.main_tab)
         self.train_norm_enable.setObjectName(u"train_norm_enable")
-        self.train_norm_enable.setEnabled(False)
+        self.train_norm_enable.setEnabled(True)
 
         self.horizontalLayout_3.addWidget(self.train_norm_enable)
 
         self.dora_enable = QCheckBox(self.main_tab)
         self.dora_enable.setObjectName(u"dora_enable")
-        self.dora_enable.setEnabled(False)
+        self.dora_enable.setEnabled(True)
 
         self.horizontalLayout_3.addWidget(self.dora_enable)
 
@@ -254,7 +254,7 @@ class Ui_network_ui(object):
 
         self.rescale_enable = QCheckBox(self.main_tab)
         self.rescale_enable.setObjectName(u"rescale_enable")
-        self.rescale_enable.setEnabled(False)
+        self.rescale_enable.setEnabled(True)
 
         self.formLayout_3.setWidget(4, QFormLayout.LabelRole, self.rescale_enable)
 
@@ -277,7 +277,7 @@ class Ui_network_ui(object):
 
         self.bypass_mode_enable = QCheckBox(self.main_tab)
         self.bypass_mode_enable.setObjectName(u"bypass_mode_enable")
-        self.bypass_mode_enable.setEnabled(False)
+        self.bypass_mode_enable.setEnabled(True)
 
         self.horizontalLayout_2.addWidget(self.bypass_mode_enable)
 
@@ -288,7 +288,7 @@ class Ui_network_ui(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.constrain_enable = QCheckBox(self.main_tab)
         self.constrain_enable.setObjectName(u"constrain_enable")
-        self.constrain_enable.setEnabled(False)
+        self.constrain_enable.setEnabled(True)
 
         self.horizontalLayout_4.addWidget(self.constrain_enable)
 

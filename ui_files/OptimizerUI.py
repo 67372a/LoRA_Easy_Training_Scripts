@@ -288,15 +288,17 @@ class Ui_optimizer_ui(object):
         self.formLayout_3.setObjectName(u"formLayout_3")
         self.warmup_enable = QCheckBox(self.optimizer_tab_main)
         self.warmup_enable.setObjectName(u"warmup_enable")
+        self.warmup_enable.setChecked(True)
 
         self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.warmup_enable)
 
         self.warmup_input = DoubleSpinBox(self.optimizer_tab_main)
         self.warmup_input.setObjectName(u"warmup_input")
-        self.warmup_input.setEnabled(False)
+        self.warmup_input.setEnabled(True)
         self.warmup_input.setFocusPolicy(Qt.StrongFocus)
         self.warmup_input.setMaximum(1.000000000000000)
         self.warmup_input.setSingleStep(0.010000000000000)
+        self.warmup_input.setValue(0.01)
 
         self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.warmup_input)
 
