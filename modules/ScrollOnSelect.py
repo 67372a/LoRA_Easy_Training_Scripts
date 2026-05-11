@@ -34,6 +34,29 @@ class ComboBox(QtWidgets.QComboBox):
         super(ComboBox, self).__init__(parent)
         self.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
 
+    def add_section_header(self, text: str):
+        """Adds an unselectable, bold text header to the combobox."""
+        # 1. Add the text to the combo box
+        self.addItem(f"- {text} -")
+        
+        # 2. Get the index of the newly added item
+        index = self.count() - 1
+        
+        # 3. Access the underlying QStandardItemModel
+        model = self.model()
+        item = model.item(index)
+        
+        # 4. Disable the item so it acts as a read-only
+        item.setEnabled(False)
+        
+        # 5. Make the text Bold
+        font = item.font()
+        font.setBold(True)
+        item.setFont(font)
+        
+        # 6. Make it slightly un-focusable
+        item.setSelectable(False)
+
     def wheelEvent(self, event: QtGui.QWheelEvent) -> None:
         if not self.hasFocus():
             event.setAccepted(False)
