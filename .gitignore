@@ -184,3 +184,5 @@ wandb/
 .aiexclude
 config.json
 *.code-workspace
+.roo/
+.zoo/
