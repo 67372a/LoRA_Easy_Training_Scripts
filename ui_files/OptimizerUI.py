@@ -227,7 +227,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"WiwiOpt", None))
         self.optimizer_type_selector.setObjectName(u"optimizer_type_selector")
         self.optimizer_type_selector.setFocusPolicy(Qt.StrongFocus)
-        self.optimizer_type_selector.setCurrentText("AdamW")
+        self.optimizer_type_selector.setCurrentText("Came")
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.optimizer_type_selector)
 
@@ -237,19 +237,23 @@ class Ui_optimizer_ui(object):
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.lr_scheduler_label)
 
         self.lr_scheduler_selector = ComboBox(self.optimizer_tab_main)
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
-        self.lr_scheduler_selector.addItem("")
+        self.lr_scheduler_selector.add_section_header("Recommended")
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"rex annealing warm restarts (RAWR)", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"warmup stable decay", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"constant with warmup", None))
+        self.lr_scheduler_selector.insertSeparator(self.optimizer_type_selector.count())
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"cosine", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"cosine with restarts", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"cosine annealing warm restarts (CAWR)", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CosineAnnealingLR", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"linear", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"constant", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"constant with warmup", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"adafactor", None))
+        self.lr_scheduler_selector.addItem(QCoreApplication.translate("optimizer_ui", u"polynomial", None))
         self.lr_scheduler_selector.setObjectName(u"lr_scheduler_selector")
         self.lr_scheduler_selector.setFocusPolicy(Qt.StrongFocus)
+        self.lr_scheduler_selector.setCurrentText("rex annealing warm restarts (RAWR)")
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.lr_scheduler_selector)
 
@@ -340,7 +344,7 @@ class Ui_optimizer_ui(object):
 
         self.max_grad_norm_input = DoubleSpinBox(self.optimizer_tab_main)
         self.max_grad_norm_input.setObjectName(u"max_grad_norm_input")
-        self.max_grad_norm_input.setValue(1.000000000000000)
+        self.max_grad_norm_input.setValue(0.000000000000000)
 
         self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.max_grad_norm_input)
 
@@ -441,7 +445,7 @@ class Ui_optimizer_ui(object):
 #if QT_CONFIG(tooltip)
         self.main_lr_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Learning Rate is the base learning rate for any value that is not explicitly set, for example, if you set the Unet learning rate, but not the Text Encoder learning rate, the Text Encoder will be using this learning rate</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.main_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"1e-4", None))
+        self.main_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"2e-6", None))
         self.main_lr_input.setPlaceholderText(QCoreApplication.translate("optimizer_ui", u"Learning Rate", None))
 #if QT_CONFIG(tooltip)
         self.min_lr_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Minimum Learning Rate is the minimum value any of the learning rates can be</p></body></html>", None))
@@ -454,7 +458,7 @@ class Ui_optimizer_ui(object):
 #if QT_CONFIG(tooltip)
         self.unet_lr_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Unet Learning Rate is the base learning rate for the Unet</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.unet_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"1e-4", None))
+        self.unet_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"2e-6", None))
         self.unet_lr_input.setPlaceholderText(QCoreApplication.translate("optimizer_ui", u"Unet Learning Rate", None))
 #if QT_CONFIG(tooltip)
        
@@ -467,7 +471,7 @@ class Ui_optimizer_ui(object):
         )
         self.te_lr_enable.setToolTip(self.te_lr_input.toolTip())
 #endif // QT_CONFIG(tooltip)
-        self.te_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"1e-4", None))
+        self.te_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"2e-7", None))
         self.te_lr_input.setPlaceholderText(QCoreApplication.translate("optimizer_ui", u"TE Learning Rate", None))
 #if QT_CONFIG(tooltip)
         self.min_lr_label.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Minimum Learning Rate is the minimum value any of the learning rates can be</p></body></html>", None))
@@ -487,9 +491,10 @@ class Ui_optimizer_ui(object):
 #if QT_CONFIG(tooltip)
         self.min_snr_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Min SNR Gamma is a way to remove random noise during training. A lower value is stronger</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.huber_schedule_selector.setItemText(0, QCoreApplication.translate("optimizer_ui", u"SNR", None))
-        self.huber_schedule_selector.setItemText(1, QCoreApplication.translate("optimizer_ui", u"Exponential", None))
-        self.huber_schedule_selector.setItemText(2, QCoreApplication.translate("optimizer_ui", u"Constant", None))
+        self.huber_schedule_selector.setItemText(0, QCoreApplication.translate("optimizer_ui", u"Constant", None))
+        self.huber_schedule_selector.setItemText(1, QCoreApplication.translate("optimizer_ui", u"SNR", None))
+        self.huber_schedule_selector.setItemText(2, QCoreApplication.translate("optimizer_ui", u"Exponential", None))
+
 
 #if QT_CONFIG(tooltip)
         self.huber_schedule_selector.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Huber Schedule handles the type of Huber loss that is used.</p></body></html>", None))
@@ -510,17 +515,8 @@ class Ui_optimizer_ui(object):
         self.lr_scheduler_label.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>LR Scheduler is the Scheduler for the learning rate during the training</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.lr_scheduler_label.setText(QCoreApplication.translate("optimizer_ui", u"LR Scheduler", None))
-        self.lr_scheduler_selector.setItemText(0, QCoreApplication.translate("optimizer_ui", u"cosine", None))
-        self.lr_scheduler_selector.setItemText(1, QCoreApplication.translate("optimizer_ui", u"cosine with restarts", None))
-        self.lr_scheduler_selector.setItemText(2, QCoreApplication.translate("optimizer_ui", u"cosine annealing warm restarts (CAWR)", None))
-        self.lr_scheduler_selector.setItemText(3, QCoreApplication.translate("optimizer_ui", u"CosineAnnealingLR", None))
-        self.lr_scheduler_selector.setItemText(4, QCoreApplication.translate("optimizer_ui", u"linear", None))
-        self.lr_scheduler_selector.setItemText(5, QCoreApplication.translate("optimizer_ui", u"constant", None))
-        self.lr_scheduler_selector.setItemText(6, QCoreApplication.translate("optimizer_ui", u"constant with warmup", None))
-        self.lr_scheduler_selector.setItemText(7, QCoreApplication.translate("optimizer_ui", u"adafactor", None))
-        self.lr_scheduler_selector.setItemText(8, QCoreApplication.translate("optimizer_ui", u"polynomial", None))
-        self.lr_scheduler_selector.setItemText(9, QCoreApplication.translate("optimizer_ui", u"rex annealing warm restarts (RAWR)", None))
-        self.lr_scheduler_selector.setItemText(10, QCoreApplication.translate("optimizer_ui", u"warmup stable decay", None))
+
+
 
 #if QT_CONFIG(tooltip)
         self.lr_scheduler_selector.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>LR Scheduler is the Scheduler for the learning rate during the training</p></body></html>", None))

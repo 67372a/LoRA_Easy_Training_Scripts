@@ -39,9 +39,9 @@ class Ui_saving_ui(object):
         self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_2)
 
         self.save_precision_selector = ComboBox(saving_ui)
-        self.save_precision_selector.addItem("")
-        self.save_precision_selector.addItem("")
-        self.save_precision_selector.addItem("")
+        self.save_precision_selector.addItem(QCoreApplication.translate("saving_ui", u"bf16", None))
+        self.save_precision_selector.addItem(QCoreApplication.translate("saving_ui", u"fp16", None))
+        self.save_precision_selector.addItem(QCoreApplication.translate("saving_ui", u"float", None))
         self.save_precision_selector.setObjectName(u"save_precision_selector")
         self.save_precision_selector.setFocusPolicy(Qt.StrongFocus)
 
@@ -301,9 +301,6 @@ class Ui_saving_ui(object):
         self.label_2.setToolTip(QCoreApplication.translate("saving_ui", u"<html><head/><body><p>Save Precision is the precision the model is saved at, this doesn't neccessarily have to equal the training precision</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_2.setText(QCoreApplication.translate("saving_ui", u"Save Precision", None))
-        self.save_precision_selector.setItemText(0, QCoreApplication.translate("saving_ui", u"fp16", None))
-        self.save_precision_selector.setItemText(1, QCoreApplication.translate("saving_ui", u"bf16", None))
-        self.save_precision_selector.setItemText(2, QCoreApplication.translate("saving_ui", u"float", None))
 
 #if QT_CONFIG(tooltip)
         self.save_precision_selector.setToolTip(QCoreApplication.translate("saving_ui", u"<html><head/><body><p>Save Precision is the precision the model is saved at, this doesn't neccessarily have to equal the training precision</p></body></html>", None))

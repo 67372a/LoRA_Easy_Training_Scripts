@@ -10,7 +10,10 @@ class BucketWidget(BaseWidget):
         self.widget = Ui_bucket_ui()
 
         self.name = "bucket_args"
-        self.dataset_args = {}
+        self.dataset_args = {
+            "min_input":512,
+            "max_input":2560
+            }
 
         self.setup_widget()
         self.setup_connections()

@@ -57,7 +57,7 @@ class Ui_bucket_ui(object):
         self.min_input.setMinimum(0)
         self.min_input.setMaximum(16777215)
         self.min_input.setSingleStep(8)
-        self.min_input.setValue(256)
+        self.min_input.setValue(512)
 
         self.main_form_layout.setWidget(0, QFormLayout.ItemRole.FieldRole, self.min_input)
 
@@ -72,7 +72,7 @@ class Ui_bucket_ui(object):
         self.max_input.setMinimum(0)
         self.max_input.setMaximum(16777215)
         self.max_input.setSingleStep(8)
-        self.max_input.setValue(3072)
+        self.max_input.setValue(2560)
 
         self.main_form_layout.setWidget(1, QFormLayout.ItemRole.FieldRole, self.max_input)
 
@@ -84,7 +84,7 @@ class Ui_bucket_ui(object):
         self.steps_input = SpinBox(self.bucket_group)
         self.steps_input.setObjectName(u"steps_input")
         self.steps_input.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
-        self.steps_input.setMaximum(16777215)
+        self.steps_input.setMaximum(1024)
         self.steps_input.setSingleStep(8)
         self.steps_input.setValue(64)
 

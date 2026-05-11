@@ -152,8 +152,8 @@ class Ui_network_ui(object):
         self.conv_dim_input.setEnabled(False)
         self.conv_dim_input.setFocusPolicy(Qt.StrongFocus)
         self.conv_dim_input.setMinimum(0)
-        self.conv_dim_input.setMaximum(16777215)
-        self.conv_dim_input.setValue(16)
+        self.conv_dim_input.setMaximum(2048)
+        self.conv_dim_input.setValue(32)
 
         self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.conv_dim_input)
 
@@ -167,8 +167,8 @@ class Ui_network_ui(object):
         self.conv_alpha_input.setObjectName(u"conv_alpha_input")
         self.conv_alpha_input.setEnabled(False)
         self.conv_alpha_input.setFocusPolicy(Qt.StrongFocus)
-        self.conv_alpha_input.setMaximum(16777215.000000000000000)
-        self.conv_alpha_input.setValue(32.000000000000000)
+        self.conv_alpha_input.setMaximum(4096.000000000000000)
+        self.conv_alpha_input.setValue(64.000000000000000)
 
         self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.conv_alpha_input)
 
@@ -313,10 +313,10 @@ class Ui_network_ui(object):
 
         self.network_dim_input = SpinBox(self.main_tab)
         self.network_dim_input.setObjectName(u"network_dim_input")
-        self.network_dim_input.setMaximumSize(QSize(16777215, 16777215))
+        self.network_dim_input.setMaximumSize(QSize(2048, 2048))
         self.network_dim_input.setFocusPolicy(Qt.StrongFocus)
         self.network_dim_input.setMinimum(1)
-        self.network_dim_input.setMaximum(16777215)
+        self.network_dim_input.setMaximum(2048)
         self.network_dim_input.setValue(32)
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.network_dim_input)
@@ -328,11 +328,11 @@ class Ui_network_ui(object):
 
         self.network_alpha_input = DoubleSpinBox(self.main_tab)
         self.network_alpha_input.setObjectName(u"network_alpha_input")
-        self.network_alpha_input.setMaximumSize(QSize(16777215, 16777215))
+        self.network_alpha_input.setMaximumSize(QSize(4096, 4096))
         self.network_alpha_input.setFocusPolicy(Qt.StrongFocus)
         self.network_alpha_input.setDecimals(2)
-        self.network_alpha_input.setMaximum(16777215.000000000000000)
-        self.network_alpha_input.setValue(16.000000000000000)
+        self.network_alpha_input.setMaximum(4096.000000000000000)
+        self.network_alpha_input.setValue(64.000000000000000)
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.network_alpha_input)
 
@@ -358,9 +358,9 @@ class Ui_network_ui(object):
         self.gridLayout.addWidget(self.lycoris_preset_input, 1, 1, 1, 1)
 
         self.algo_select = ComboBox(self.main_tab)
+        self.algo_select.addItem("LoCon (LyCORIS)")
         self.algo_select.addItem("LoRA")
         self.algo_select.addItem("LoCon")
-        self.algo_select.addItem("LoCon (LyCORIS)")
         self.algo_select.addItem("LoHa")
         self.algo_select.addItem("IA3")
         self.algo_select.addItem("Lokr")
