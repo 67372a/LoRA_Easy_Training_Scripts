@@ -23,12 +23,7 @@ class GeneralWidget(BaseWidget):
         self.widget = Ui_base_args_ui()
 
         self.name = "general_args"
-        self.args = {
-            "gradient_checkpointing":True,
-            "sdpa":True,
-            "seed":1337,
-            "mixed_precision":"bf16"
-            }
+        self.args = {}
         self.dataset_args = {}
 
         self.setup_widget()
@@ -381,10 +376,10 @@ class GeneralWidget(BaseWidget):
         self.widget.FP16_enable.setChecked(args.get("full_fp16", False))
         self.widget.BF16_enable.setChecked(args.get("full_bf16", False))
         self.widget.FP8_enable.setChecked(args.get("fp8_base", False))
-        self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", True))
+        self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", False))
         self.widget.grad_accumulation_enable.setChecked(bool(args.get("gradient_accumulation_steps", False)))
         self.widget.grad_accumulation_input.setValue(args.get("gradient_accumulation_steps", 1))
-        self.widget.seed_input.setValue(int(args.get("seed", 1337)))
+        self.widget.seed_input.setValue(int(args.get("seed", 42)))
         self.widget.max_data_loader_n_workers_input.setValue(args.get("max_data_loader_n_workers", 1))
         self.widget.clip_skip_input.setValue(args.get("clip_skip", 2))
         self.widget.max_token_selector.setCurrentText(str(args.get("max_token_length", 225)))
@@ -392,7 +387,7 @@ class GeneralWidget(BaseWidget):
         mixed_prec = args.get("mixed_precision", "fp16")
         self.widget.mixed_precision_selector.setCurrentText(mixed_prec if mixed_prec != "no" else "float")
         self.widget.xformers_enable.setChecked(args.get("xformers", False))
-        self.widget.sdpa_enable.setChecked(args.get("sdpa", True))
+        self.widget.sdpa_enable.setChecked(args.get("sdpa", False))
         self.widget.max_train_selector.setCurrentIndex(0 if args.get("max_train_epochs", None) else 1)
         self.widget.max_train_input.setValue(args.get("max_train_epochs", args.get("max_train_steps", 1)))
         self.widget.cache_latents_enable.setChecked(args.get("cache_latents", False))

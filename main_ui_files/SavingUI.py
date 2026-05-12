@@ -14,7 +14,7 @@ class SavingWidget(BaseWidget):
         self.widget = Ui_saving_ui()
 
         self.name = "saving_args"
-        self.args = {"save_precision": "bf16", "save_model_as": "safetensors"}
+        self.args = {"save_precision": "fp16", "save_model_as": "safetensors"}
 
         self.setup_widget()
         self.setup_connections()
@@ -276,7 +276,7 @@ class SavingWidget(BaseWidget):
         self.widget.output_name_enable.setChecked(bool(args.get("output_name", False)))
         self.widget.output_name_input.setText(args.get("output_name", ""))
         self.widget.save_precision_selector.setCurrentText(
-            args.get("save_precision", "bf16")
+            args.get("save_precision", "fp16")
         )
         self.widget.resume_enable.setChecked(bool(args.get("resume", False)))
         self.widget.resume_input.setText(args.get("resume", ""))

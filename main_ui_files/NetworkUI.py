@@ -16,12 +16,9 @@ class NetworkWidget(BaseWidget):
         self.name = "network_args"
         self.args = {
             "network_dim": 32,
-            "network_alpha": 64.0,
-            "conv_dim": 32,
-            "conv_alpha": 64.0,
+            "network_alpha": 16.0,
             "min_timestep": 0,
             "max_timestep": 1000,
-            "algo":"locon"
         }
         self.lycoris = False
         self.network_args: list[OptimizerItem] = []
@@ -40,7 +37,7 @@ class NetworkWidget(BaseWidget):
             ),
             (
                 self.widget.alpha_block_widget,
-                BlockWidget(mode="float", base_value=64.0, arg_name="block_alphas"),
+                BlockWidget(mode="float", base_value=16.0, arg_name="block_alphas"),
             ),
             (
                 self.widget.conv_block_widget,
@@ -48,7 +45,7 @@ class NetworkWidget(BaseWidget):
             ),
             (
                 self.widget.conv_alpha_block_widget,
-                BlockWidget(mode="float", base_value=64.0, arg_name="conv_block_alphas"),
+                BlockWidget(mode="float", base_value=16.0, arg_name="conv_block_alphas"),
             ),
         ]
         self.widget.network_args_item_widget.layout().setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
@@ -472,8 +469,8 @@ class NetworkWidget(BaseWidget):
         self.widget.lycoris_preset_input.setText(network_args.get("preset", ""))
         self.widget.network_dim_input.setValue(args.get("network_dim", 32))
         self.widget.conv_dim_input.setValue(network_args.get("conv_dim", 32))
-        self.widget.network_alpha_input.setValue(args.get("network_alpha", 64.0))
-        self.widget.conv_alpha_input.setValue(network_args.get("conv_alpha", 64.0))
+        self.widget.network_alpha_input.setValue(args.get("network_alpha", 16.0))
+        self.widget.conv_alpha_input.setValue(network_args.get("conv_alpha", 16.0))
         self.widget.min_timestep_input.setValue(args.get("min_timestep", 0))
         self.widget.max_timestep_input.setValue(args.get("max_timestep", 1000))
         if "network_train_unet_only" in args:

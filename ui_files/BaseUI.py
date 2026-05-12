@@ -65,9 +65,9 @@ class Ui_base_args_ui(object):
         self.formLayout_5.setWidget(2, QFormLayout.ItemRole.LabelRole, self.label_5)
 
         self.mixed_precision_selector = ComboBox(base_args_ui)
-        self.mixed_precision_selector.addItem(QCoreApplication.translate("base_args_ui", u"bf16", None))
-        self.mixed_precision_selector.addItem(QCoreApplication.translate("base_args_ui", u"fp16", None))
-        self.mixed_precision_selector.addItem(QCoreApplication.translate("base_args_ui", u"float", None))
+        self.mixed_precision_selector.addItem("")
+        self.mixed_precision_selector.addItem("")
+        self.mixed_precision_selector.addItem("")
         self.mixed_precision_selector.setObjectName(u"mixed_precision_selector")
         self.mixed_precision_selector.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
@@ -174,7 +174,6 @@ class Ui_base_args_ui(object):
 
         self.grad_checkpointing_enable = QCheckBox(self.groupBox)
         self.grad_checkpointing_enable.setObjectName(u"grad_checkpointing_enable")
-        self.grad_checkpointing_enable.setChecked(True)
 
         self.gridLayout.addWidget(self.grad_checkpointing_enable, 0, 0, 1, 2)
 
@@ -199,7 +198,7 @@ class Ui_base_args_ui(object):
         self.seed_input.setDecimals(0)
         self.seed_input.setMinimum(-1.000000000000000)
         self.seed_input.setMaximum(4294967296.000000000000000)
-        self.seed_input.setValue(1337.000000000000000)
+        self.seed_input.setValue(42.000000000000000)
 
         self.formLayout_6.setWidget(0, QFormLayout.ItemRole.FieldRole, self.seed_input)
 
@@ -248,7 +247,7 @@ class Ui_base_args_ui(object):
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.xformers_enable = QCheckBox(base_args_ui)
         self.xformers_enable.setObjectName(u"xformers_enable")
-        self.xformers_enable.setEnabled(False)
+        self.xformers_enable.setEnabled(True)
         self.xformers_enable.setChecked(False)
 
         self.horizontalLayout_7.addWidget(self.xformers_enable)
@@ -256,7 +255,6 @@ class Ui_base_args_ui(object):
         self.sdpa_enable = QCheckBox(base_args_ui)
         self.sdpa_enable.setObjectName(u"sdpa_enable")
         self.sdpa_enable.setEnabled(True)
-        self.sdpa_enable.setChecked(True)
 
         self.horizontalLayout_7.addWidget(self.sdpa_enable)
 
@@ -466,6 +464,9 @@ class Ui_base_args_ui(object):
         self.label_5.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Training Precision, otherwise known as Mixed Precision, is the main precision that is trained at. Generally, there are parts of the model that trains better at FP32 (full), so mixed precision allows for such parts to be in full precision while keeping the majority in a lower, more VRAM friendly precision</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_5.setText(QCoreApplication.translate("base_args_ui", u"Training Precision", None))
+        self.mixed_precision_selector.setItemText(0, QCoreApplication.translate("base_args_ui", u"fp16", None))
+        self.mixed_precision_selector.setItemText(1, QCoreApplication.translate("base_args_ui", u"bf16", None))
+        self.mixed_precision_selector.setItemText(2, QCoreApplication.translate("base_args_ui", u"float", None))
 
 #if QT_CONFIG(tooltip)
         self.mixed_precision_selector.setToolTip(QCoreApplication.translate("base_args_ui", u"<html><head/><body><p>Training Precision, otherwise known as Mixed Precision, is the main precision that is trained at. Generally, there are parts of the model that trains better at FP32 (full), so mixed precision allows for such parts to be in full precision while keeping the majority in a lower, more VRAM friendly precision</p></body></html>", None))

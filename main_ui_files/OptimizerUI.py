@@ -17,14 +17,11 @@ class OptimizerWidget(BaseWidget):
 
         self.name = "optimizer_args"
         self.args = {
-            "optimizer_type": "Came",
-            "lr_scheduler": "LoraEasyCustomOptimizer.RexAnnealingWarmRestarts.RexAnnealingWarmRestarts",
-            "lr_scheduler": "rex_annealing_warm_restarts_(RAWR)",
-            "lr_scheduler_num_cycles": 1,
-            "learning_rate": 3e-6,
-            "max_grad_norm": 0.0,
+            "optimizer_type": "AdamW",
+            "lr_scheduler": "cosine",
+            "learning_rate": 1e-4,
+            "max_grad_norm": 1.0,
             "loss_type": "l2",
-            "warmup_ratio": 0.1,
         }
         self.opt_args = [OptimizerItem(arg_name="weight_decay", arg_value="0.1")]
 
@@ -321,7 +318,7 @@ class OptimizerWidget(BaseWidget):
         scheduler_args: dict = args.get("lr_scheduler_args", {})
 
         # update element inputs
-        optimizer_type = args.get("optimizer_type", "Came")
+        optimizer_type = args.get("optimizer_type", "AdamW")
         self.widget.optimizer_type_selector.setCurrentText(
             "Came" if len(optimizer_type.split(".")) > 1 else optimizer_type
         )
@@ -333,19 +330,19 @@ class OptimizerWidget(BaseWidget):
             )
         else:
             self.widget.lr_scheduler_selector.setCurrentText(
-                args.get("lr_scheduler", "rex annealing warm restarts (RAWR)").replace("_", " ")
+                args.get("lr_scheduler", "cosine").replace("_", " ")
             )
         self.widget.loss_type_selector.setCurrentText(args.get("loss_type", "L2").replace("_", " ").title())
-        self.widget.main_lr_input.setText(str(args.get("learning_rate", "2e-6")))
-        self.widget.warmup_enable.setChecked(bool(args.get("warmup_ratio", True)))
-        self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.1))
+        self.widget.main_lr_input.setText(str(args.get("learning_rate", "1e-4")))
+        self.widget.warmup_enable.setChecked(bool(args.get("warmup_ratio", False)))
+        self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.0))
         self.widget.min_lr_input.setText(str(args.get("lr_scheduler_args", {}).get("min_lr", "1e-6")))
         self.widget.cosine_restart_input.setValue(args.get("lr_scheduler_num_cycles", 1))
         self.widget.unet_lr_enable.setChecked(bool(args.get("unet_lr", False)))
-        self.widget.unet_lr_input.setText(str(args.get("unet_lr", "2e-6")))
+        self.widget.unet_lr_input.setText(str(args.get("unet_lr", "1e-4")))
         self.widget.poly_power_input.setValue(args.get("lr_scheduler_power", 1.0))
         self.widget.te_lr_enable.setChecked(bool(args.get("text_encoder_lr", False)))
-        te_lr_value = args.get("text_encoder_lr", "2e-7")
+        te_lr_value = args.get("text_encoder_lr", "1e-4")
 
         if isinstance(te_lr_value, list):
             # Convert list back to comma-separated string for display
@@ -358,12 +355,12 @@ class OptimizerWidget(BaseWidget):
         self.widget.gamma_input.setValue(round(1 - args.get("lr_scheduler_args", {}).get("gamma", 0.9), 2))
         self.widget.scale_weight_enable.setChecked(bool(args.get("scale_weight_norms", False)))
         self.widget.scale_weight_input.setValue(args.get("scale_weight_norms", 1.0))
-        self.widget.max_grad_norm_input.setValue(args.get("max_grad_norm", 0.0))
+        self.widget.max_grad_norm_input.setValue(args.get("max_grad_norm", 1.0))
         self.widget.min_snr_enable.setChecked(bool(args.get("min_snr_gamma", False)))
         self.widget.min_snr_input.setValue(args.get("min_snr_gamma", 5.0))
         self.widget.zero_term_enable.setChecked(args.get("zero_terminal_snr", False))
         self.widget.huber_schedule_selector.setCurrentIndex(
-            {"constant": 0, "snr": 1, "exponential": 2}.get(args.get("huber_schedule", "constant").lower(), 0)
+            {"snr": 0, "exponential": 1, "constant": 2}.get(args.get("huber_schedule", "snr").lower(), 0)
         )
         self.widget.huber_param_input.setValue(args.get("huber_c", 0.1))
         self.widget.d_param_input.setValue(scheduler_args.get("d", 0.9))
