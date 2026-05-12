@@ -12,6 +12,11 @@ from ui_files.sub_dataset_input import Ui_sub_dataset_input
 
 
 class SubsetWidget(BaseWidget):
+    DATASET_DEFAULTS = {
+        "num_repeats": 1,
+        "caption_extension": ".txt",
+        "random_crop_padding_percent": 0.05,
+    }
     edited = Signal(dict, str)
 
     def __init__(
@@ -24,13 +29,7 @@ class SubsetWidget(BaseWidget):
         self.extra_content = QWidget()
         self.extra_widget = Ui_sub_dataset_extra_input()
         self.name = name
-
-        self.dataset_args = {
-            "num_repeats": 1,
-            "caption_extension": ".txt",
-            "name": self.name,
-            "random_crop_padding_percent": 0.05,
-        }
+        self.dataset_args["name"] = self.name
 
         self.setup_widget()
         self.setup_connections()

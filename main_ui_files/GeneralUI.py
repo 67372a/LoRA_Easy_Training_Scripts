@@ -12,6 +12,20 @@ from ui_files.BaseUI import Ui_base_args_ui
 
 
 class GeneralWidget(BaseWidget):
+    DEFAULTS = {
+        "seed": 42,
+        "clip_skip": 2,
+        "max_train_epochs": 1,
+        "max_data_loader_n_workers": 1,
+        "persistent_data_loader_workers": True,
+        "max_token_length": 225,
+        "prior_loss_weight": 1.0,
+        "mixed_precision": "fp16",
+    }
+    DATASET_DEFAULTS = {
+        "resolution": 1024,
+        "batch_size": 1,
+    }
     sdxlChecked = Signal(bool)
     cacheLatentsChecked = Signal(bool)
     keepTokensSepChecked = Signal(bool)
@@ -23,8 +37,6 @@ class GeneralWidget(BaseWidget):
         self.widget = Ui_base_args_ui()
 
         self.name = "general_args"
-        self.args = {}
-        self.dataset_args = {}
 
         self.setup_widget()
         self.setup_connections()
@@ -51,24 +63,8 @@ class GeneralWidget(BaseWidget):
         self.widget.global_protected_tags_file_input.allow_empty = True
         self.widget.global_protected_tags_file_selector.setIcon(QIcon(str(Path("icons/more-horizontal.svg"))))
 
-        # initialize args from UI values
-        self.args["seed"] = int(
-            self.widget.seed_input.value()
-        )  # explicit cast since we use custom DoubleSpinBox for seed, even at decimals = 0 it adds .0
-        # todo: apply to other places here
-        self.args["clip_skip"] = self.widget.clip_skip_input.value()
-        self.args["max_train_epochs"] = self.widget.max_train_input.value()
-        self.args["max_data_loader_n_workers"] = self.widget.max_data_loader_n_workers_input.value()
-        self.args["persistent_data_loader_workers"] = True
-        self.args["max_token_length"] = int(self.widget.max_token_selector.currentText())
+        # Wire up max_token_selector for live updates
         self.widget.max_token_selector.currentTextChanged.connect(lambda t: self.edit_args("max_token_length", int(t)))
-        self.args["prior_loss_weight"] = self.widget.loss_weight_input.value()
-
-        mixed_prec_text = self.widget.mixed_precision_selector.currentText()
-        self.args["mixed_precision"] = mixed_prec_text if mixed_prec_text != "float" else "no"
-
-        self.dataset_args["resolution"] = self.widget.width_input.value()
-        self.dataset_args["batch_size"] = self.widget.batch_size_input.value()
 
     def _add_misc_experimental_args_collapsible(self) -> None:
         collapsible = CollapsibleWidget(self.widget.base_model_box, title="Misc/Experimental Args")
@@ -150,9 +146,6 @@ class GeneralWidget(BaseWidget):
         self.widget.seed_input.valueChanged.connect(lambda x: self.edit_args("seed", int(x)))
         self.widget.batch_size_input.valueChanged.connect(lambda x: self.edit_dataset_args("batch_size", x))
         self.widget.clip_skip_input.valueChanged.connect(lambda x: self.edit_args("clip_skip", x))
-        self.widget.max_token_selector.currentIndexChanged.connect(
-            lambda x: self.edit_args("max_token_length", [225, 150, None][x], True)
-        )
         self.widget.loss_weight_input.valueChanged.connect(lambda x: self.edit_args("prior_loss_weight", x, True))
         self.widget.mixed_precision_selector.currentTextChanged.connect(
             lambda x: self.edit_args("mixed_precision", x if x != "float" else "no")
@@ -247,6 +240,14 @@ class GeneralWidget(BaseWidget):
         for arg in ["xformers", "sdpa"]:
             if arg in self.args:
                 del self.args[arg]
+        # If both are selected, prefer SDPA — uncheck and disable xformers
+        if is_xformers and is_sdpa:
+            is_xformers = False
+        # If neither is selected, default to SDPA
+        if not is_xformers and not is_sdpa:
+            is_sdpa = True
+        self.widget.xformers_enable.setChecked(is_xformers)
+        self.widget.sdpa_enable.setChecked(is_sdpa)
         self.widget.xformers_enable.setEnabled(not is_sdpa)
         self.widget.sdpa_enable.setEnabled(not is_xformers)
         self.edit_args("xformers", is_xformers, True)
@@ -379,17 +380,17 @@ class GeneralWidget(BaseWidget):
         self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", False))
         self.widget.grad_accumulation_enable.setChecked(bool(args.get("gradient_accumulation_steps", False)))
         self.widget.grad_accumulation_input.setValue(args.get("gradient_accumulation_steps", 1))
-        self.widget.seed_input.setValue(int(args.get("seed", 42)))
-        self.widget.max_data_loader_n_workers_input.setValue(args.get("max_data_loader_n_workers", 1))
-        self.widget.clip_skip_input.setValue(args.get("clip_skip", 2))
-        self.widget.max_token_selector.setCurrentText(str(args.get("max_token_length", 225)))
-        self.widget.loss_weight_input.setValue(args.get("prior_loss_weight", 1.0))
-        mixed_prec = args.get("mixed_precision", "fp16")
+        self.widget.seed_input.setValue(int(args.get("seed", self.DEFAULTS["seed"])))
+        self.widget.max_data_loader_n_workers_input.setValue(args.get("max_data_loader_n_workers", self.DEFAULTS["max_data_loader_n_workers"]))
+        self.widget.clip_skip_input.setValue(args.get("clip_skip", self.DEFAULTS["clip_skip"]))
+        self.widget.max_token_selector.setCurrentText(str(args.get("max_token_length", self.DEFAULTS["max_token_length"])))
+        self.widget.loss_weight_input.setValue(args.get("prior_loss_weight", self.DEFAULTS["prior_loss_weight"]))
+        mixed_prec = args.get("mixed_precision", self.DEFAULTS["mixed_precision"])
         self.widget.mixed_precision_selector.setCurrentText(mixed_prec if mixed_prec != "no" else "float")
         self.widget.xformers_enable.setChecked(args.get("xformers", False))
         self.widget.sdpa_enable.setChecked(args.get("sdpa", False))
         self.widget.max_train_selector.setCurrentIndex(0 if args.get("max_train_epochs", None) else 1)
-        self.widget.max_train_input.setValue(args.get("max_train_epochs", args.get("max_train_steps", 1)))
+        self.widget.max_train_input.setValue(args.get("max_train_epochs", args.get("max_train_steps", self.DEFAULTS["max_train_epochs"])))
         self.widget.cache_latents_enable.setChecked(args.get("cache_latents", False))
         self.widget.cache_latents_to_disk_enable.setChecked(args.get("cache_latents_to_disk", False))
         self.widget.keep_tokens_seperator_enable.setChecked(bool(args.get("keep_tokens_separator", False)))
@@ -426,8 +427,7 @@ class GeneralWidget(BaseWidget):
         self.edit_args("max_data_loader_n_workers", self.widget.max_data_loader_n_workers_input.value())
         self.edit_args(
             "max_token_length",
-            [225, 150, None][self.widget.max_token_selector.currentIndex()],
-            True,
+            int(self.widget.max_token_selector.currentText()),
         )
         self.edit_args("prior_loss_weight", self.widget.loss_weight_input.value())
         self.change_optim_type(self.widget.xformers_enable.isChecked(), self.widget.sdpa_enable.isChecked())
@@ -446,11 +446,11 @@ class GeneralWidget(BaseWidget):
         dataset_args = dataset_args.get(self.name, {})
 
         # update element inputs
-        resolution = dataset_args.get("resolution", 1024)
+        resolution = dataset_args.get("resolution", self.DATASET_DEFAULTS["resolution"])
         self.widget.width_input.setValue(resolution[0] if isinstance(resolution, list) else resolution)
         self.widget.height_enable.setChecked(isinstance(resolution, list))
         self.widget.height_input.setValue(resolution[1] if isinstance(resolution, list) else resolution)
-        self.widget.batch_size_input.setValue(dataset_args.get("batch_size", 1))
+        self.widget.batch_size_input.setValue(dataset_args.get("batch_size", self.DATASET_DEFAULTS["batch_size"]))
 
         # edit dataset_args to match
         self.change_resolution()

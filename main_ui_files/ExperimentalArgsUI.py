@@ -7,6 +7,19 @@ from ui_files.ExperimentalArgsUI import Ui_base_args_ui as Ui_ExperimentalArgsUi
 class ExperimentalArgsUI(QWidget):
     """Handles all experimental args UI logic and state management."""
 
+    # Canonical default values for load_args fallbacks
+    DEFAULTS = {
+        "flow_use_ot": True,
+        "flow_timestep_distribution": "logit_normal",
+        "flow_uniform_static_ratio": 2.0,
+        "flow_logit_mean": 0.0,
+        "flow_logit_std": 1.0,
+        "vae_batch_size": 1,
+        "vae_custom_scale": 0.0,
+        "vae_custom_shift": 0.0,
+        "cfm_lambda": 0.05,
+    }
+
     # Signals for cross-file logic
     flowModelToggled = Signal(bool)  # Send to GeneralUI
 
@@ -176,27 +189,27 @@ class ExperimentalArgsUI(QWidget):
 
         # (sdxl) flow args
         self.widget.flow_model_settings_box.setChecked(args.get("flow_model", False))
-        self.widget.flow_optimal_transport_enable.setChecked(args.get("flow_use_ot", True))
+        self.widget.flow_optimal_transport_enable.setChecked(args.get("flow_use_ot", self.DEFAULTS["flow_use_ot"]))
         self.widget.flow_timestep_distribution_selector.setCurrentText(
-            args.get("flow_timestep_distribution", "logit_normal")
+            args.get("flow_timestep_distribution", self.DEFAULTS["flow_timestep_distribution"])
         )
-        self.widget.flow_uniform_static_ratio_shift_input.setValue(args.get("flow_uniform_static_ratio", 2.0))
-        self.widget.flow_logit_mean_input.setValue(args.get("flow_logit_mean", 0.0))
-        self.widget.flow_logit_std_input.setValue(args.get("flow_logit_std", 1.0))
+        self.widget.flow_uniform_static_ratio_shift_input.setValue(args.get("flow_uniform_static_ratio", self.DEFAULTS["flow_uniform_static_ratio"]))
+        self.widget.flow_logit_mean_input.setValue(args.get("flow_logit_mean", self.DEFAULTS["flow_logit_mean"]))
+        self.widget.flow_logit_std_input.setValue(args.get("flow_logit_std", self.DEFAULTS["flow_logit_std"]))
 
         # adv. vae args
         self.widget.vae_reflection_enable.setChecked(args.get("vae_reflection", False))
-        self.widget.vae_batch_size_input.setValue(args.get("vae_batch_size", 1))
+        self.widget.vae_batch_size_input.setValue(args.get("vae_batch_size", self.DEFAULTS["vae_batch_size"]))
         self.widget.vae_custom_scale_enable.setChecked(bool(args.get("vae_custom_scale", False)))
-        self.widget.vae_custom_scale_input.setValue(args.get("vae_custom_scale", 0.0))
+        self.widget.vae_custom_scale_input.setValue(args.get("vae_custom_scale", self.DEFAULTS["vae_custom_scale"]))
         self.widget.vae_custom_shift_enable.setChecked(bool(args.get("vae_custom_shift", False)))
-        self.widget.vae_custom_shift_input.setValue(args.get("vae_custom_shift", 0.0))
+        self.widget.vae_custom_shift_input.setValue(args.get("vae_custom_shift", self.DEFAULTS["vae_custom_shift"]))
 
         # misc args
         self.widget.zero_cond_dropout_enable.setChecked(args.get("zero_cond_dropout", False))
         self.widget.cfm_enable.setChecked(args.get("contrastive_flow_matching", False))
         self.widget.cfm_lambda_enable.setChecked(bool(args.get("cfm_lambda", False)))
-        self.widget.cfm_lambda_input.setValue(args.get("cfm_lambda", 0.05))
+        self.widget.cfm_lambda_input.setValue(args.get("cfm_lambda", self.DEFAULTS["cfm_lambda"]))
         self.widget.debiased_estimation_loss_enable.setChecked(args.get("debiased_estimation_loss", False))
 
         self._apply_post_load_state()

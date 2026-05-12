@@ -8,13 +8,17 @@ from modules.DragDropLineEdit import DragDropLineEdit
 
 
 class SavingWidget(BaseWidget):
+    DEFAULTS = {
+        "save_precision": "fp16",
+        "save_model_as": "safetensors",
+    }
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Saving Args")
         self.widget = Ui_saving_ui()
 
         self.name = "saving_args"
-        self.args = {"save_precision": "fp16", "save_model_as": "safetensors"}
 
         self.setup_widget()
         self.setup_connections()
@@ -276,12 +280,12 @@ class SavingWidget(BaseWidget):
         self.widget.output_name_enable.setChecked(bool(args.get("output_name", False)))
         self.widget.output_name_input.setText(args.get("output_name", ""))
         self.widget.save_precision_selector.setCurrentText(
-            args.get("save_precision", "fp16")
+            args.get("save_precision", self.DEFAULTS["save_precision"])
         )
         self.widget.resume_enable.setChecked(bool(args.get("resume", False)))
         self.widget.resume_input.setText(args.get("resume", ""))
         self.widget.save_as_selector.setCurrentText(
-            args.get("save_model_as", "safetensors")
+            args.get("save_model_as", self.DEFAULTS["save_model_as"])
         )
         self.widget.save_only_last_enable.setChecked(
             bool(args.get("save_last_n_epochs", args.get("save_last_n_steps", False)))

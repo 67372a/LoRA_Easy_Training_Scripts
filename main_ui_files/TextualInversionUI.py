@@ -7,15 +7,16 @@ from modules.NetworkManager import NetworkManager
 
 
 class TextualInversionWidget(BaseWidget):
+    DEFAULTS = {
+        "token_string": "",
+        "init_word": "",
+    }
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Textual Inversion Args")
         self.widget = Ui_textual_inversion_ui()
         self.name = "textual_inversion_args"
-        self.args = {
-            "token_string": "",
-            "init_word": "",
-        }
         self.setup_widget()
         self.setup_connections()
 

@@ -4,7 +4,13 @@ from modules.DragDropLineEdit import DragDropLineEdit
 from pathlib import Path
 
 
+_SENTINEL = object()
+
+
 class BaseWidget(QtWidgets.QWidget):
+    DEFAULTS: dict[str, object] = {}
+    DATASET_DEFAULTS: dict[str, object] = {}
+
     def __init__(self, network_manager, parent: QtWidgets.QWidget = None) -> None:
         super().__init__(parent)
         self.colap = CollapsibleWidget(self)
@@ -13,8 +19,20 @@ class BaseWidget(QtWidgets.QWidget):
         self.widget = None
 
         self.name = ""
-        self.args = {}
-        self.dataset_args = {}
+        self.args = dict(self.DEFAULTS)
+        self.dataset_args = dict(self.DATASET_DEFAULTS)
+
+    def _get_default(self, key: str, fallback=_SENTINEL):
+        """Get default from DEFAULTS registry, with optional override fallback."""
+        if fallback is not _SENTINEL:
+            return self.DEFAULTS.get(key, fallback)
+        return self.DEFAULTS[key]
+
+    def _get_dataset_default(self, key: str, fallback=_SENTINEL):
+        """Get default from DATASET_DEFAULTS registry, with optional override fallback."""
+        if fallback is not _SENTINEL:
+            return self.DATASET_DEFAULTS.get(key, fallback)
+        return self.DATASET_DEFAULTS[key]
 
     def setup_widget(self) -> None:
         self.setLayout(QtWidgets.QVBoxLayout())

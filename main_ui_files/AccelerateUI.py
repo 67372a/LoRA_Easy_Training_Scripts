@@ -14,6 +14,12 @@ class AccelerateWidget(BaseWidget):
     should not be saved to training TOML files.
     """
 
+    CONFIG_DEFAULTS = {
+        "enabled": False,
+        "num_processes": 2,
+        "main_process_port": 29500,
+    }
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Multi-GPU Training (Accelerate)")
@@ -65,9 +71,9 @@ class AccelerateWidget(BaseWidget):
         config_dict = json.loads(config_path.read_text())
         accel = config_dict.get("accelerate", {})
 
-        self.widget.accelerate_group.setChecked(accel.get("enabled", False))
-        self.widget.num_processes_input.setValue(accel.get("num_processes", 2))
-        self.widget.main_process_port_input.setValue(accel.get("main_process_port", 29500))
+        self.widget.accelerate_group.setChecked(accel.get("enabled", self.CONFIG_DEFAULTS["enabled"]))
+        self.widget.num_processes_input.setValue(accel.get("num_processes", self.CONFIG_DEFAULTS["num_processes"]))
+        self.widget.main_process_port_input.setValue(accel.get("main_process_port", self.CONFIG_DEFAULTS["main_process_port"]))
 
     def load_args(self, args: dict) -> bool:
         """Load accelerate settings from config.json (not from TOML args)."""

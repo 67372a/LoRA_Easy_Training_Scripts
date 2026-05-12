@@ -9,14 +9,17 @@ from pathlib import Path
 
 
 class LoggingWidget(BaseWidget):
+    DEFAULTS = {
+        "log_prefix_mode": "disabled",
+        "run_name_mode": "default",
+    }
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Logging Args")
         self.widget = Ui_logging_ui()
 
         self.name = "logging_args"
-        # Default log_prefix_mode and run_name_mode
-        self.args = {"log_prefix_mode": "disabled", "run_name_mode": "default"}
 
         self.setup_widget()
         self.setup_connections()
@@ -92,7 +95,7 @@ class LoggingWidget(BaseWidget):
         # Clear relevant args when disabled
         if not checked:
             # Reset args, keeping only the mode defaults
-            self.args = {"log_prefix_mode": "disabled", "run_name_mode": "default"}
+            self.args = dict(self.DEFAULTS)
             self.widget.log_output_input.setStyleSheet("")
             # Ensure prefix input is disabled and args cleared
             self.widget.log_prefix_input.setEnabled(False)

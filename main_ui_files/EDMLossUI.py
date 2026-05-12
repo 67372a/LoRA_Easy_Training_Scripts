@@ -194,13 +194,13 @@ class EDMLossWidget(BaseWidget):
         
         # Load advanced arguments
         self.widget.initial_weights_input.setText(args.get("edm2_loss_weighting_initial_weights", ""))
-        self.widget.num_channels_input.setValue(int(args.get("edm2_loss_weighting_num_channels", 448)))
+        self.widget.num_channels_input.setValue(int(args.get("edm2_loss_weighting_num_channels", 128)))
         
         # Load graph arguments
         self.widget.generate_graph_enable.setChecked(args.get("edm2_loss_weighting_generate_graph", False))
         self.widget.graph_output_input.setText(args.get("edm2_loss_weighting_generate_graph_output_dir", ""))
         self.widget.graph_steps_input.setValue(int(args.get("edm2_loss_weighting_generate_graph_every_x_steps", 10)))
-        self.widget.graph_y_limit_input.setValue(int(args.get("edm2_loss_weighting_generate_graph_y_limit", 5)))
+        self.widget.graph_y_limit_input.setValue(int(args.get("edm2_loss_weighting_generate_graph_y_limit", 50)))
         
         self.enable_disable(self.widget.enable_checkbox.isChecked())
         return True

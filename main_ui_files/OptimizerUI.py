@@ -8,6 +8,13 @@ import re
 
 
 class OptimizerWidget(BaseWidget):
+    DEFAULTS = {
+        "optimizer_type": "AdamW",
+        "lr_scheduler": "cosine",
+        "learning_rate": 1e-4,
+        "max_grad_norm": 1.0,
+        "loss_type": "l2",
+    }
     maskedLossChecked = Signal(bool)
 
     def __init__(self, parent: QWidget = None) -> None:
@@ -16,13 +23,6 @@ class OptimizerWidget(BaseWidget):
         self.widget = Ui_optimizer_ui()
 
         self.name = "optimizer_args"
-        self.args = {
-            "optimizer_type": "AdamW",
-            "lr_scheduler": "cosine",
-            "learning_rate": 1e-4,
-            "max_grad_norm": 1.0,
-            "loss_type": "l2",
-        }
         self.opt_args = [OptimizerItem(arg_name="weight_decay", arg_value="0.1")]
 
         self.setup_widget()
@@ -318,7 +318,7 @@ class OptimizerWidget(BaseWidget):
         scheduler_args: dict = args.get("lr_scheduler_args", {})
 
         # update element inputs
-        optimizer_type = args.get("optimizer_type", "AdamW")
+        optimizer_type = args.get("optimizer_type", self.DEFAULTS["optimizer_type"])
         self.widget.optimizer_type_selector.setCurrentText(
             "Came" if len(optimizer_type.split(".")) > 1 else optimizer_type
         )
@@ -330,10 +330,10 @@ class OptimizerWidget(BaseWidget):
             )
         else:
             self.widget.lr_scheduler_selector.setCurrentText(
-                args.get("lr_scheduler", "cosine").replace("_", " ")
+                args.get("lr_scheduler", self.DEFAULTS["lr_scheduler"]).replace("_", " ")
             )
-        self.widget.loss_type_selector.setCurrentText(args.get("loss_type", "L2").replace("_", " ").title())
-        self.widget.main_lr_input.setText(str(args.get("learning_rate", "1e-4")))
+        self.widget.loss_type_selector.setCurrentText(args.get("loss_type", self.DEFAULTS["loss_type"]).replace("_", " ").title())
+        self.widget.main_lr_input.setText(str(args.get("learning_rate", self.DEFAULTS["learning_rate"])))
         self.widget.warmup_enable.setChecked(bool(args.get("warmup_ratio", False)))
         self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.0))
         self.widget.min_lr_input.setText(str(args.get("lr_scheduler_args", {}).get("min_lr", "1e-6")))
@@ -355,7 +355,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.gamma_input.setValue(round(1 - args.get("lr_scheduler_args", {}).get("gamma", 0.9), 2))
         self.widget.scale_weight_enable.setChecked(bool(args.get("scale_weight_norms", False)))
         self.widget.scale_weight_input.setValue(args.get("scale_weight_norms", 1.0))
-        self.widget.max_grad_norm_input.setValue(args.get("max_grad_norm", 1.0))
+        self.widget.max_grad_norm_input.setValue(args.get("max_grad_norm", self.DEFAULTS["max_grad_norm"]))
         self.widget.min_snr_enable.setChecked(bool(args.get("min_snr_gamma", False)))
         self.widget.min_snr_input.setValue(args.get("min_snr_gamma", 5.0))
         self.widget.zero_term_enable.setChecked(args.get("zero_terminal_snr", False))

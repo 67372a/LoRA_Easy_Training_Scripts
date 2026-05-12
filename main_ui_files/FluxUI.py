@@ -179,7 +179,7 @@ class FluxWidget(BaseWidget):
         self.widget.logit_std_input.setValue(args.get("logit_std", 1.0))
         self.widget.mode_scale_input.setValue(args.get("mode_scale", 1.29))
         self.widget.sigmoid_scale_input.setValue(args.get("sigmoid_scale", 1.0))
-        self.widget.guidance_scale_input.setValue(args.get("guidance_scale", 3.5))
+        self.widget.guidance_scale_input.setValue(args.get("guidance_scale", 1.0))
         option = " ".join(
             [x.capitalize() for x in args.get("model_prediction_type", "sigma_scaled").split("_")]
         )

@@ -8,18 +8,19 @@ from modules.CollapsibleWidget import CollapsibleWidget
 
 
 class NetworkWidget(BaseWidget):
+    DEFAULTS = {
+        "network_dim": 32,
+        "network_alpha": 16.0,
+        "min_timestep": 0,
+        "max_timestep": 1000,
+    }
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
         self.colap.set_title("Network Args")
         self.widget = Ui_network_ui()
 
         self.name = "network_args"
-        self.args = {
-            "network_dim": 32,
-            "network_alpha": 16.0,
-            "min_timestep": 0,
-            "max_timestep": 1000,
-        }
         self.lycoris = False
         self.network_args: list[OptimizerItem] = []
 
@@ -467,12 +468,12 @@ class NetworkWidget(BaseWidget):
 
         # update element inputs
         self.widget.lycoris_preset_input.setText(network_args.get("preset", ""))
-        self.widget.network_dim_input.setValue(args.get("network_dim", 32))
-        self.widget.conv_dim_input.setValue(network_args.get("conv_dim", 32))
-        self.widget.network_alpha_input.setValue(args.get("network_alpha", 16.0))
-        self.widget.conv_alpha_input.setValue(network_args.get("conv_alpha", 16.0))
-        self.widget.min_timestep_input.setValue(args.get("min_timestep", 0))
-        self.widget.max_timestep_input.setValue(args.get("max_timestep", 1000))
+        self.widget.network_dim_input.setValue(args.get("network_dim", self.DEFAULTS["network_dim"]))
+        self.widget.conv_dim_input.setValue(network_args.get("conv_dim", 16))
+        self.widget.network_alpha_input.setValue(args.get("network_alpha", self.DEFAULTS["network_alpha"]))
+        self.widget.conv_alpha_input.setValue(network_args.get("conv_alpha", 32.0))
+        self.widget.min_timestep_input.setValue(args.get("min_timestep", self.DEFAULTS["min_timestep"]))
+        self.widget.max_timestep_input.setValue(args.get("max_timestep", self.DEFAULTS["max_timestep"]))
         if "network_train_unet_only" in args:
             self.widget.unet_te_both_select.setCurrentIndex(1)
         elif "network_train_text_encoder_only" in args:
@@ -501,7 +502,7 @@ class NetworkWidget(BaseWidget):
         self.widget.rescale_enable.setChecked(network_args.get("rescaled", False))
         self.widget.constrain_enable.setChecked(bool(network_args.get("constraint", False)))
         self.widget.constrain_input.setText(str(network_args.get("constraint", "")))
-        self.widget.lora_fa_enable.setEnabled(args.get("fa", False))
+        self.widget.lora_fa_enable.setChecked(args.get("fa", False))
         self.widget.train_blocks_selector.setCurrentText(str(network_args.get("train_blocks", "")))
 
         # update block widgets
