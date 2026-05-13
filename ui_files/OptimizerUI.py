@@ -403,7 +403,7 @@ class Ui_optimizer_ui(object):
         self.decay_ratio_input.setEnabled(False)
         self.decay_ratio_input.setFocusPolicy(Qt.StrongFocus)
         self.decay_ratio_input.setMinimum(0.000000000000000)
-        self.decay_ratio_input.setMaximum(0.100000000000000)
+        self.decay_ratio_input.setMaximum(1.000000000000000)
         self.decay_ratio_input.setSingleStep(0.010000000000000)
         self.decay_ratio_input.setDecimals(2)
         self.decay_ratio_input.setValue(0.100000000000000)
