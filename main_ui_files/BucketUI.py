@@ -18,6 +18,9 @@ class BucketWidget(BaseWidget):
     def setup_widget(self) -> None:
         super().setup_widget()
         self.widget.setupUi(self.content)
+        # Override UI file defaults with our preferred values
+        self.widget.min_input.setValue(512)
+        self.widget.max_input.setValue(1536)
         # Populate dataset_args with initial widget values
         self.enable_disable(self.widget.bucket_group.isChecked())
 

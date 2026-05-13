@@ -10,7 +10,7 @@ from modules.CollapsibleWidget import CollapsibleWidget
 class NetworkWidget(BaseWidget):
     DEFAULTS = {
         "network_dim": 32,
-        "network_alpha": 16.0,
+        "network_alpha": 64.0,
         "min_timestep": 0,
         "max_timestep": 1000,
     }
@@ -26,6 +26,7 @@ class NetworkWidget(BaseWidget):
 
         self.setup_widget()
         self.setup_connections()
+        self.widget.algo_select.setCurrentText("LoCon (LyCORIS)")
 
     def setup_widget(self) -> None:
         super().setup_widget()
@@ -38,7 +39,7 @@ class NetworkWidget(BaseWidget):
             ),
             (
                 self.widget.alpha_block_widget,
-                BlockWidget(mode="float", base_value=16.0, arg_name="block_alphas"),
+                BlockWidget(mode="float", base_value=64.0, arg_name="block_alphas"),
             ),
             (
                 self.widget.conv_block_widget,
@@ -46,7 +47,7 @@ class NetworkWidget(BaseWidget):
             ),
             (
                 self.widget.conv_alpha_block_widget,
-                BlockWidget(mode="float", base_value=16.0, arg_name="conv_block_alphas"),
+                BlockWidget(mode="float", base_value=64.0, arg_name="conv_block_alphas"),
             ),
         ]
         self.widget.network_args_item_widget.layout().setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
