@@ -9,10 +9,10 @@ import re
 
 class OptimizerWidget(BaseWidget):
     DEFAULTS = {
-        "optimizer_type": "Came",
-        "lr_scheduler": "warmup_stable_decay",
-        "learning_rate": 3e-6,
-        "max_grad_norm": 0.0,
+        "optimizer_type": "AdamW",
+        "lr_scheduler": "cosine",
+        "learning_rate": 1e-4,
+        "max_grad_norm": 1.0,
         "loss_type": "l2",
     }
     maskedLossChecked = Signal(bool)
@@ -348,7 +348,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.loss_type_selector.setCurrentText(args.get("loss_type", self.DEFAULTS["loss_type"]).replace("_", " ").title())
         self.widget.main_lr_input.setText(str(args.get("learning_rate", self.DEFAULTS["learning_rate"])))
         self.widget.warmup_enable.setChecked(bool(args.get("warmup_ratio", False)))
-        self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.1))
+        self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.0))
         self.widget.min_lr_input.setText(str(args.get("lr_scheduler_args", {}).get("min_lr", "1e-6")))
         self.widget.cosine_restart_input.setValue(args.get("lr_scheduler_num_cycles", 1))
         self.widget.unet_lr_enable.setChecked(bool(args.get("unet_lr", False)))
@@ -373,7 +373,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.min_snr_input.setValue(args.get("min_snr_gamma", 5.0))
         self.widget.zero_term_enable.setChecked(args.get("zero_terminal_snr", False))
         self.widget.huber_schedule_selector.setCurrentIndex(
-            {"snr": 0, "exponential": 1, "constant": 2}.get(args.get("huber_schedule", "constant").lower(), 0)
+            {"snr": 0, "exponential": 1, "constant": 2}.get(args.get("huber_schedule", "snr").lower(), 0)
         )
         self.widget.huber_param_input.setValue(args.get("huber_c", 0.1))
         self.widget.d_param_input.setValue(scheduler_args.get("d", 0.9))

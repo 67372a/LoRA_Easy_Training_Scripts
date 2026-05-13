@@ -13,20 +13,18 @@ from ui_files.BaseUI import Ui_base_args_ui
 
 class GeneralWidget(BaseWidget):
     DEFAULTS = {
-        "seed": 1337,
+        "seed": 42,
         "clip_skip": 2,
         "max_train_epochs": 1,
         "max_data_loader_n_workers": 1,
         "persistent_data_loader_workers": True,
         "max_token_length": 225,
         "prior_loss_weight": 1.0,
-        "mixed_precision": "bf16",
-        "gradient_checkpointing": True,
-        "xformers": True,
+        "mixed_precision": "fp16",
     }
     DATASET_DEFAULTS = {
         "resolution": 1024,
-        "batch_size": 2,
+        "batch_size": 1,
     }
     sdxlChecked = Signal(bool)
     cacheLatentsChecked = Signal(bool)
@@ -379,7 +377,7 @@ class GeneralWidget(BaseWidget):
         self.widget.FP16_enable.setChecked(args.get("full_fp16", False))
         self.widget.BF16_enable.setChecked(args.get("full_bf16", False))
         self.widget.FP8_enable.setChecked(args.get("fp8_base", False))
-        self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", self.DEFAULTS["gradient_checkpointing"]))
+        self.widget.grad_checkpointing_enable.setChecked(args.get("gradient_checkpointing", False))
         self.widget.grad_accumulation_enable.setChecked(bool(args.get("gradient_accumulation_steps", False)))
         self.widget.grad_accumulation_input.setValue(args.get("gradient_accumulation_steps", 1))
         self.widget.seed_input.setValue(int(args.get("seed", self.DEFAULTS["seed"])))
