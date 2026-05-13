@@ -72,6 +72,12 @@ class OptimizerWidget(BaseWidget):
         self.widget.huber_param_input.valueChanged.connect(lambda x: self.edit_args("huber_c", round(x, 4)))
         self.widget.add_opt_button.clicked.connect(self.add_optimizer_arg)
         self.widget.d_param_input.valueChanged.connect(lambda x: self.edit_lr_args("d", round(x, 4)))
+        self.widget.decay_ratio_input.valueChanged.connect(
+            lambda x: self.edit_args("lr_decay_steps", round(x, 2), True)
+        )
+        self.widget.decay_type_selector.currentTextChanged.connect(
+            lambda x: self.edit_lr_args("decay_type", x.lower())
+        )
 
     def edit_lr(self, name: str, value: str, optional: bool = False) -> None:
         try:
@@ -176,6 +182,7 @@ class OptimizerWidget(BaseWidget):
             "lr_scheduler_power",
             "lr_scheduler_type",
             "lr_scheduler_args",
+            "lr_decay_steps",
         ]
         for arg in args:
             if arg in self.args:
@@ -185,6 +192,8 @@ class OptimizerWidget(BaseWidget):
         self.widget.min_lr_input.setEnabled(False)
         self.widget.gamma_input.setEnabled(False)
         self.widget.d_param_input.setEnabled(False)
+        self.widget.decay_ratio_input.setEnabled(False)
+        self.widget.decay_type_selector.setEnabled(False)
 
         if value == "cosine_with_restarts":
             self.widget.cosine_restart_input.setEnabled(True)
@@ -233,11 +242,15 @@ class OptimizerWidget(BaseWidget):
             self.edit_args("lr_scheduler_power", self.widget.poly_power_input.value(), True)
         elif value in {"warmup_stable_decay", "wsd"}:
             self.widget.cosine_restart_input.setEnabled(True)
+            self.widget.decay_ratio_input.setEnabled(True)
+            self.widget.decay_type_selector.setEnabled(True)
             self.edit_args(
                 "lr_scheduler_num_cycles",
                 self.widget.cosine_restart_input.value(),
                 True,
             )
+            self.edit_args("lr_decay_steps", round(self.widget.decay_ratio_input.value(), 2), True)
+            self.edit_lr_args("decay_type", self.widget.decay_type_selector.currentText().lower())
         elif value in {
             "CosineAnnealingLR",
             "cosineannealinglr",
@@ -364,6 +377,8 @@ class OptimizerWidget(BaseWidget):
         )
         self.widget.huber_param_input.setValue(args.get("huber_c", 0.1))
         self.widget.d_param_input.setValue(scheduler_args.get("d", 0.9))
+        self.widget.decay_ratio_input.setValue(args.get("lr_decay_steps", 0.1))
+        self.widget.decay_type_selector.setCurrentText(scheduler_args.get("decay_type", "1-sqrt"))
 
         for _ in range(len(self.opt_args)):
             self.remove_optimizer_arg(self.opt_args[0])

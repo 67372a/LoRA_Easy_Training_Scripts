@@ -393,6 +393,38 @@ class Ui_optimizer_ui(object):
 
         self.formLayout_3.setWidget(7, QFormLayout.FieldRole, self.d_param_input)
 
+        self.decay_ratio_label = QLabel(self.optimizer_tab_main)
+        self.decay_ratio_label.setObjectName(u"decay_ratio_label")
+
+        self.formLayout_3.setWidget(8, QFormLayout.LabelRole, self.decay_ratio_label)
+
+        self.decay_ratio_input = DoubleSpinBox(self.optimizer_tab_main)
+        self.decay_ratio_input.setObjectName(u"decay_ratio_input")
+        self.decay_ratio_input.setEnabled(False)
+        self.decay_ratio_input.setFocusPolicy(Qt.StrongFocus)
+        self.decay_ratio_input.setMinimum(0.000000000000000)
+        self.decay_ratio_input.setMaximum(0.100000000000000)
+        self.decay_ratio_input.setSingleStep(0.010000000000000)
+        self.decay_ratio_input.setDecimals(2)
+        self.decay_ratio_input.setValue(0.100000000000000)
+
+        self.formLayout_3.setWidget(8, QFormLayout.FieldRole, self.decay_ratio_input)
+
+        self.decay_type_label = QLabel(self.optimizer_tab_main)
+        self.decay_type_label.setObjectName(u"decay_type_label")
+
+        self.formLayout_3.setWidget(9, QFormLayout.LabelRole, self.decay_type_label)
+
+        self.decay_type_selector = ComboBox(self.optimizer_tab_main)
+        self.decay_type_selector.addItem("")
+        self.decay_type_selector.addItem("")
+        self.decay_type_selector.addItem("")
+        self.decay_type_selector.setObjectName(u"decay_type_selector")
+        self.decay_type_selector.setEnabled(False)
+        self.decay_type_selector.setFocusPolicy(Qt.StrongFocus)
+
+        self.formLayout_3.setWidget(9, QFormLayout.FieldRole, self.decay_type_selector)
+
 
         self.gridLayout.addLayout(self.formLayout_3, 1, 1, 1, 1)
 
@@ -584,6 +616,23 @@ class Ui_optimizer_ui(object):
 #endif // QT_CONFIG(tooltip)
         self.label_2.setText(QCoreApplication.translate("optimizer_ui", u"Max Grad Norm", None))
         self.label_7.setText(QCoreApplication.translate("optimizer_ui", u"D Param", None))
+#if QT_CONFIG(tooltip)
+        self.decay_ratio_label.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Decay Ratio is the percentage of total training steps allocated to the decay phase of the Warmup Stable Decay scheduler. For example, 0.1 means 10% of total steps will be used for decay.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.decay_ratio_label.setText(QCoreApplication.translate("optimizer_ui", u"Decay Ratio", None))
+#if QT_CONFIG(tooltip)
+        self.decay_ratio_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Decay Ratio is the percentage of total training steps allocated to the decay phase of the Warmup Stable Decay scheduler. For example, 0.1 means 10% of total steps will be used for decay.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.decay_type_label.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Decay Type is the curve type used during the decay phase of the Warmup Stable Decay scheduler. Cosine uses a cosine curve, linear decreases linearly, and 1-sqrt uses a square root curve.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.decay_type_label.setText(QCoreApplication.translate("optimizer_ui", u"Decay Type", None))
+        self.decay_type_selector.setItemText(0, QCoreApplication.translate("optimizer_ui", u"1-sqrt", None))
+        self.decay_type_selector.setItemText(1, QCoreApplication.translate("optimizer_ui", u"cosine", None))
+        self.decay_type_selector.setItemText(2, QCoreApplication.translate("optimizer_ui", u"linear", None))
+#if QT_CONFIG(tooltip)
+        self.decay_type_selector.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Decay Type is the curve type used during the decay phase of the Warmup Stable Decay scheduler. Cosine uses a cosine curve, linear decreases linearly, and 1-sqrt uses a square root curve.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.optimizer_tab_main), QCoreApplication.translate("optimizer_ui", u"Main Args", None))
         self.add_opt_button.setText(QCoreApplication.translate("optimizer_ui", u"Add Optimizer Arg", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.optimizer_tab_args), QCoreApplication.translate("optimizer_ui", u"Optional Args", None))
