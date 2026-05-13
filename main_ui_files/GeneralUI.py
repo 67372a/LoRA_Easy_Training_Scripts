@@ -150,8 +150,8 @@ class GeneralWidget(BaseWidget):
         self.widget.mixed_precision_selector.currentTextChanged.connect(
             lambda x: self.edit_args("mixed_precision", x if x != "float" else "no")
         )
-        self.widget.xformers_enable.clicked.connect(lambda x: self.change_optim_type(x, False))
-        self.widget.sdpa_enable.clicked.connect(lambda x: self.change_optim_type(False, x))
+        self.widget.xformers_enable.clicked.connect(lambda x: self.change_optim_type(x, self.widget.sdpa_enable.isChecked()))
+        self.widget.sdpa_enable.clicked.connect(lambda x: self.change_optim_type(self.widget.xformers_enable.isChecked(), x))
         self.widget.max_train_selector.currentIndexChanged.connect(self.change_max_mode)
         self.widget.max_train_input.valueChanged.connect(
             lambda: self.change_max_mode(self.widget.max_train_selector.currentIndex())
@@ -243,9 +243,6 @@ class GeneralWidget(BaseWidget):
         # If both are selected, prefer SDPA — uncheck and disable xformers
         if is_xformers and is_sdpa:
             is_xformers = False
-        # If neither is selected, default to SDPA
-        if not is_xformers and not is_sdpa:
-            is_sdpa = True
         self.widget.xformers_enable.setChecked(is_xformers)
         self.widget.sdpa_enable.setChecked(is_sdpa)
         self.widget.xformers_enable.setEnabled(not is_sdpa)
