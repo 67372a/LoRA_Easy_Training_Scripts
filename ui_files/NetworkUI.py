@@ -372,6 +372,7 @@ class Ui_network_ui(object):
         self.algo_select.addItem("ABBA")
         self.algo_select.addItem("TLora")
         self.algo_select.addItem("GoRA")
+        self.algo_select.addItem("RaLoRA")
         self.algo_select.setObjectName(u"algo_select")
         self.algo_select.setFocusPolicy(Qt.StrongFocus)
 
