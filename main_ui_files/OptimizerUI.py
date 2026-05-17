@@ -47,6 +47,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.warmup_input.valueChanged.connect(
             lambda x: self.edit_args("warmup_ratio", round(x, 2), True)
         )
+        self.widget.zero_lr_warmup_enable.clicked.connect(self.enable_disable_zero_lr_warmup)
         self.widget.min_lr_input.textChanged.connect(lambda x: self.edit_lr_args("min_lr", x, True))
         self.widget.cosine_restart_input.valueChanged.connect(
             lambda x: self.edit_args("lr_scheduler_num_cycles", x)
@@ -286,6 +287,15 @@ class OptimizerWidget(BaseWidget):
         self.edit_args("warmup_ratio", self.widget.warmup_input.value(), True)
 
     @Slot(bool)
+    def enable_disable_zero_lr_warmup(self, checked: bool) -> None:
+        """Enable or disable zero LR warmup states."""
+        if "zero_lr_warmup" in self.args:
+            del self.args["zero_lr_warmup"]
+        if not checked:
+            return
+        self.edit_args("zero_lr_warmup", checked, True)
+
+    @Slot(bool)
     def enable_disable_unet(self, checked: bool) -> None:
         if "unet_lr" in self.args:
             del self.args["unet_lr"]
@@ -349,6 +359,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.main_lr_input.setText(str(args.get("learning_rate", self.DEFAULTS["learning_rate"])))
         self.widget.warmup_enable.setChecked(bool(args.get("warmup_ratio", False)))
         self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.0))
+        self.widget.zero_lr_warmup_enable.setChecked(args.get("zero_lr_warmup", False))
         self.widget.min_lr_input.setText(str(args.get("lr_scheduler_args", {}).get("min_lr", "1e-6")))
         self.widget.cosine_restart_input.setValue(args.get("lr_scheduler_num_cycles", 1))
         self.widget.unet_lr_enable.setChecked(bool(args.get("unet_lr", False)))
@@ -396,6 +407,7 @@ class OptimizerWidget(BaseWidget):
         self.change_loss_type(self.widget.loss_type_selector.currentText())
         self.edit_lr("learning_rate", self.widget.main_lr_input.text())
         self.enable_disable_warmup(self.widget.warmup_enable.isChecked())
+        self.enable_disable_zero_lr_warmup(self.widget.zero_lr_warmup_enable.isChecked())
         self.enable_disable_unet(self.widget.unet_lr_enable.isChecked())
         self.edit_te_lr("text_encoder_lr", te_lr_display_text)
         self.enable_disable_te(self.widget.te_lr_enable.isChecked())

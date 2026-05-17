@@ -296,6 +296,11 @@ class Ui_optimizer_ui(object):
 
         self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.warmup_input)
 
+        self.zero_lr_warmup_enable = QCheckBox(self.optimizer_tab_main)
+        self.zero_lr_warmup_enable.setObjectName(u"zero_lr_warmup_enable")
+
+        self.formLayout_3.setWidget(10, QFormLayout.LabelRole, self.zero_lr_warmup_enable)
+
         self.label_4 = QLabel(self.optimizer_tab_main)
         self.label_4.setObjectName(u"label_4")
 
@@ -572,6 +577,10 @@ class Ui_optimizer_ui(object):
 #if QT_CONFIG(tooltip)
         self.warmup_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Warmup Ratio is the ratio of steps that is warmup steps in comparison to the total number of steps. If you are using one of the &quot;warm&quot; schedulers, the warmup is spread evenly across each of the cycles</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.zero_lr_warmup_enable.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>When enabled, the learning rate is set to zero during warmup instead of gradually increasing. This means no gradient updates during the entire warmup period.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.zero_lr_warmup_enable.setText(QCoreApplication.translate("optimizer_ui", u"Zero LR Warmup", None))
 #if QT_CONFIG(tooltip)
         self.label_4.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Number of Cycles. 1 means there won't be any restarts during the training</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
