@@ -144,6 +144,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.insertSeparator(self.optimizer_type_selector.count())
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ABMOG", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdaGC", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamWScheduleFreePlus", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPT", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Adopt_adv", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ADOPTAOScheduleFree", None))
