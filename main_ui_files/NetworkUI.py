@@ -174,7 +174,7 @@ class NetworkWidget(BaseWidget):
         self.toggle_kohya(algo in {"lora", "locon", "dylora"})
         dora = self.toggle_lycoris(
             algo not in {"lora", "locon", "dylora"},
-            algo in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora"},
+            algo in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora", "lora2"},
         )
         self.lycoris = algo not in {"lora", "locon", "dylora"}
         self.widget.bypass_mode_enable.setEnabled(self.lycoris and not dora)
@@ -187,7 +187,7 @@ class NetworkWidget(BaseWidget):
         self.toggle_block_weight(algo in {"lora", "locon", "dylora"}, algo == "lora")
         self.toggle_dropout(
             algo != "ia3",
-            algo in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora"} and self.widget.dora_enable.isChecked(),
+            algo in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora", "lora2"} and self.widget.dora_enable.isChecked(),
         )
         # GoRA: alpha is forced to equal dim, so disable alpha inputs and sync values
         is_gora = (algo in {"gora", "ralora"})
@@ -357,7 +357,7 @@ class NetworkWidget(BaseWidget):
             dora = False
         self.widget.dora_enable.setEnabled(
             not bypass
-            and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora"}
+            and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora", "lora2"}
         )
         self.widget.bypass_mode_enable.setEnabled(not dora)
         self.edit_network_args("dora_wd", dora if self.widget.dora_enable.isEnabled() else False, True)
@@ -480,6 +480,7 @@ class NetworkWidget(BaseWidget):
                 "tlora": "TLora",
                 "gora": "GoRA",
                 "ralora": "RaLoRA",
+                "lora2": "LoRA^2",
             }
             algo_key = str(network_args.get("algo", "")).lower()
             if algo_key in algo_modes:
