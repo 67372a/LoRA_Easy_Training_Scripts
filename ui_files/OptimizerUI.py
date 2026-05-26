@@ -198,6 +198,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Lion_adv", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"MomentusCaution", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Mythical", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"NorMuonScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"OAGOpt", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Prodigy", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"ProdigyPlusScheduleFree", None))
