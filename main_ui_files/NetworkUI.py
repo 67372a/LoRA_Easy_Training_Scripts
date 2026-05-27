@@ -133,7 +133,7 @@ class NetworkWidget(BaseWidget):
         )
         self.widget.lora_fa_enable.clicked.connect(lambda x: self.edit_args("fa", x, True))
         self.widget.add_network_arg_button.clicked.connect(self.add_network_arg)
-        
+
         self.widget.train_blocks_selector.currentTextChanged.connect(
             lambda x: self.edit_network_args("train_blocks", x.lower())
         )
@@ -596,6 +596,10 @@ class NetworkWidget(BaseWidget):
             "down_lr_weight",
             "mid_lr_weight",
             "up_lr_weight",
+            "block_dims",
+            "block_alphas",
+            "conv_block_dims",
+            "conv_block_alphas",
         ]
         for _ in range(len(self.network_args)):
             self.remove_network_arg(self.network_args[0])
