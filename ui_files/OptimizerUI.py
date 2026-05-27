@@ -162,6 +162,7 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamW8bitKahan", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AdamWScheduleFree", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Adan", None))
+        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"AMUSE", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CASCADE", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Compass", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"CompassAO", None))
