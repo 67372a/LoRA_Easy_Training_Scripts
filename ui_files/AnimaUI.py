@@ -252,12 +252,33 @@ class Ui_anima_ui(object):
             u"<html><head/><body><p>Maximum token length for the T5 tokenizer. Default: 512.</p></body></html>", None))
 
         self.timestep_sampling_selector.setToolTip(QCoreApplication.translate("anima_ui",
-            u"<html><head/><body><p>Method for sampling timesteps during training. "
-            u"<code>sigmoid</code> (logit normal) is recommended for Anima.</p></body></html>", None))
+            u"<html><head/><body><p>Method for sampling timesteps during training."
+            u"<br/><br/>"
+            u"<b>sigma</b>: Uses weighting scheme to index into the scheduler's shifted sigma table. Uses <i>Discrete Flow Shift</i>."
+            u"<br/>"
+            u"<b>uniform</b>: Flat random sampling across [0, 1]. No extra parameters."
+            u"<br/>"
+            u"<b>sigmoid</b>: Logit-normal distribution (recommended for Anima). Uses <i>Sigmoid Scale</i>."
+            u"<br/>"
+            u"<b>shift</b>: Logit-normal with explicit shift applied. Uses both <i>Sigmoid Scale</i> and <i>Discrete Flow Shift</i>."
+            u"<br/>"
+            u"<b>flux_shift</b>: Resolution-adaptive FLUX.1-style shifting. Uses <i>Sigmoid Scale</i>."
+            u"</p></body></html>", None))
         self.discrete_flow_shift_input.setToolTip(QCoreApplication.translate("anima_ui",
-            u"<html><head/><body><p>Shift value for the Rectified Flow timestep distribution. Default: 3.0.</p></body></html>", None))
+            u"<html><head/><body><p>Shift value for the Rectified Flow timestep distribution. Default: 3.0."
+            u"<br/><br/>"
+            u"<b>Used by:</b> <code>sigma</code> (via scheduler lookup table), <code>shift</code> (direct formula)."
+            u"<br/>"
+            u"<b>Not used by:</b> <code>sigmoid</code>, <code>flux_shift</code>, <code>uniform</code>."
+            u"</p></body></html>", None))
         self.sigmoid_scale_input.setToolTip(QCoreApplication.translate("anima_ui",
-            u"<html><head/><body><p>Scale factor for logit_normal (sigmoid) timestep sampling. Default: 1.0.</p></body></html>", None))
+            u"<html><head/><body><p>Scale factor for logit-normal timestep sampling. Controls distribution concentration. Default: 1.0."
+            u"<br/>Higher values → more uniform; lower → more concentrated near sigma=0.5."
+            u"<br/><br/>"
+            u"<b>Used by:</b> <code>sigmoid</code>, <code>shift</code>, <code>flux_shift</code>."
+            u"<br/>"
+            u"<b>Not used by:</b> <code>sigma</code>, <code>uniform</code>."
+            u"</p></body></html>", None))
 
         self.vae_chunk_size_input.setToolTip(QCoreApplication.translate("anima_ui",
             u"<html><head/><body><p>Spatial chunk size for Qwen-Image VAE encoding/decoding. "

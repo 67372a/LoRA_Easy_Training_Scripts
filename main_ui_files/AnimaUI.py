@@ -110,7 +110,6 @@ class AnimaWidget(BaseWidget):
         self.edit_args("t5_max_token_length", self.widget.t5_max_token_input.value())
         
         self.change_timestep_sampling_type(self.widget.timestep_sampling_selector.currentIndex())
-        self.edit_args("discrete_flow_shift", self.widget.discrete_flow_shift_input.value())
         
         self.change_vae_chunk_size(self.widget.vae_chunk_size_input.value())
         self.edit_args("vae_disable_cache", self.widget.vae_disable_cache_enable.isChecked(), True)
@@ -130,12 +129,25 @@ class AnimaWidget(BaseWidget):
         sampling_type = self.widget.timestep_sampling_selector.currentText()
         self.edit_args("timestep_sampling", sampling_type)
         
-        # Enable/Disable sigmoid scale based on selection (only for sigmoid/logit_normal)
-        self.widget.sigmoid_scale_input.setEnabled(sampling_type == "sigmoid")
-        if sampling_type == "sigmoid":
+        # Enable/Disable sigmoid scale based on selection
+        # sigmoid, shift, and flux_shift all use sigmoid_scale to control concentration
+        uses_sigmoid_scale = sampling_type in ("sigmoid", "shift", "flux_shift")
+        self.widget.sigmoid_scale_input.setEnabled(uses_sigmoid_scale)
+        if uses_sigmoid_scale:
              self.edit_args("sigmoid_scale", self.widget.sigmoid_scale_input.value())
         elif "sigmoid_scale" in self.args:
             del self.args["sigmoid_scale"]
+        
+        # Enable/Disable discrete flow shift based on selection
+        # sigma uses it via the scheduler's internal shifted sigma table
+        # shift applies it directly: sigma' = shift * sigma / (1 + (shift-1) * sigma)
+        # sigmoid, flux_shift, and uniform do not use discrete_flow_shift
+        uses_flow_shift = sampling_type in ("sigma", "shift")
+        self.widget.discrete_flow_shift_input.setEnabled(uses_flow_shift)
+        if uses_flow_shift:
+            self.edit_args("discrete_flow_shift", self.widget.discrete_flow_shift_input.value())
+        elif "discrete_flow_shift" in self.args:
+            del self.args["discrete_flow_shift"]
 
     def change_vae_chunk_size(self, value: int) -> None:
         """VAE chunk size: 0 means disabled (None), any positive value is used as-is."""
