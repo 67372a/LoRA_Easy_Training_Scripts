@@ -488,7 +488,7 @@ class Ui_optimizer_ui(object):
 #if QT_CONFIG(tooltip)
         self.min_lr_input.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Minimum Learning Rate is the minimum value any of the learning rates can be</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.min_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"1e-6", None))
+        self.min_lr_input.setText(QCoreApplication.translate("optimizer_ui", u"0.0", None))
 #if QT_CONFIG(tooltip)
         self.unet_lr_enable.setToolTip(QCoreApplication.translate("optimizer_ui", u"<html><head/><body><p>Unet Learning Rate is the base learning rate for the Unet</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

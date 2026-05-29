@@ -360,7 +360,7 @@ class OptimizerWidget(BaseWidget):
         self.widget.warmup_enable.setChecked(bool(args.get("warmup_ratio", False)))
         self.widget.warmup_input.setValue(args.get("warmup_ratio", 0.0))
         self.widget.zero_lr_warmup_enable.setChecked(args.get("zero_lr_warmup", False))
-        self.widget.min_lr_input.setText(str(args.get("lr_scheduler_args", {}).get("min_lr", "1e-6")))
+        self.widget.min_lr_input.setText(str(args.get("lr_scheduler_args", {}).get("min_lr", "0.0")))
         self.widget.cosine_restart_input.setValue(args.get("lr_scheduler_num_cycles", 1))
         self.widget.unet_lr_enable.setChecked(bool(args.get("unet_lr", False)))
         self.widget.unet_lr_input.setText(str(args.get("unet_lr", "1e-4")))
