@@ -4,30 +4,29 @@ from subprocess import check_call
 import json
 import os
 
+from install_uv import ensure_uv, uv_pip_install, find_existing_venv
+
 import logging
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 def main():
-    pip = Path("venv/Scripts/pip.exe" if platform == "win32" else "venv/bin/pip")
-    venv_python = Path("venv/Scripts/python.exe" if platform == "win32" else "venv/bin/python")
-    backend_python = Path(
-        "sd_scripts/venv/Scripts/python.exe" if platform == "win32" else "sd_scripts/venv/bin/python"
-    )
+    uv = ensure_uv()
+    venv_path = find_existing_venv("venv") or "venv"
 
-    check_call(f"{venv_python} -m pip install --upgrade pip", shell=platform == "linux")
-    check_call(f"{pip} install -U -r requirements.txt", shell=platform == "linux")
+    uv_pip_install(uv, "-U", "-r", "requirements.txt", venv_path=venv_path)
     config = Path("config.json")
     config_dict = json.loads(config.read_text()) if config.exists() else {}
     if "run_local" in config_dict and config_dict["run_local"]:
         check_call("git submodule update --init --recursive", shell=platform == "linux")
         os.chdir("backend")
         check_call(
-            f"{backend_python} updater.py",
+            f"{sys.executable} updater.py",
             shell=platform == "linux",
         )
 
 
 if __name__ == "__main__":
+    import sys
     main()

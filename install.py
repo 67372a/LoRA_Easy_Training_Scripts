@@ -5,17 +5,12 @@ import subprocess
 import os
 from sys import platform
 
+from install_uv import ensure_uv, create_venv, uv_pip_install
+
 import logging
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-def check_version_and_platform() -> bool:
-    version = sys.version_info
-    if not (False if version.major != 3 and version.minor < 11 else platform in ["win32", "linux"]):
-        logger.error("ERROR: you have too old of a python version, please use python 3.11")
-        return False
-    return True
 
 
 def check_git_install() -> None:
@@ -33,17 +28,12 @@ def check_git_install() -> None:
 
 
 def main():
-    if not check_version_and_platform():
-        return
     if not check_git_install():
         return
-    python = sys.executable
-    subprocess.check_call(f"{python} -m venv venv", shell=platform == "linux")
-    venv_path = Path("venv/Scripts/pip.exe" if platform == "win32" else "venv/bin/pip")
-    venv_python = Path("venv/Scripts/python.exe" if platform == "win32" else "venv/bin/python")
 
-    subprocess.check_call(f"{venv_python} -m pip install --upgrade pip", shell=platform == "linux")
-    subprocess.check_call(f"{venv_path} install -U -r requirements.txt", shell=platform == "linux")
+    uv = ensure_uv()
+    venv_path = create_venv(uv, "venv", "3.11")
+    uv_pip_install(uv, "-U", "-r", "requirements.txt", venv_path=venv_path)
 
     config = Path("config.json")
     config_dict = json.loads(config.read_text()) if config.exists() else {}
@@ -60,7 +50,7 @@ def main():
 
     subprocess.check_call("git submodule update --init --recursive", shell=platform == "linux")
     os.chdir(Path("backend"))
-    subprocess.check_call(f"{python} installer.py local", shell=platform == "linux")
+    subprocess.check_call(f"{sys.executable} installer.py local", shell=platform == "linux")
 
 
 if __name__ == "__main__":

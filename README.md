@@ -156,19 +156,28 @@ A set of training scripts written in python for use in Kohya's [SD-Scripts](http
 
 ## Table of contents
 
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
   - [Windows](#windows)
   - [Linux](#linux)
+  - [Standalone Backend Installation](#standalone-backend-installation)
 - [Colab](#colab)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Changelog](#changelog)
 
+## Prerequisites
+
+- **Git** must be installed and available on your PATH.
+- **Python 3.11** is required. The installer uses [uv](https://github.com/astral-sh/uv) to manage virtual environments and will automatically download Python 3.11 if it is not already installed on your system.
+
 ## Installation
+
+This project uses [uv](https://github.com/astral-sh/uv) (from Astral) for fast package installation and virtual environment management. **uv is installed automatically** by the installer scripts if it is not already present — you do not need to install it manually. After installation, virtual environments are created with `uv venv --python 3.11 --seed`, which ensures pip is available inside each venv for compatibility.
 
 ### Windows
 
-If you are on windows all you need to do to install the scripts is follow these commands. Open up a command line within the folder that you want to install to then type these one line at a time
+Open up a command line within the folder that you want to install to, then run:
 
 ```
 git clone https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
@@ -176,64 +185,48 @@ cd LoRA_Easy_Training_Scripts
 install.bat
 ```
 
-after that, it will begin installing, asking a few questions along the way. Just make sure to answer them.
+The installer will:
+1. Download and install [uv](https://github.com/astral-sh/uv) if not present (via the standalone PowerShell installer).
+2. Create a Python 3.11 virtual environment at `./venv` using `uv venv`.
+3. Install frontend dependencies via `uv pip install`.
+4. If running locally, initialize git submodules and delegate to the backend installer, which creates a second venv at `backend/sd_scripts/venv` and installs all ML/training dependencies (PyTorch, xformers, etc.) via `uv pip install`.
+
+A few questions will be asked along the way — just make sure to answer them.
 
 ### Linux
 
-```
+```bash
 git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
 cd LoRA_Easy_Training_Scripts
 git submodule update --init --recursive
-
-if you are using python 3.11
-./install311.sh
+./install.sh
 ```
 
-Manual method below if above doesn't work.
+The installer will automatically download and install [uv](https://github.com/astral.sh/uv) (via the standalone curl installer) and Python 3.11 if needed, then create venvs and install all dependencies using `uv pip install`.
 
-```
-git clone --recurse-submodules https://github.com/67372a/LoRA_Easy_Training_Scripts -b refresh
-cd LoRA_Easy_Training_Scripts
-git submodule update --init --recursive
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+If you specifically need to target Python 3.11 explicitly, you can use `./install311.sh` instead.
 
-cd backend/sd_scripts
-python -m venv venv
-source venv/bin/activate
-pip install -U typing-extensions~=4.15.0
-pip install torch~=2.7.1 torchvision~=0.22.1 --index-url https://download.pytorch.org/whl/cu128
-pip install -U --no-deps --force-reinstall git+https://github.com/67372a/RamTorch
-pip install -U --no-deps xformers==0.0.31.post1 --index-url https://download.pytorch.org/whl/cu128
-pip install -U --no-deps torchao~=0.12.0 --index-url https://download.pytorch.org/whl/cu128
-pip install -U -r requirements.txt
-pip install -U ../custom_scheduler/.
-pip install -U -r ../requirements.txt
-pip install -U --force-reinstall --no-deps git+https://github.com/67372a/LyCORIS@dev
-accelerate config
+### Standalone Backend Installation
+
+The backend can be installed independently from the frontend UI (useful for headless/remote training setups):
+
+```bash
+cd backend
+./install.sh
 ```
 
-accelerate config will ask you a bunch of questions, answer them like so,
-
-```
-- This machine
-- No distributed training
-- NO
-- NO
-- NO
-- all
-- bf16
-```
+The backend has its own copy of `install_uv.py` and is fully self-contained — it does not require the frontend repo to be present.
 
 ### NOTE:
 
-if you are using one of the installers, one of the questions it will ask you is "Are you using this locally? (y/n):" make sure you say y if you are going to be training on the computer you are using, This is very important to get correctly because the backend will not install otherwise, and you will be stuck wondering why it is not doing anything.
+If you are using one of the installers, one of the questions it will ask you is "Are you using this locally? (y/n):" — make sure you say **y** if you are going to be training on the computer you are using. This is very important to get correctly because the backend will not install otherwise, and you will be stuck wondering why it is not doing anything.
 
 ## Colab
 
 If you wish to train LoRAs but you lack the hardware, you can use this [Google Colab](https://colab.research.google.com/github/Jelosus2/Lora_Easy_Training_Colab/blob/main/Lora_Easy_Training_Colab.ipynb) created by [Jelosus2](https://github.com/Jelosus2) to be able to train them.
-Additionaly, you can check the [guide](https://civitai.com/articles/4409/almost-local-lora-training-guide) if you have trouble setting all up. **Note:** You still need to git clone the repo and install the UI on your local machine. Be sure to answer the prompt "Are you using this locally? (y/n):" with "n".
+Additionally, you can check the [guide](https://civitai.com/articles/4409/almost-local-lora-training-guide) if you have trouble setting all up. **Note:** You still need to git clone the repo and install the UI on your local machine. Be sure to answer the prompt "Are you using this locally? (y/n):" with "n".
+
+For Colab, the installer uses `backend/colab_install.sh` which runs the backend installer with the `colab` flag. This installs uv, creates the venv with Python 3.11, installs all ML dependencies via `uv pip install`, and configures accelerate automatically.
 
 ## Usage
 
