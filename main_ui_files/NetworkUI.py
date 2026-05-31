@@ -189,6 +189,10 @@ class NetworkWidget(BaseWidget):
             algo != "ia3",
             algo in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora", "lora2"} and self.widget.dora_enable.isChecked(),
         )
+        # OrthoLoRA: Linear-only, disable conv dim/alpha
+        if algo == "ortholora":
+            self.toggle_conv(False)
+
         # GoRA: alpha is forced to equal dim, so disable alpha inputs and sync values
         is_gora = (algo in {"gora", "ralora"})
         self.widget.network_alpha_input.setEnabled(not is_gora)
@@ -357,7 +361,7 @@ class NetworkWidget(BaseWidget):
             dora = False
         self.widget.dora_enable.setEnabled(
             not bypass
-            and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora", "lora2"}
+            and self.widget.algo_select.currentText().lower() in {"locon (lycoris)", "loha", "lokr", "abba", "gora", "ralora", "lora2", "ortholora"}
         )
         self.widget.bypass_mode_enable.setEnabled(not dora)
         self.edit_network_args("dora_wd", dora if self.widget.dora_enable.isEnabled() else False, True)
