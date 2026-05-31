@@ -1,5 +1,8 @@
 # Updates
 
+## 05/30/2026
+- Swap to using uv instead of pip. If you have an existing install, git pull first, then run the typical update script, otherwise you may have to run the updat script again should it fail.
+
 ## 02/22/2026
 - Fix handling for forward pass and weight references for kohya's lora implementations to address excessive system memory using --use_ramtorch_network with them.
 
