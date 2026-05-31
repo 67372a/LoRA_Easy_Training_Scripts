@@ -129,6 +129,39 @@ def create_venv(uv: str, path: str = "venv", python_version: str = "3.11") -> st
     return path
 
 
+def get_venv_python_version(venv_dir: str = "venv") -> str:
+    """Detect the Python version (e.g. '3.11') from an existing venv.
+
+    Runs the venv's python executable to query its version. Falls back
+    to the current interpreter's version if the venv python is not found.
+
+    Args:
+        venv_dir: The venv directory (default: "venv").
+
+    Returns:
+        Version string like "3.11".
+    """
+    python = get_venv_python(venv_dir)
+    if python.exists():
+        try:
+            result = subprocess.run(
+                [str(python), "-c",
+                 "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"],
+                capture_output=True, text=True, timeout=10,
+            )
+            if result.returncode == 0:
+                version = result.stdout.strip()
+                logger.info(f"Detected venv Python version: {version}")
+                return version
+        except (subprocess.TimeoutExpired, OSError) as e:
+            logger.warning(f"Failed to detect venv Python version: {e}")
+
+    # Fallback: use current interpreter version
+    version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    logger.warning(f"Could not detect venv Python, falling back to system Python {version}")
+    return version
+
+
 def get_venv_python(venv_dir: str = "venv") -> Path:
     """Get the path to the Python executable inside the venv.
 
