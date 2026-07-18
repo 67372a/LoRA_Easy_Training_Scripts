@@ -221,7 +221,6 @@ class Ui_optimizer_ui(object):
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCGOpt", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCORN", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SCORNMachina", None))
-        self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"Simplified_AdEMAMix_adv", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SimplifiedAdEMAMixExM", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SingState", None))
         self.optimizer_type_selector.addItem(QCoreApplication.translate("optimizer_ui", u"SODA", None))
