@@ -304,6 +304,7 @@ class SubsetWidget(BaseWidget):
             if arg in self.dataset_args:
                 del self.dataset_args[arg]
         if not checked:
+            self.edited.emit(self.dataset_args, self.name)
             return
         self.edit_dataset_args(
             args[0], self.extra_widget.token_minimum_warmup_input.value()
