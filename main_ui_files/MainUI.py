@@ -71,6 +71,7 @@ class MainWidget(QWidget):
         general_widget.widget.width_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         general_widget.widget.height_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         general_widget.widget.height_enable.toggled.connect(lambda: self.sync_subset_inherited_args())
+        general_widget.widget.batch_size_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         bucket_widget.widget.bucket_group.toggled.connect(lambda: self.sync_subset_inherited_args())
         bucket_widget.widget.min_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         bucket_widget.widget.max_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
@@ -90,6 +91,7 @@ class MainWidget(QWidget):
             "resolution": general_widget.dataset_args.get(
                 "resolution", general_widget.DATASET_DEFAULTS["resolution"]
             ),
+            "batch_size": general_widget.dataset_args.get("batch_size", general_widget.DATASET_DEFAULTS["batch_size"]),
             "min_bucket_reso": bucket_widget.dataset_args.get("min_bucket_reso", bucket_widget.widget.min_input.value()),
             "max_bucket_reso": bucket_widget.dataset_args.get("max_bucket_reso", bucket_widget.widget.max_input.value()),
         }

@@ -82,7 +82,7 @@ class SubsetWidget(BaseWidget):
         """
         self.resolution_overrides_group = QGroupBox(self.content)
         self.resolution_overrides_group.setObjectName("resolution_overrides_group")
-        self.resolution_overrides_group.setTitle("Resolution / Bucket Overrides")
+        self.resolution_overrides_group.setTitle("Resolution / Bucket / Batch Size Overrides")
         layout = QFormLayout(self.resolution_overrides_group)
         layout.setObjectName("resolution_overrides_layout")
 
@@ -122,10 +122,19 @@ class SubsetWidget(BaseWidget):
         layout.setWidget(2, QFormLayout.ItemRole.LabelRole, self.max_bucket_override_enable)
         layout.setWidget(2, QFormLayout.ItemRole.FieldRole, self.max_bucket_reso_input)
 
+        self.batch_size_override_enable = QCheckBox(self.resolution_overrides_group)
+        self.batch_size_override_enable.setText("Override batch size")
+        self.batch_size_input = SpinBox(self.resolution_overrides_group)
+        self.batch_size_input.setRange(1, 64)
+        self.batch_size_input.setValue(1)
+        layout.setWidget(3, QFormLayout.ItemRole.LabelRole, self.batch_size_override_enable)
+        layout.setWidget(3, QFormLayout.ItemRole.FieldRole, self.batch_size_input)
+
         self.widget.gridLayout.addWidget(self.resolution_overrides_group, 3, 0, 1, 2)
         self._set_resolution_controls_enabled(False)
         self.min_bucket_reso_input.setEnabled(False)
         self.max_bucket_reso_input.setEnabled(False)
+        self.batch_size_input.setEnabled(False)
         self.extra_widget.shuffle_caption_group.setChecked(False)
 
     def setup_connections(self) -> None:
@@ -245,6 +254,8 @@ class SubsetWidget(BaseWidget):
         self.min_bucket_reso_input.valueChanged.connect(lambda: self._update_min_bucket_override(self.min_bucket_override_enable.isChecked()))
         self.max_bucket_override_enable.toggled.connect(self._update_max_bucket_override)
         self.max_bucket_reso_input.valueChanged.connect(lambda: self._update_max_bucket_override(self.max_bucket_override_enable.isChecked()))
+        self.batch_size_override_enable.toggled.connect(self._update_batch_size_override)
+        self.batch_size_input.valueChanged.connect(lambda: self._update_batch_size_override(self.batch_size_override_enable.isChecked()))
 
     def _set_resolution_controls_enabled(self, enabled: bool) -> None:
         self.resolution_width_input.setEnabled(enabled)
@@ -274,6 +285,14 @@ class SubsetWidget(BaseWidget):
             self._remove_dataset_override("max_bucket_reso")
             return
         self.edit_dataset_args("max_bucket_reso", self.max_bucket_reso_input.value())
+
+    def _update_batch_size_override(self, checked: bool) -> None:
+        self.batch_size_input.setEnabled(checked)
+        if not checked:
+            self._set_spinbox_value(self.batch_size_input, self.inherited_dataset_args.get("batch_size", 1))
+            self._remove_dataset_override("batch_size")
+            return
+        self.edit_dataset_args("batch_size", self.batch_size_input.value())
 
     def _remove_dataset_override(self, name: str) -> None:
         self.dataset_args.pop(name, None)
@@ -307,6 +326,8 @@ class SubsetWidget(BaseWidget):
             self._set_spinbox_value(self.min_bucket_reso_input, self.inherited_dataset_args.get("min_bucket_reso", 256))
         if not self.max_bucket_override_enable.isChecked():
             self._set_spinbox_value(self.max_bucket_reso_input, self.inherited_dataset_args.get("max_bucket_reso", 1024))
+        if not self.batch_size_override_enable.isChecked():
+            self._set_spinbox_value(self.batch_size_input, self.inherited_dataset_args.get("batch_size", 1))
 
     def edit_dataset_args(
         self, name: str, value: object, optional: bool = False
@@ -607,6 +628,10 @@ class SubsetWidget(BaseWidget):
         max_bucket_reso = dataset_args.get("max_bucket_reso")
         self._set_spinbox_value(self.max_bucket_reso_input, max_bucket_reso if max_bucket_reso is not None else 1024)
         self.max_bucket_override_enable.setChecked(max_bucket_reso is not None)
+
+        batch_size = dataset_args.get("batch_size")
+        self._set_spinbox_value(self.batch_size_input, batch_size if batch_size is not None else 1)
+        self.batch_size_override_enable.setChecked(batch_size is not None)
 
         # edit dataset args to match
         self.edit_dataset_args("image_dir", self.widget.image_folder_input.text(), True)
