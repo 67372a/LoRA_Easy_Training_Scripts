@@ -1,12 +1,13 @@
 import contextlib
 from pathlib import Path
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QSignalBlocker, Signal
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QFileDialog, QWidget
+from PySide6.QtWidgets import QCheckBox, QFileDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QWidget
 
 from modules.BaseWidget import BaseWidget
 from modules.DragDropLineEdit import DragDropLineEdit
+from modules.ScrollOnSelect import SpinBox
 from ui_files.sub_dataset_extra_input import Ui_sub_dataset_extra_input
 from ui_files.sub_dataset_input import Ui_sub_dataset_input
 
@@ -29,6 +30,7 @@ class SubsetWidget(BaseWidget):
         self.extra_content = QWidget()
         self.extra_widget = Ui_sub_dataset_extra_input()
         self.name = name
+        self.inherited_dataset_args = {}
         self.dataset_args["name"] = self.name
 
         self.setup_widget()
@@ -63,10 +65,67 @@ class SubsetWidget(BaseWidget):
             QIcon(str(Path("icons/more-horizontal.svg")))
         )
 
+        self._setup_resolution_controls()
+
         self.extra_widget.face_crop_group.setChecked(False)
         self.extra_widget.caption_dropout_group.setChecked(False)
         self.extra_widget.gamma_aug_group.setChecked(False)
         self.extra_widget.token_warmup_group.setChecked(False)
+
+    def _setup_resolution_controls(self) -> None:
+        """Create optional per-subset resolution and bucket controls.
+
+        The source .ui templates are generated and intentionally left
+        untouched. These controls are added to the empty grid row at runtime
+        so they remain optional and absent values continue to inherit from the
+        parent dataset.
+        """
+        self.resolution_overrides_group = QGroupBox(self.content)
+        self.resolution_overrides_group.setObjectName("resolution_overrides_group")
+        self.resolution_overrides_group.setTitle("Resolution / Bucket Overrides")
+        layout = QFormLayout(self.resolution_overrides_group)
+        layout.setObjectName("resolution_overrides_layout")
+
+        self.resolution_override_enable = QCheckBox(self.resolution_overrides_group)
+        self.resolution_override_enable.setText("Override resolution")
+        self.resolution_width_input = SpinBox(self.resolution_overrides_group)
+        self.resolution_width_input.setRange(1, 16384)
+        self.resolution_width_input.setValue(1024)
+        self.resolution_height_input = SpinBox(self.resolution_overrides_group)
+        self.resolution_height_input.setRange(1, 16384)
+        self.resolution_height_input.setValue(1024)
+        resolution_inputs = QWidget(self.resolution_overrides_group)
+        resolution_layout = QHBoxLayout(resolution_inputs)
+        resolution_layout.setContentsMargins(0, 0, 0, 0)
+        resolution_layout.addWidget(QLabel("Width", resolution_inputs))
+        resolution_layout.addWidget(self.resolution_width_input)
+        resolution_layout.addWidget(QLabel("Height", resolution_inputs))
+        resolution_layout.addWidget(self.resolution_height_input)
+        layout.setWidget(0, QFormLayout.ItemRole.LabelRole, self.resolution_override_enable)
+        layout.setWidget(0, QFormLayout.ItemRole.FieldRole, resolution_inputs)
+
+        self.min_bucket_override_enable = QCheckBox(self.resolution_overrides_group)
+        self.min_bucket_override_enable.setText("Override min bucket size")
+        self.min_bucket_reso_input = SpinBox(self.resolution_overrides_group)
+        self.min_bucket_reso_input.setRange(1, 16384)
+        self.min_bucket_reso_input.setSingleStep(64)
+        self.min_bucket_reso_input.setValue(256)
+        layout.setWidget(1, QFormLayout.ItemRole.LabelRole, self.min_bucket_override_enable)
+        layout.setWidget(1, QFormLayout.ItemRole.FieldRole, self.min_bucket_reso_input)
+
+        self.max_bucket_override_enable = QCheckBox(self.resolution_overrides_group)
+        self.max_bucket_override_enable.setText("Override max bucket size")
+        self.max_bucket_reso_input = SpinBox(self.resolution_overrides_group)
+        self.max_bucket_reso_input.setRange(1, 16384)
+        self.max_bucket_reso_input.setSingleStep(64)
+        self.max_bucket_reso_input.setValue(1024)
+        layout.setWidget(2, QFormLayout.ItemRole.LabelRole, self.max_bucket_override_enable)
+        layout.setWidget(2, QFormLayout.ItemRole.FieldRole, self.max_bucket_reso_input)
+
+        self.widget.gridLayout.addWidget(self.resolution_overrides_group, 3, 0, 1, 2)
+        self._set_resolution_controls_enabled(False)
+        self.min_bucket_reso_input.setEnabled(False)
+        self.max_bucket_reso_input.setEnabled(False)
         self.extra_widget.shuffle_caption_group.setChecked(False)
 
     def setup_connections(self) -> None:
@@ -179,6 +238,75 @@ class SubsetWidget(BaseWidget):
                 "Protected Tags File", self.extra_widget.protected_tags_input
             )
         )
+        self.resolution_override_enable.toggled.connect(self._update_resolution_override)
+        self.resolution_width_input.valueChanged.connect(lambda: self._update_resolution_override(self.resolution_override_enable.isChecked()))
+        self.resolution_height_input.valueChanged.connect(lambda: self._update_resolution_override(self.resolution_override_enable.isChecked()))
+        self.min_bucket_override_enable.toggled.connect(self._update_min_bucket_override)
+        self.min_bucket_reso_input.valueChanged.connect(lambda: self._update_min_bucket_override(self.min_bucket_override_enable.isChecked()))
+        self.max_bucket_override_enable.toggled.connect(self._update_max_bucket_override)
+        self.max_bucket_reso_input.valueChanged.connect(lambda: self._update_max_bucket_override(self.max_bucket_override_enable.isChecked()))
+
+    def _set_resolution_controls_enabled(self, enabled: bool) -> None:
+        self.resolution_width_input.setEnabled(enabled)
+        self.resolution_height_input.setEnabled(enabled)
+
+    def _update_resolution_override(self, checked: bool) -> None:
+        self._set_resolution_controls_enabled(checked)
+        if not checked:
+            self._set_resolution_inputs(self.inherited_dataset_args.get("resolution", 1024))
+            self._remove_dataset_override("resolution")
+            return
+        value = [self.resolution_width_input.value(), self.resolution_height_input.value()]
+        self.edit_dataset_args("resolution", value)
+
+    def _update_min_bucket_override(self, checked: bool) -> None:
+        self.min_bucket_reso_input.setEnabled(checked)
+        if not checked:
+            self._set_spinbox_value(self.min_bucket_reso_input, self.inherited_dataset_args.get("min_bucket_reso", 256))
+            self._remove_dataset_override("min_bucket_reso")
+            return
+        self.edit_dataset_args("min_bucket_reso", self.min_bucket_reso_input.value())
+
+    def _update_max_bucket_override(self, checked: bool) -> None:
+        self.max_bucket_reso_input.setEnabled(checked)
+        if not checked:
+            self._set_spinbox_value(self.max_bucket_reso_input, self.inherited_dataset_args.get("max_bucket_reso", 1024))
+            self._remove_dataset_override("max_bucket_reso")
+            return
+        self.edit_dataset_args("max_bucket_reso", self.max_bucket_reso_input.value())
+
+    def _remove_dataset_override(self, name: str) -> None:
+        self.dataset_args.pop(name, None)
+        self.edited.emit(self.dataset_args, self.name)
+
+    @staticmethod
+    def _set_spinbox_value(spinbox: SpinBox, value: int) -> None:
+        blocker = QSignalBlocker(spinbox)
+        spinbox.setValue(int(value))
+        del blocker
+
+    def _set_resolution_inputs(self, resolution) -> None:
+        if isinstance(resolution, (list, tuple)) and len(resolution) == 2:
+            width, height = resolution
+        elif resolution is not None:
+            width = height = resolution
+        else:
+            width = height = 1024
+        width_blocker = QSignalBlocker(self.resolution_width_input)
+        height_blocker = QSignalBlocker(self.resolution_height_input)
+        self.resolution_width_input.setValue(int(width))
+        self.resolution_height_input.setValue(int(height))
+        del width_blocker, height_blocker
+
+    def set_inherited_dataset_args(self, dataset_args: dict) -> None:
+        """Update disabled override fields without adding subset config keys."""
+        self.inherited_dataset_args = dict(dataset_args)
+        if not self.resolution_override_enable.isChecked():
+            self._set_resolution_inputs(self.inherited_dataset_args.get("resolution", 1024))
+        if not self.min_bucket_override_enable.isChecked():
+            self._set_spinbox_value(self.min_bucket_reso_input, self.inherited_dataset_args.get("min_bucket_reso", 256))
+        if not self.max_bucket_override_enable.isChecked():
+            self._set_spinbox_value(self.max_bucket_reso_input, self.inherited_dataset_args.get("max_bucket_reso", 1024))
 
     def edit_dataset_args(
         self, name: str, value: object, optional: bool = False
@@ -461,6 +589,24 @@ class SubsetWidget(BaseWidget):
         self.extra_widget.protected_tags_input.setText(
             dataset_args.get("protected_tags_file", "")
         )
+
+        resolution = dataset_args.get("resolution")
+        if isinstance(resolution, (list, tuple)) and len(resolution) == 2:
+            resolution_width, resolution_height = resolution
+        elif resolution is not None:
+            resolution_width = resolution_height = resolution
+        else:
+            resolution_width = resolution_height = 1024
+        self._set_resolution_inputs([resolution_width, resolution_height])
+        self.resolution_override_enable.setChecked(resolution is not None)
+
+        min_bucket_reso = dataset_args.get("min_bucket_reso")
+        self._set_spinbox_value(self.min_bucket_reso_input, min_bucket_reso if min_bucket_reso is not None else 256)
+        self.min_bucket_override_enable.setChecked(min_bucket_reso is not None)
+
+        max_bucket_reso = dataset_args.get("max_bucket_reso")
+        self._set_spinbox_value(self.max_bucket_reso_input, max_bucket_reso if max_bucket_reso is not None else 1024)
+        self.max_bucket_override_enable.setChecked(max_bucket_reso is not None)
 
         # edit dataset args to match
         self.edit_dataset_args("image_dir", self.widget.image_folder_input.text(), True)

@@ -66,12 +66,34 @@ class MainWidget(QWidget):
         self.args_widget.cacheLatentsChecked.connect(self.subset_widget.enable_disable_cache_latents)
         self.args_widget.keepTokensSepChecked.connect(self.subset_widget.enable_disable_variable_keep_tokens)
         self.args_widget.maskedLossChecked.connect(self.subset_widget.enable_disable_masked_loss)
+        general_widget = self.args_widget.args_widget_array[0]
+        bucket_widget = next(widget for widget in self.args_widget.args_widget_array if widget.name == "bucket_args")
+        general_widget.widget.width_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
+        general_widget.widget.height_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
+        general_widget.widget.height_enable.toggled.connect(lambda: self.sync_subset_inherited_args())
+        bucket_widget.widget.bucket_group.toggled.connect(lambda: self.sync_subset_inherited_args())
+        bucket_widget.widget.min_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
+        bucket_widget.widget.max_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         self.queue_widget.saveQueue.connect(lambda x: self.save_toml(Path(x)))
         self.queue_widget.loadQueue.connect(lambda x: self.load_toml(Path(x)))
         self.begin_training_button.clicked.connect(self.start_training)
         self.backend_url_input.editingFinished.connect(self.update_url)
         self.training_error.connect(self.show_error)
         self.training_warning.connect(self.show_warning)
+        self.sync_subset_inherited_args()
+
+    def sync_subset_inherited_args(self) -> None:
+        """Update values shown by subset controls that are not overridden."""
+        general_widget = self.args_widget.args_widget_array[0]
+        bucket_widget = next(widget for widget in self.args_widget.args_widget_array if widget.name == "bucket_args")
+        inherited_args = {
+            "resolution": general_widget.dataset_args.get(
+                "resolution", general_widget.DATASET_DEFAULTS["resolution"]
+            ),
+            "min_bucket_reso": bucket_widget.dataset_args.get("min_bucket_reso", bucket_widget.widget.min_input.value()),
+            "max_bucket_reso": bucket_widget.dataset_args.get("max_bucket_reso", bucket_widget.widget.max_input.value()),
+        }
+        self.subset_widget.set_inherited_dataset_args(inherited_args)
 
     def show_error(self, title: str, message: str) -> None:
         QtWidgets.QMessageBox.critical(self, title, message)
@@ -123,6 +145,7 @@ class MainWidget(QWidget):
             self.set_train_ti()
         self.args_widget.load_args(args, dataset_args)
         self.subset_widget.load_dataset_args(dataset_args)
+        self.sync_subset_inherited_args()
 
     def set_train_lora(self) -> None:
         if self.train_mode != TrainingModes.LORA:

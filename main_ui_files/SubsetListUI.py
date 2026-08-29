@@ -24,6 +24,7 @@ class SubsetListWidget(QWidget):
         self.variable_keep_tokens_checked = False
         self.args = {}
         self.dataset_args = {}
+        self.inherited_dataset_args = {}
         self.elements: list[SubsetWidget] = []
 
         self.widget.add_subset_button.clicked.connect(
@@ -37,6 +38,7 @@ class SubsetListWidget(QWidget):
         else:
             name = display_name
         subset = SubsetWidget(display_name=display_name, name=name)
+        subset.set_inherited_dataset_args(self.inherited_dataset_args)
         subset.colap.extra_elem.clicked.connect(lambda: self.remove_subset(subset))
         subset.edited.connect(self.update_args)
 
@@ -81,6 +83,12 @@ class SubsetListWidget(QWidget):
 
     def update_args(self, subset_args: dict, subset_name: str) -> None:
         self.dataset_args[subset_name] = subset_args
+
+    def set_inherited_dataset_args(self, dataset_args: dict) -> None:
+        """Propagate parent dataset values to unchecked subset overrides."""
+        self.inherited_dataset_args = dict(dataset_args)
+        for elem in self.elements:
+            elem.set_inherited_dataset_args(self.inherited_dataset_args)
 
     def enable_disable_masked_loss(self, checked: bool) -> None:
         self.masked_loss_checked = checked
