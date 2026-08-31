@@ -72,6 +72,9 @@ class MainWidget(QWidget):
         general_widget.widget.height_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         general_widget.widget.height_enable.toggled.connect(lambda: self.sync_subset_inherited_args())
         general_widget.widget.batch_size_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
+        general_widget.resolution_jitter_enable.toggled.connect(lambda: self.sync_subset_inherited_args())
+        for field in general_widget._jitter_fields:
+            field.textChanged.connect(lambda: self.sync_subset_inherited_args())
         bucket_widget.widget.bucket_group.toggled.connect(lambda: self.sync_subset_inherited_args())
         bucket_widget.widget.min_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
         bucket_widget.widget.max_input.valueChanged.connect(lambda: self.sync_subset_inherited_args())
@@ -94,6 +97,9 @@ class MainWidget(QWidget):
             "batch_size": general_widget.dataset_args.get("batch_size", general_widget.DATASET_DEFAULTS["batch_size"]),
             "min_bucket_reso": bucket_widget.dataset_args.get("min_bucket_reso", bucket_widget.widget.min_input.value()),
             "max_bucket_reso": bucket_widget.dataset_args.get("max_bucket_reso", bucket_widget.widget.max_input.value()),
+            "resolution_jitter_resolutions": general_widget.dataset_args.get("resolution_jitter_resolutions"),
+            "resolution_jitter_batch_sizes": general_widget.dataset_args.get("resolution_jitter_batch_sizes"),
+            "resolution_jitter_weights": general_widget.dataset_args.get("resolution_jitter_weights"),
         }
         self.subset_widget.set_inherited_dataset_args(inherited_args)
 

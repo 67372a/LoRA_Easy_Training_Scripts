@@ -1,13 +1,19 @@
 from pathlib import Path
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QSignalBlocker, Signal
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QFormLayout, QPushButton, QWidget
+from PySide6.QtWidgets import QCheckBox, QFormLayout, QLabel, QLineEdit, QPushButton, QWidget
 
 from main_ui_files.ExperimentalArgsUI import ExperimentalArgsUI
 from modules.BaseWidget import BaseWidget
 from modules.CollapsibleWidget import CollapsibleWidget
 from modules.DragDropLineEdit import DragDropLineEdit
+from modules.ResolutionJitterUtils import (
+    RESOLUTION_JITTER_KEYS,
+    format_number_list,
+    jitter_config_is_valid,
+    parse_number_list,
+)
 from ui_files.BaseUI import Ui_base_args_ui
 
 
@@ -56,6 +62,7 @@ class GeneralWidget(BaseWidget):
         self.widget.vae_input.allow_empty = True
 
         self._add_misc_experimental_args_collapsible()
+        self._add_resolution_jitter_collapsible()
 
         # global protected tags file input/selector setup
         self.widget.global_protected_tags_file_input.setMode("file", [".txt"])
@@ -83,6 +90,47 @@ class GeneralWidget(BaseWidget):
         self.experimental_args_collapsible = collapsible
 
         self.widget.formLayout_3.setWidget(3, QFormLayout.ItemRole.SpanningRole, collapsible)
+
+    def _add_resolution_jitter_collapsible(self) -> None:
+        """Dataset-level resolution jitter controls (subsets can override per subset)."""
+        collapsible = CollapsibleWidget(self.widget.base_model_box, title="Resolution Jitter")
+        collapsible.setContentsMargins(0, 0, 0, 0)
+        collapsible.layout().setContentsMargins(0, 0, 0, 0)
+        collapsible.content.setContentsMargins(0, 0, 0, 0)
+        collapsible.content_layout.setContentsMargins(0, 0, 0, 0)
+        collapsible.content_layout.setSpacing(0)
+        collapsible.title_frame.setMinimumHeight(28)
+
+        content = QWidget(collapsible.content)
+        layout = QFormLayout(content)
+        layout.setContentsMargins(9, 9, 9, 9)
+
+        self.resolution_jitter_enable = QCheckBox(content)
+        self.resolution_jitter_enable.setText("Enable resolution jitter")
+
+        self.jitter_resolutions_input = QLineEdit(content)
+        self.jitter_resolutions_input.setPlaceholderText("e.g. 256, 512, 768, 1024")
+        self.jitter_batch_sizes_input = QLineEdit(content)
+        self.jitter_batch_sizes_input.setPlaceholderText("e.g. 32, 16, 8, 4")
+        self.jitter_weights_input = QLineEdit(content)
+        self.jitter_weights_input.setPlaceholderText("e.g. 0.25, 0.25, 0.25, 0.25")
+        self._jitter_fields = [
+            self.jitter_resolutions_input,
+            self.jitter_batch_sizes_input,
+            self.jitter_weights_input,
+        ]
+
+        layout.addRow(self.resolution_jitter_enable, QLabel("Resolutions / batch sizes / weights per resolution", content))
+        layout.addRow(QLabel("Resolutions", content), self.jitter_resolutions_input)
+        layout.addRow(QLabel("Batch sizes", content), self.jitter_batch_sizes_input)
+        layout.addRow(QLabel("Weights", content), self.jitter_weights_input)
+
+        collapsible.add_widget(content, "resolution_jitter_content")
+        self.resolution_jitter_collapsible = collapsible
+        self.widget.formLayout_3.setWidget(4, QFormLayout.ItemRole.SpanningRole, collapsible)
+
+        for field in self._jitter_fields:
+            field.setEnabled(False)
 
     def setup_connections(self) -> None:
         self.widget.base_model_input.textChanged.connect(
@@ -172,6 +220,9 @@ class GeneralWidget(BaseWidget):
         self.widget.comment_input.textChanged.connect(
             lambda: self.edit_args("training_comment", self.widget.comment_input.toPlainText(), True)
         )
+        self.resolution_jitter_enable.toggled.connect(self._update_resolution_jitter_args)
+        for field in self._jitter_fields:
+            field.textChanged.connect(lambda _: self._update_resolution_jitter_args())
 
     def check_validity(self, elem: DragDropLineEdit) -> None:
         elem.dirty = True
@@ -439,6 +490,43 @@ class GeneralWidget(BaseWidget):
 
         return True
 
+    def _set_jitter_fields_text(self, resolutions, batch_sizes, weights) -> None:
+        """Populate the jitter fields without triggering update signals."""
+        for field, value in zip(
+            self._jitter_fields,
+            (format_number_list(resolutions), format_number_list(batch_sizes), format_number_list(weights)),
+        ):
+            blocker = QSignalBlocker(field)
+            field.setText(value)
+            del blocker
+
+    def _set_jitter_fields_valid(self, valid: bool) -> None:
+        for field in self._jitter_fields:
+            field.setStyleSheet("" if valid else "QLineEdit { border: 1px solid red; }")
+
+    def _update_resolution_jitter_args(self) -> None:
+        checked = self.resolution_jitter_enable.isChecked()
+        for field in self._jitter_fields:
+            field.setEnabled(checked)
+        if not checked:
+            for key in RESOLUTION_JITTER_KEYS:
+                self.dataset_args.pop(key, None)
+            self._set_jitter_fields_valid(True)
+            return
+
+        resolutions = parse_number_list(self.jitter_resolutions_input.text(), int)
+        batch_sizes = parse_number_list(self.jitter_batch_sizes_input.text(), int)
+        weights = parse_number_list(self.jitter_weights_input.text(), float)
+        if not jitter_config_is_valid(resolutions, batch_sizes, weights):
+            self._set_jitter_fields_valid(False)
+            for key in RESOLUTION_JITTER_KEYS:
+                self.dataset_args.pop(key, None)
+            return
+        self._set_jitter_fields_valid(True)
+        self.edit_dataset_args("resolution_jitter_resolutions", resolutions)
+        self.edit_dataset_args("resolution_jitter_batch_sizes", batch_sizes)
+        self.edit_dataset_args("resolution_jitter_weights", weights)
+
     def load_dataset_args(self, dataset_args: dict) -> bool:
         dataset_args = dataset_args.get(self.name, {})
 
@@ -448,6 +536,15 @@ class GeneralWidget(BaseWidget):
         self.widget.height_enable.setChecked(isinstance(resolution, list))
         self.widget.height_input.setValue(resolution[1] if isinstance(resolution, list) else resolution)
         self.widget.batch_size_input.setValue(dataset_args.get("batch_size", self.DATASET_DEFAULTS["batch_size"]))
+
+        # resolution jitter
+        jitter_resolutions = dataset_args.get("resolution_jitter_resolutions")
+        jitter_batch_sizes = dataset_args.get("resolution_jitter_batch_sizes")
+        jitter_weights = dataset_args.get("resolution_jitter_weights")
+        has_jitter = any(value is not None for value in (jitter_resolutions, jitter_batch_sizes, jitter_weights))
+        self.resolution_jitter_enable.setChecked(has_jitter)
+        self._set_jitter_fields_text(jitter_resolutions, jitter_batch_sizes, jitter_weights)
+        self._update_resolution_jitter_args()
 
         # edit dataset_args to match
         self.change_resolution()

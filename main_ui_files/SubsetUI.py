@@ -3,10 +3,16 @@ from pathlib import Path
 
 from PySide6.QtCore import QSignalBlocker, Signal
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QCheckBox, QFileDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QWidget
+from PySide6.QtWidgets import QCheckBox, QFileDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QWidget
 
 from modules.BaseWidget import BaseWidget
 from modules.DragDropLineEdit import DragDropLineEdit
+from modules.ResolutionJitterUtils import (
+    RESOLUTION_JITTER_KEYS,
+    format_number_list,
+    jitter_config_is_valid,
+    parse_number_list,
+)
 from modules.ScrollOnSelect import SpinBox
 from ui_files.sub_dataset_extra_input import Ui_sub_dataset_extra_input
 from ui_files.sub_dataset_input import Ui_sub_dataset_input
@@ -130,11 +136,34 @@ class SubsetWidget(BaseWidget):
         layout.setWidget(3, QFormLayout.ItemRole.LabelRole, self.batch_size_override_enable)
         layout.setWidget(3, QFormLayout.ItemRole.FieldRole, self.batch_size_input)
 
+        self.jitter_override_enable = QCheckBox(self.resolution_overrides_group)
+        self.jitter_override_enable.setText("Override resolution jitter")
+        jitter_inputs = QWidget(self.resolution_overrides_group)
+        jitter_layout = QFormLayout(jitter_inputs)
+        jitter_layout.setContentsMargins(0, 0, 0, 0)
+        self.jitter_resolutions_input = QLineEdit(jitter_inputs)
+        self.jitter_resolutions_input.setPlaceholderText("e.g. 256, 512")
+        self.jitter_batch_sizes_input = QLineEdit(jitter_inputs)
+        self.jitter_batch_sizes_input.setPlaceholderText("e.g. 16, 4")
+        self.jitter_weights_input = QLineEdit(jitter_inputs)
+        self.jitter_weights_input.setPlaceholderText("e.g. 0.75, 0.25")
+        self._jitter_fields = [
+            self.jitter_resolutions_input,
+            self.jitter_batch_sizes_input,
+            self.jitter_weights_input,
+        ]
+        jitter_layout.addRow(QLabel("Resolutions", jitter_inputs), self.jitter_resolutions_input)
+        jitter_layout.addRow(QLabel("Batch sizes", jitter_inputs), self.jitter_batch_sizes_input)
+        jitter_layout.addRow(QLabel("Weights", jitter_inputs), self.jitter_weights_input)
+        layout.setWidget(4, QFormLayout.ItemRole.LabelRole, self.jitter_override_enable)
+        layout.setWidget(4, QFormLayout.ItemRole.FieldRole, jitter_inputs)
+
         self.widget.gridLayout.addWidget(self.resolution_overrides_group, 3, 0, 1, 2)
         self._set_resolution_controls_enabled(False)
         self.min_bucket_reso_input.setEnabled(False)
         self.max_bucket_reso_input.setEnabled(False)
         self.batch_size_input.setEnabled(False)
+        self._set_jitter_fields_enabled(False)
         self.extra_widget.shuffle_caption_group.setChecked(False)
 
     def setup_connections(self) -> None:
@@ -256,6 +285,9 @@ class SubsetWidget(BaseWidget):
         self.max_bucket_reso_input.valueChanged.connect(lambda: self._update_max_bucket_override(self.max_bucket_override_enable.isChecked()))
         self.batch_size_override_enable.toggled.connect(self._update_batch_size_override)
         self.batch_size_input.valueChanged.connect(lambda: self._update_batch_size_override(self.batch_size_override_enable.isChecked()))
+        self.jitter_override_enable.toggled.connect(self._update_jitter_override)
+        for field in self._jitter_fields:
+            field.textChanged.connect(lambda _: self._update_jitter_override(self.jitter_override_enable.isChecked()))
 
     def _set_resolution_controls_enabled(self, enabled: bool) -> None:
         self.resolution_width_input.setEnabled(enabled)
@@ -294,6 +326,43 @@ class SubsetWidget(BaseWidget):
             return
         self.edit_dataset_args("batch_size", self.batch_size_input.value())
 
+    def _set_jitter_fields_enabled(self, enabled: bool) -> None:
+        for field in self._jitter_fields:
+            field.setEnabled(enabled)
+
+    def _set_jitter_fields_text(self, resolutions, batch_sizes, weights) -> None:
+        """Populate the jitter fields without triggering update signals."""
+        for field, value in zip(
+            self._jitter_fields,
+            (format_number_list(resolutions), format_number_list(batch_sizes), format_number_list(weights)),
+        ):
+            blocker = QSignalBlocker(field)
+            field.setText(value)
+            del blocker
+
+    def _update_jitter_override(self, checked: bool) -> None:
+        self._set_jitter_fields_enabled(checked)
+        if not checked:
+            self._set_jitter_fields_text(
+                self.inherited_dataset_args.get("resolution_jitter_resolutions"),
+                self.inherited_dataset_args.get("resolution_jitter_batch_sizes"),
+                self.inherited_dataset_args.get("resolution_jitter_weights"),
+            )
+            for key in RESOLUTION_JITTER_KEYS:
+                self._remove_dataset_override(key)
+            return
+
+        resolutions = parse_number_list(self.jitter_resolutions_input.text(), int)
+        batch_sizes = parse_number_list(self.jitter_batch_sizes_input.text(), int)
+        weights = parse_number_list(self.jitter_weights_input.text(), float)
+        if not jitter_config_is_valid(resolutions, batch_sizes, weights):
+            for key in RESOLUTION_JITTER_KEYS:
+                self._remove_dataset_override(key)
+            return
+        self.edit_dataset_args("resolution_jitter_resolutions", resolutions)
+        self.edit_dataset_args("resolution_jitter_batch_sizes", batch_sizes)
+        self.edit_dataset_args("resolution_jitter_weights", weights)
+
     def _remove_dataset_override(self, name: str) -> None:
         self.dataset_args.pop(name, None)
         self.edited.emit(self.dataset_args, self.name)
@@ -328,6 +397,12 @@ class SubsetWidget(BaseWidget):
             self._set_spinbox_value(self.max_bucket_reso_input, self.inherited_dataset_args.get("max_bucket_reso", 1024))
         if not self.batch_size_override_enable.isChecked():
             self._set_spinbox_value(self.batch_size_input, self.inherited_dataset_args.get("batch_size", 1))
+        if not self.jitter_override_enable.isChecked():
+            self._set_jitter_fields_text(
+                self.inherited_dataset_args.get("resolution_jitter_resolutions"),
+                self.inherited_dataset_args.get("resolution_jitter_batch_sizes"),
+                self.inherited_dataset_args.get("resolution_jitter_weights"),
+            )
 
     def edit_dataset_args(
         self, name: str, value: object, optional: bool = False
@@ -632,6 +707,14 @@ class SubsetWidget(BaseWidget):
         batch_size = dataset_args.get("batch_size")
         self._set_spinbox_value(self.batch_size_input, batch_size if batch_size is not None else 1)
         self.batch_size_override_enable.setChecked(batch_size is not None)
+
+        jitter_resolutions = dataset_args.get("resolution_jitter_resolutions")
+        jitter_batch_sizes = dataset_args.get("resolution_jitter_batch_sizes")
+        jitter_weights = dataset_args.get("resolution_jitter_weights")
+        has_jitter = any(value is not None for value in (jitter_resolutions, jitter_batch_sizes, jitter_weights))
+        self._set_jitter_fields_text(jitter_resolutions, jitter_batch_sizes, jitter_weights)
+        self.jitter_override_enable.setChecked(has_jitter)
+        self._set_jitter_fields_enabled(has_jitter)
 
         # edit dataset args to match
         self.edit_dataset_args("image_dir", self.widget.image_folder_input.text(), True)
